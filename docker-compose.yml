@@ -1,0 +1,15 @@
+# clinicaltrials.gov
+ctgov:
+  image: tutum.co/roll/opentrials-scraper
+  command: scrapy crawl ctgov -a date_from=2011-05-31 -a date_to=2011-05-31
+  restart: always
+  environment:
+    OPENTRIALS_DATABASE_URL:
+
+# isrctn.com
+# isrctn:
+  # image: tutum.co/roll/opentrials-scraper
+  # command: scrapy crawl isrctn
+  # restart: always
+  # environment:
+    # OPENTRIALS_DATABASE_URL:

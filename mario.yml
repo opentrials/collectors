@@ -1,0 +1,38 @@
+# Tasks
+
+build:
+  - docker build -t tutum.co/roll/opentrials-scraper .
+
+check:
+  - review
+  - test
+
+create:
+  tutum stack create --sync -n opentrials-scraping -f docker-compose.yml
+
+deploy:
+  - tutum stack update --sync -f docker-compose.yml opentrials-scraping
+  - tutum stack redeploy opentrials-scraping
+
+login:
+  - docker login
+    -e $OPENTRIALS_TUTUM_EMAIL
+    -u $OPENTRIALS_TUTUM_USER
+    -p $OPENTRIALS_TUTUM_PASS
+    tutum.co
+  - tutum login
+    -e $OPENTRIALS_TUTUM_EMAIL
+    -u $OPENTRIALS_TUTUM_USER
+    -p $OPENTRIALS_TUTUM_PASS
+
+push:
+  docker push tutum.co/roll/opentrials-scraper
+
+serve:
+  docker-compose up
+
+review:
+  pylama scraper
+
+test:
+  echo '<test:nothing>'

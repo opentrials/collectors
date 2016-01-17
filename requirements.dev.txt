@@ -1,0 +1,10 @@
+-r requirements.txt
+tutum
+mario
+pylama
+tox
+mock
+pytest
+pytest-cov
+coverage
+coveralls

@@ -1,0 +1,23 @@
+sudo:
+  false
+
+language:
+  python
+
+python:
+  - 2.7
+
+services:
+  - docker
+
+install:
+  - pip install -Urrequirements.dev.txt
+
+script:
+  - mario check
+
+after_success:
+  - mario login
+  - mario build
+  - mario push
+  - mario deploy

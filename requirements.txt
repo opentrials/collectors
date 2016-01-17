@@ -1,0 +1,4 @@
+scrapy
+dataset
+psycopg2
+xmltodict

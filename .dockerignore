@@ -1,0 +1,4 @@
+*
+!scraper/
+!requirements.txt
+!scrapy.cfg
