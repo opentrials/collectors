@@ -8,11 +8,11 @@ check:
   - test
 
 create:
-  tutum stack create --sync -n opentrials-scraping -f docker-compose.yml
+  tutum stack create --sync -n opentrials-scraper -f docker-compose.yml
 
 deploy:
-  - tutum stack update --sync -f docker-compose.yml opentrials-scraping
-  - tutum stack redeploy opentrials-scraping
+  - tutum stack update --sync -f docker-compose.yml opentrials-scraper
+  - tutum stack redeploy opentrials-scraper
 
 login:
   - docker login
