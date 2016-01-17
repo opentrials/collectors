@@ -5,9 +5,10 @@ Programs:
 - docker-compose
 
 Environment variables:
-- $TUTUM_EMAIL
-- $TUTUM_USER
-- $TUTUM_PASS
+- $OPENTRIALS_TUTUM_EMAIL
+- $OPENTRIALS_TUTUM_USER
+- $OPENTRIALS_TUTUM_PASS
+- $OPENTRIALS_DATABASE_URL
 
 ### Getting Started
 
