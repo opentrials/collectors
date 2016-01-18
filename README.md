@@ -1,6 +1,6 @@
 # opentrials-scraper
 
-[![Travis](https://img.shields.io/travis/opentrials/scraping-service/master.svg)](https://travis-ci.org/opentrials/scraping-service)
+[![Travis](https://img.shields.io/travis/opentrials/scraper/master.svg)](https://travis-ci.org/opentrials/scraper)
 
 OpenTrials scraper for all registers.
 
