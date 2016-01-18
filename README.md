@@ -8,4 +8,4 @@ OpenTrials scraper for all registers.
 
 For each register dedicated `spider` have to be written:
 
-[spiders available](tree/master/scraper/spiders)
+[explose spiders available](https://github.com/opentrials/scraper/tree/master/scraper/spiders)
