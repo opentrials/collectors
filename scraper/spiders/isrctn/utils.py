@@ -8,7 +8,6 @@ import json
 import logging
 import xmltodict
 from urllib import urlencode
-from datetime import datetime
 from collections import OrderedDict
 
 logger = logging.getLogger(__name__)
@@ -18,17 +17,23 @@ def make_start_urls(base, date_from, date_to):
     """ Return start_urls.
     """
     query = OrderedDict()
-    date_from = datetime.strptime(date_from, '%Y-%m-%d')
-    date_to = datetime.strptime(date_to, '%Y-%m-%d')
-    query['lup_s'] = date_from.strftime('%m/%d/%Y')
-    query['lup_e'] = date_to.strftime('%m/%d/%Y')
+    query['q'] = ''
+    gtle = 'GT lastEdited:%sT00:00:00.000Z' % date_from
+    lele = 'LE lastEdited:%sT00:00:00.000Z' % date_to
+    query['filters'] = ','.join([gtle, lele])
+    query['page'] = '1'
+    query['pageSize'] = '100'
+    query['searchType'] = 'advanced-search'
     return [base + '?' + urlencode(query)]
 
 
 def make_pattern(base):
     """ Return pattern.
     """
-    return base + r'\?lup_s=[^&]+&lup_e=[^&]+(&pg=\d+)?$'
+    pattern = base
+    pattern += r'\?q=&filters=GT[^,]*,LE[^,]*&page=\d+&'
+    pattern += 'pageSize=100&searchType=advanced-search$'
+    return pattern
 
 
 def get_text(res, path, process=None):

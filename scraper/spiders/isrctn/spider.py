@@ -19,13 +19,8 @@ class Spider(CrawlSpider):
     name = 'isrctn'
     allowed_domains = ['isrctn.com']
     rules = [
-        Rule(LinkExtractor(
-            allow=utils.make_pattern('ct2/results'),
-        )),
-        Rule(LinkExtractor(
-            allow=r'ct2/show/NCT\d+',
-            process_value=lambda value: value+'&resultsxml=true',
-        ), callback='parse_item'),
+        Rule(LinkExtractor(allow=utils.make_pattern('search'))),
+        Rule(LinkExtractor(allow=r'ISRCTN\d+'), callback='parse_item'),
     ]
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
@@ -41,12 +36,15 @@ class Spider(CrawlSpider):
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
-                base='https://www.clinicaltrials.gov/ct2/results',
+                base='http://www.isrctn.com/search',
                 date_from=date_from, date_to=date_to)
 
     def parse_item(self, res):
 
         # Create item
         item = Item()
+
+        path = '.ComplexTitle_primary::text'
+        item['isrctn_id'] = res.css(path).extract_first()
 
         return item

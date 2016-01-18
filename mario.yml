@@ -34,4 +34,4 @@ review:
   pylama scraper
 
 test:
-  echo '<test:nothing>'
+  py.test -vs tests

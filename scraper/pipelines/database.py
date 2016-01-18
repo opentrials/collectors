@@ -20,7 +20,6 @@ class Database(object):
         pass
 
     def process_item(self, item, spider):
-        table = self.db.get_table(
-                spider.name, primary_id='nct_id', primary_type='String')
+        table = self.db.get_table(spider.name)
         table.insert(item)
         return item
