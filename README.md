@@ -4,8 +4,45 @@
 
 OpenTrials scraper for all registers.
 
+Reamde for contributors - [CONTRIBUTE.md](CONTRIBUTE.md).
+
 ## Overview
 
-For each register dedicated `spider` have to be written:
+The scraper uses dedicated spiders for different registers.
 
-[Explore available spiders](https://github.com/opentrials/scraper/tree/master/scraper/spiders)
+### Registers
+
+#### NCT
+
+Website: clinicaltrials.gov
+Data model: https://github.com/opentrials/scraper/tree/master/docs/nct.md
+
+Status: development
+
+#### ISRCTN
+
+Website: isrctn.com
+Data model: https://github.com/opentrials/scraper/tree/master/docs/isrctn.com
+
+Status: development
+
+#### EUCTR
+
+Website: clinicaltrialsregister.eu
+Data model: https://github.com/opentrials/scraper/tree/master/docs/euctr.com
+
+Status: development
+
+#### ACTRN
+
+Website: anzctr.org.au/
+Data model: https://github.com/opentrials/scraper/tree/master/docs/actrn.com
+
+Status: planned
+
+#### JPRN
+
+Website: umin.ac.jp/ctr/
+Data model: https://github.com/opentrials/scraper/tree/master/docs/jprn.com
+
+Status: planned
