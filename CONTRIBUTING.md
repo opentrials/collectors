@@ -1,4 +1,8 @@
-### Prerequisites
+# Contributing
+
+The contributing guideline.
+
+## Prerequisites
 
 Programs:
 - docker
@@ -10,7 +14,7 @@ Environment variables:
 - $OPENTRIALS_TUTUM_PASS
 - $OPENTRIALS_DATABASE_URL
 
-### Getting Started
+## Getting Started
 
 To activate virtual environment, install
 dependencies, add pre-commit hook to review and test code:
@@ -19,7 +23,7 @@ dependencies, add pre-commit hook to review and test code:
 $ source activate.sh
 ```
 
-### Reviewing
+## Reviewing
 
 To check the project:
 
@@ -27,7 +31,7 @@ To check the project:
 $ mario review
 ```
 
-### Testing
+## Testing
 
 To run tests with coverage check:
 
@@ -37,7 +41,7 @@ $ mario test
 
 Coverage data will be in the `.coverage` file.
 
-### Deploying
+## Deploying
 
 Automatically using CI/CD (Travis) [under developmet].
 
