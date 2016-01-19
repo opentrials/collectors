@@ -11,8 +11,8 @@ import os
 
 NEWSPIDER_MODULE = 'scraper.spiders'
 SPIDER_MODULES = [
-    'scraper.spiders.ctgov.spider',
     'scraper.spiders.isrctn.spider',
+    'scraper.spiders.nct.spider',
 ]
 
 # Pipelines

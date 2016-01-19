@@ -18,7 +18,7 @@ class Spider(CrawlSpider):
 
     # Public
 
-    name = 'ctgov'
+    name = 'nct'
     allowed_domains = ['clinicaltrials.gov']
     rules = [
         Rule(LinkExtractor(
