@@ -6,15 +6,23 @@ isrctn:
   command: scrapy crawl isrctn
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL: # from environment
+    OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-isrctn-2016:
+isrctn-sample:
   image: tutum.co/roll/opentrials-scraper
-  command: scrapy crawl isrctn -a date_from=2016-01-01
+  command: scrapy crawl isrctn -a date_from=2015-01-01 -a date_to=2015-01-31
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL: # from environment
+    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
+
+isrctn-complete:
+  image: tutum.co/roll/opentrials-scraper
+  command: scrapy crawl isrctn -a date_from=2001-01-01
+  restart: always
+  environment:
+    OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 # NCT
@@ -25,13 +33,21 @@ nct:
   command: scrapy crawl nct
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL: # from environment
+    OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-nct-2016:
+nct-sample:
   image: tutum.co/roll/opentrials-scraper
-  command: scrapy crawl nct -a date_from=2016-01-01
+  command: scrapy crawl nct -a date_from=2015-01-01 -a date_to=2015-01-31
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL: # from environment
+    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
+
+nct-complete:
+  image: tutum.co/roll/opentrials-scraper
+  command: scrapy crawl nct -a date_from=2001-01-01
+  restart: always
+  environment:
+    OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10

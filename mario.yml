@@ -14,7 +14,7 @@ deploy:
     -u $OPENTRIALS_TUTUM_USER
     -p $OPENTRIALS_TUTUM_PASS
   - docker push tutum.co/roll/opentrials-scraper
-  - tutum stack inspect opentrials_scraper ||
+  - tutum stack inspect opentrials-scraper ||
     tutum stack create --sync -f docker-compose.yml -n opentrials-scraper
   - tutum stack update --sync -f docker-compose.yml opentrials-scraper
 
