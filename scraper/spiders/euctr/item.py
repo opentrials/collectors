@@ -159,6 +159,9 @@ class Item(scrapy.Item):
 
     # Helpers
 
+    def __repr__(self):
+        return '<Item: "%s">' % self.get('eudract_number')
+
     def add_data(self, key, value):
         if key in self.fields:
             self[key] = value

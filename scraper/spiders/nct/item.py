@@ -76,3 +76,8 @@ class Item(scrapy.Item):
     references = scrapy.Field()
     results_references = scrapy.Field()
     keywords = scrapy.Field()
+
+    # Helpers
+
+    def __repr__(self):
+        return 'Item: %s' % self.get('nct_id')

@@ -66,3 +66,8 @@ class Item(scrapy.Item):
     patient_information_sheet = scrapy.Field()
     funding_body_subtype = scrapy.Field()
     alternative_name_s_ = scrapy.Field()
+
+    # Helpers
+
+    def __repr__(self):
+        return '<Item: "%s">' % self.get('isrctn_id')

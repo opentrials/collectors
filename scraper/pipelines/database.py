@@ -5,8 +5,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import dataset
+import logging
 
 from .. import settings
+logger = logging.getLogger(__name__)
 
 
 class Database(object):
@@ -22,4 +24,5 @@ class Database(object):
     def process_item(self, item, spider):
         table = self.db.get_table(spider.name)
         table.insert(item)
+        logger.info('Saved %s', item)
         return item

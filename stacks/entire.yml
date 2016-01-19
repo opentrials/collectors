@@ -2,21 +2,21 @@
 
 euctr:
   image: tutum.co/roll/opentrials-scraper
-  command: scrapy crawl euctr -a date_from=2001-01-01
+  command: scrapy crawl euctr -a date_from=2001-01-01 -L INFO
   environment:
     OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 isrctn:
   image: tutum.co/roll/opentrials-scraper
-  command: scrapy crawl isrctn -a date_from=2001-01-01
+  command: scrapy crawl isrctn -a date_from=2001-01-01 -L INFO
   environment:
     OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 nct:
   image: tutum.co/roll/opentrials-scraper
-  command: scrapy crawl nct -a date_from=2001-01-01
+  command: scrapy crawl nct -a date_from=2001-01-01 -L INFO
   environment:
     OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10

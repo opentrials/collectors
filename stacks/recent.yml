@@ -2,7 +2,7 @@
 
 euctr:
   image: tutum.co/roll/opentrials-scraper
-  command: scrapy crawl euctr
+  command: scrapy crawl euctr -L INFO
   restart: always
   environment:
     OPENTRIALS_DATABASE_URL:
@@ -10,7 +10,7 @@ euctr:
 
 isrctn:
   image: tutum.co/roll/opentrials-scraper
-  command: scrapy crawl isrctn
+  command: scrapy crawl isrctn -L INFO
   restart: always
   environment:
     OPENTRIALS_DATABASE_URL:
@@ -18,7 +18,7 @@ isrctn:
 
 nct:
   image: tutum.co/roll/opentrials-scraper
-  command: scrapy crawl nct
+  command: scrapy crawl nct -L INFO
   restart: always
   environment:
     OPENTRIALS_DATABASE_URL:
