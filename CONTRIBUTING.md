@@ -15,6 +15,14 @@ dependencies, add pre-commit hook to review and test code:
 $ source activate.sh
 ```
 
+## Building
+
+To build a docker image:
+
+```
+$ mario build
+```
+
 ## Testing
 
 To run code review and tests:
@@ -25,14 +33,6 @@ $ mario test
 
 The project follow the next style guides:
 - [PEP 8 - Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
-
-## Building
-
-To build a docker image:
-
-```
-$ mario build
-```
 
 ## Previewing
 
