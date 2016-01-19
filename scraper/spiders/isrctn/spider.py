@@ -44,7 +44,27 @@ class Spider(CrawlSpider):
         # Create item
         item = Item()
 
+        # isrctn_id
         path = '.ComplexTitle_primary::text'
         item['isrctn_id'] = res.css(path).extract_first()
+
+        # other data
+        key = None
+        value = None
+        for sel in res.css('.Info_section_title, .Info_section_title+p'):
+            if sel.css('.Info_section_title'):
+                key = None
+                value = None
+                items = sel.xpath('text()').extract()
+                if items:
+                    key = utils.slugify(items[0].strip())
+            else:
+                if key is not None:
+                    value = None
+                    items = sel.xpath('text()').extract()
+                    if items:
+                        value = items[0].strip()
+            if key is not None and value is not None:
+                item[key] = value
 
         return item

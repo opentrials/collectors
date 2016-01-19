@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import re
 from urllib import urlencode
 from collections import OrderedDict
 
@@ -29,3 +30,9 @@ def make_pattern(base):
     pattern += r'\?q=&filters=GT[^,]*,LE[^,]*&page=\d+&'
     pattern += 'pageSize=100&searchType=advanced-search$'
     return pattern
+
+
+def slugify(name):
+    """Replace unwanted chars.
+    """
+    return re.sub(r'[^\w_]+', '_', name).lower()
