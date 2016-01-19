@@ -1,5 +1,12 @@
-# ISRCTN
-# isrctn.com
+# Scrapy only recently updated trials
+
+euctr:
+  image: tutum.co/roll/opentrials-scraper
+  command: scrapy crawl euctr
+  restart: always
+  environment:
+    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
 
 isrctn:
   image: tutum.co/roll/opentrials-scraper
@@ -8,9 +15,6 @@ isrctn:
   environment:
     OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
-
-# NCT
-# clinicaltrials.gov
 
 nct:
   image: tutum.co/roll/opentrials-scraper
