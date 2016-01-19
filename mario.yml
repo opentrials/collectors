@@ -14,12 +14,21 @@ deploy:
     -u $OPENTRIALS_TUTUM_USER
     -p $OPENTRIALS_TUTUM_PASS
   - docker push tutum.co/roll/opentrials-scraper
-  - tutum stack inspect opentrials-scraper ||
-    tutum stack create --sync -f docker-compose.yml -n opentrials-scraper
-  - tutum stack update --sync -f docker-compose.yml opentrials-scraper
+  # Entire
+  - tutum stack inspect opentrials-scraper-entire ||
+    tutum stack create --sync -f stacks/entire.yml -n opentrials-scraper-entire
+  - tutum stack update --sync -f stacks/entire.yml opentrials-scraper-entire
+  # Recent
+  - tutum stack inspect opentrials-scraper-recent ||
+    tutum stack create --sync -f stacks/recent.yml -n opentrials-scraper-recent
+  - tutum stack update --sync -f stacks/recent.yml opentrials-scraper-recent
+  # Sample
+  - tutum stack inspect opentrials-scraper-sample ||
+    tutum stack create --sync -f stacks/sample.yml -n opentrials-scraper-sample
+  - tutum stack update --sync -f stacks/sample.yml opentrials-scraper-sample
 
 preview:
-  - docker-compose up
+  - docker-compose -f stacks/sample.yml up
 
 test:
   - pylama scraper

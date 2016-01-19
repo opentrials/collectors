@@ -1,0 +1,21 @@
+# ISRCTN
+# isrctn.com
+
+isrctn:
+  image: tutum.co/roll/opentrials-scraper
+  command: scrapy crawl isrctn -a date_from=2001-01-01
+  restart: always
+  environment:
+    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
+
+# NCT
+# clinicaltrials.gov
+
+nct:
+  image: tutum.co/roll/opentrials-scraper
+  command: scrapy crawl nct -a date_from=2001-01-01
+  restart: always
+  environment:
+    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
