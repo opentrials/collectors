@@ -28,7 +28,7 @@ def make_pattern(base):
     """
     pattern = base
     pattern += r'\?q=&filters=GT[^,]*,LE[^,]*&page=\d+&'
-    pattern += 'pageSize=100&searchType=advanced-search$'
+    pattern += r'pageSize=100&searchType=advanced-search$'
     return pattern
 
 

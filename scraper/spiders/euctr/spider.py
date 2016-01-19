@@ -17,15 +17,13 @@ class Spider(CrawlSpider):
     # Public
 
     name = 'euctr'
-    allowed_domains = ['anzctr.org.au']
+    allowed_domains = ['clinicaltrialsregister.eu']
     rules = [
-        Rule(LinkExtractor(
-            allow=utils.make_pattern('ct2/results'),
-        )),
-        Rule(LinkExtractor(
-            allow=r'ct2/show/NCT\d+',
-            process_value=lambda value: value+'&resultsxml=true',
-        ), callback='parse_item'),
+        Rule(LinkExtractor(allow=utils.make_pattern('ctr-search/search'))),
+        Rule(
+            LinkExtractor(allow=r'ctr-search/trial/[\d-]+/[\w]+'),
+            callback='parse_item'
+        ),
     ]
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
@@ -41,12 +39,31 @@ class Spider(CrawlSpider):
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
-                base='https://www.clinicaltrials.gov/ct2/results',
+                base='https://www.clinicaltrialsregister.eu/ctr-search/search',
                 date_from=date_from, date_to=date_to)
 
     def parse_item(self, res):
 
         # Create item
         item = Item()
+
+        # Get data
+        key = None
+        value = None
+        for sel in res.css('.second, .second+.third'):
+            if sel.css('.second'):
+                key = None
+                value = None
+                items = sel.xpath('text()').extract()
+                if items:
+                    key = utils.slugify(items[0].strip())
+            else:
+                if key is not None:
+                    value = None
+                    items = sel.xpath('text()').extract()
+                    if items:
+                        value = items[0].strip()
+            if key is not None and value is not None:
+                item.add_data(key, value)
 
         return item
