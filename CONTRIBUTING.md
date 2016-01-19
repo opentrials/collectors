@@ -2,19 +2,11 @@
 
 The contributing guideline.
 
-## Prerequisites
+## Getting Started
 
-Programs:
+Prerequisites:
 - docker
 - docker-compose
-
-Environment variables:
-- $OPENTRIALS_TUTUM_EMAIL
-- $OPENTRIALS_TUTUM_USER
-- $OPENTRIALS_TUTUM_PASS
-- $OPENTRIALS_DATABASE_URL
-
-## Getting Started
 
 To activate virtual environment, install
 dependencies, add pre-commit hook to review and test code:
@@ -23,30 +15,46 @@ dependencies, add pre-commit hook to review and test code:
 $ source activate.sh
 ```
 
-## Reviewing
-
-To check the project:
-
-```
-$ mario review
-```
-
 ## Testing
 
-To run tests with coverage check:
+To run code review and tests:
 
 ```
 $ mario test
 ```
 
-Coverage data will be in the `.coverage` file.
+The project follow the next style guides:
+- [PEP 8 - Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
+
+## Building
+
+To build a docker image:
+
+```
+$ mario build
+```
+
+## Previewing
+
+To run locally:
+
+```
+$ mario preview
+```
+
+Required environment variables:
+- $OPENTRIALS_DATABASE_URL
 
 ## Deploying
 
-Automatically using CI/CD (Travis) [under developmet].
+Automatically on CI/CD server.
 
-Manual steps (not recomended):
-- `mario login` - login with docker & tutum
-- `mario build` - build docker images
-- `mario push` - push docker images to remote index
-- `mario deploy` - deploy it as tutum stack
+Required environment variables:
+- $OPENTRIALS_TUTUM_EMAIL
+- $OPENTRIALS_TUTUM_USER
+- $OPENTRIALS_TUTUM_PASS
+- $OPENTRIALS_DATABASE_URL
+
+## Managing
+
+To update, run and stop scrapers use Tutum's web UI.

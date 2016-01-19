@@ -14,10 +14,6 @@ install:
   - pip install -Urrequirements.dev.txt
 
 script:
-  - mario check
-
-after_success:
-  - mario login
+  - mario test
   - mario build
-  - mario push
   - mario deploy

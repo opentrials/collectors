@@ -1,6 +1,6 @@
 # Git commit hook
 if [ ! -f .git/hooks/pre-commit ]; then
-    echo -e "#!/bin/sh\n\n\nmario check" > .git/hooks/pre-commit
+    echo -e "#!/bin/sh\n\n\nmario test" > .git/hooks/pre-commit
     chmod +x .git/hooks/pre-commit
 fi
 
