@@ -12,6 +12,7 @@ class Item(scrapy.Item):
     # Plain value fields
 
     isrctn_id = scrapy.Field()
+    last_edited = scrapy.Field()
     scientific_title = scrapy.Field()
     reason_abandoned = scrapy.Field()
     participant_inclusion_criteria = scrapy.Field()
@@ -70,4 +71,12 @@ class Item(scrapy.Item):
     # Helpers
 
     def __repr__(self):
-        return '<Item: "%s">' % self.get('isrctn_id')
+        template = '<ISCTN: %s [%s]>'
+        text = template % (
+                self.get('isrctn_id'),
+                self.get('last_edited'))
+        return text
+
+    def add_data(self, key, value):
+        if key in self.fields:
+            self[key] = value

@@ -19,13 +19,14 @@ class Spider(CrawlSpider):
     name = 'actrn'
     allowed_domains = ['anzctr.org.au']
     rules = [
-        Rule(LinkExtractor(
-            allow=utils.make_pattern('ct2/results'),
-        )),
-        Rule(LinkExtractor(
-            allow=r'ct2/show/NCT\d+',
-            process_value=lambda value: value+'&resultsxml=true',
-        ), callback='parse_item'),
+        Rule(LinkExtractor(allow=utils.make_pattern('TrialSearch.aspx'))),
+        Rule(
+            LinkExtractor(
+                allow=r'Trial/Registration/TrialReview.aspx',
+                process_value=lambda value: value.replace('http', 'https', 1),
+            ),
+            callback='parse_item'
+        ),
     ]
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
@@ -41,12 +42,31 @@ class Spider(CrawlSpider):
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
-                base='https://www.clinicaltrials.gov/ct2/results',
+                base='http://www.anzctr.org.au/TrialSearch.aspx',
                 date_from=date_from, date_to=date_to)
 
     def parse_item(self, res):
 
         # Create item
         item = Item()
+
+        # Get data
+        key = None
+        value = None
+        for sel in res.css('.review-element-name, .review-element-content'):
+            if sel.css('.review-element-name'):
+                key = None
+                value = None
+                items = sel.xpath('text()').extract()
+                if items:
+                    key = utils.slugify(items[0].strip())
+            else:
+                if key is not None:
+                    value = None
+                    items = sel.xpath('span/text()').extract()
+                    if items:
+                        value = items[0].strip()
+            if key and value:
+                item.add_data(key, value)
 
         return item

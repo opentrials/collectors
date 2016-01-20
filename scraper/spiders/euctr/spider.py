@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylama:skip=1
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -47,6 +48,25 @@ class Spider(CrawlSpider):
         # Create item
         item = Item()
 
+        # Get summary
+        key = None
+        value = None
+        for sel in res.css('.cellGrey, .cellGrey+.cellLighterGrey'):
+            if sel.css('.cellGrey'):
+                key = None
+                value = None
+                items = sel.xpath('text()').extract()
+                if items:
+                    key = utils.slugify(items[0].strip())
+            else:
+                if key is not None:
+                    value = None
+                    items = sel.xpath('text()').extract()
+                    if items:
+                        value = items[0].strip()
+            if key and value:
+                item.add_data(key, value)
+
         # Get data
         key = None
         value = None
@@ -63,7 +83,7 @@ class Spider(CrawlSpider):
                     items = sel.xpath('text()').extract()
                     if items:
                         value = items[0].strip()
-            if key is not None and value is not None:
+            if key and value:
                 item.add_data(key, value)
 
         return item

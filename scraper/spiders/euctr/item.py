@@ -12,10 +12,11 @@ class Item(scrapy.Item):
 
     # Plain value fields
 
+    date_on_which_this_record_was_first_entered = scrapy.Field()
     member_state_concerned = scrapy.Field()
     eudract_number = scrapy.Field()
     full_title_of_the_trial = scrapy.Field()
-    # title_of_the_trial_for_lay_people_in_easily_understood_i_e_non_technical_language = scrapy.Field()
+    title_of_the_trial_for_lay_people_in = scrapy.Field()
     sponsor_s_protocol_code_number = scrapy.Field()
     trial_is_part_of_a_paediatric_investigation_plan = scrapy.Field()
     name_of_sponsor = scrapy.Field()
@@ -160,7 +161,11 @@ class Item(scrapy.Item):
     # Helpers
 
     def __repr__(self):
-        return '<Item: "%s">' % self.get('eudract_number')
+        template = '<EUCTR: %s [%s]>'
+        text = template % (
+                self.get('eudract_number'),
+                self.get('date_on_which_this_record_was_first_entered'))
+        return text
 
     def add_data(self, key, value):
         if key in self.fields:

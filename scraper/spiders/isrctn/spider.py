@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylama:skip=1
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -44,11 +45,30 @@ class Spider(CrawlSpider):
         # Create item
         item = Item()
 
-        # isrctn_id
+        # Get isrctn_id
         path = '.ComplexTitle_primary::text'
         item['isrctn_id'] = res.css(path).extract_first()
 
-        # other data
+        # Get meta
+        key = None
+        value = None
+        for sel in res.css('.Meta_name, .Meta_name+.Meta_value'):
+            if sel.css('.Meta_name'):
+                key = None
+                value = None
+                items = sel.xpath('text()').extract()
+                if items:
+                    key = utils.slugify(items[0].strip())
+            else:
+                if key is not None:
+                    value = None
+                    items = sel.xpath('text()').extract()
+                    if items:
+                        value = items[0].strip()
+            if key and value:
+                item.add_data(key, value)
+
+        # Get data
         key = None
         value = None
         for sel in res.css('.Info_section_title, .Info_section_title+p'):
@@ -64,7 +84,7 @@ class Spider(CrawlSpider):
                     items = sel.xpath('text()').extract()
                     if items:
                         value = items[0].strip()
-            if key is not None and value is not None:
-                item[key] = value
+            if key and value:
+                item.add_data(key, value)
 
         return item

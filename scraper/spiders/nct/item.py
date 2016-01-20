@@ -80,4 +80,8 @@ class Item(scrapy.Item):
     # Helpers
 
     def __repr__(self):
-        return 'Item: %s' % self.get('nct_id')
+        template = '<NCT: %s [%s]>'
+        text = template % (
+                self.get('nct_id'),
+                self.get('lastchanged_date'))
+        return text

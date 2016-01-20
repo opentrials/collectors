@@ -30,4 +30,8 @@ def make_pattern(base):
 def slugify(name):
     """Replace unwanted chars.
     """
-    return re.sub(r'[^\w_]+', '_', name).lower()
+    name = name.lower()
+    name = re.sub(r'\s+', '_', name)
+    name = re.sub(r'[^\w]+', '', name)
+    name = '_'.join(name.split('_')[:8])
+    return name
