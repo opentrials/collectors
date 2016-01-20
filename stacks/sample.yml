@@ -1,5 +1,12 @@
 # Scrape sample data from registers
 
+actrn:
+  image: tutum.co/roll/opentrials-scraper
+  command: scrapy crawl actrn -a date_from=2015-01-01 -a date_to=2015-01-31 -L INFO
+  environment:
+    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
+
 euctr:
   image: tutum.co/roll/opentrials-scraper
   command: scrapy crawl euctr -a date_from=2015-01-01 -a date_to=2015-01-31 -L INFO
