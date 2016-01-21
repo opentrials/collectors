@@ -2,7 +2,7 @@
 
 [![Travis](https://img.shields.io/travis/opentrials/scraper/master.svg)](https://travis-ci.org/opentrials/scraper)
 
-OpenTrials scraper for all registers.
+OpenTrials scraper for all trial registers.
 
 ## Overview
 
