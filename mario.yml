@@ -1,7 +1,7 @@
 # Tasks
 
 build:
-  - docker build -t tutum.co/roll/opentrials-scraper .
+  - docker build -t opentrialsrobot/scraper .
 
 deploy:
   - ${CI?"Deployment is avaiable only on CI/CD server"}
@@ -13,7 +13,7 @@ deploy:
   - tutum login
     -u $OPENTRIALS_TUTUM_USER
     -p $OPENTRIALS_TUTUM_PASS
-  - docker push tutum.co/roll/opentrials-scraper
+  - docker push opentrialsrobot/scraper
   # Entire
   - tutum stack inspect opentrials-scraper-entire ||
     tutum stack create --sync -f stacks/entire.yml -n opentrials-scraper-entire

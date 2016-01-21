@@ -1,7 +1,7 @@
 # Scrapy only recently updated trials
 
 actrn:
-  image: tutum.co/roll/opentrials-scraper
+  image: opentrialsrobot/scraper
   command: scrapy crawl actrn -L INFO
   restart: always
   environment:
@@ -9,7 +9,7 @@ actrn:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 euctr:
-  image: tutum.co/roll/opentrials-scraper
+  image: opentrialsrobot/scraper
   command: scrapy crawl euctr -L INFO
   restart: always
   environment:
@@ -17,7 +17,7 @@ euctr:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 isrctn:
-  image: tutum.co/roll/opentrials-scraper
+  image: opentrialsrobot/scraper
   command: scrapy crawl isrctn -L INFO
   restart: always
   environment:
@@ -25,7 +25,7 @@ isrctn:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 nct:
-  image: tutum.co/roll/opentrials-scraper
+  image: opentrialsrobot/scraper
   command: scrapy crawl nct -L INFO
   restart: always
   environment:
