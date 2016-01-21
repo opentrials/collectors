@@ -6,13 +6,17 @@ from __future__ import unicode_literals
 
 import re
 from urllib import urlencode
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from collections import OrderedDict
 
 
-def make_start_urls(base, date_from, date_to):
+def make_start_urls(base, date_from=None, date_to=None):
     """ Return start_urls.
     """
+    if date_from is None:
+        date_from = str(date.today() - timedelta(days=1))
+    if date_to is None:
+        date_to = str(date.today())
     query = OrderedDict()
     date_from = datetime.strptime(date_from, '%Y-%m-%d').strftime('%d/%m/%Y')
     date_to = datetime.strptime(date_to, '%Y-%m-%d').strftime('%d/%m/%Y')

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+# pylama:skip=1
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from datetime import date, timedelta
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
+from six.moves.urllib.parse import urlparse, parse_qs
 
 from . import utils
 from .item import Item
@@ -17,36 +18,68 @@ class Spider(CrawlSpider):
     # Public
 
     name = 'jprn'
-    allowed_domains = ['anzctr.org.au']
-    rules = [
-        Rule(LinkExtractor(
-            allow=utils.make_pattern('ct2/results'),
-        )),
-        Rule(LinkExtractor(
-            allow=r'ct2/show/NCT\d+',
-            process_value=lambda value: value+'&resultsxml=true',
-        ), callback='parse_item'),
-    ]
+    allowed_domains = ['upload.umin.ac.jp']
 
-    def __init__(self, date_from=None, date_to=None, *args, **kwargs):
+    def __init__(self, page_from=None, page_to=None, *args, **kwargs):
+
+        # Default values
+        if page_from is None:
+            page_from = '1'
+        if page_to is None:
+            page_to = '1'
+
+        # Save attributes
+        self.__page_from = page_from
+        self.__page_to = page_to
+
+        # Make start urls
+        self.start_urls = utils.make_start_urls(
+                base='https://upload.umin.ac.jp/cgi-open-bin/ctr/ctr.cgi',
+                page_from=page_from)
+
+        # Make rules
+        self.rules = [
+            Rule(LinkExtractor(
+                allow=utils.make_pattern('cgi-open-bin/ctr/ctr.cgi'),
+                process_value=self.process_url,
+            )),
+            Rule(
+                LinkExtractor(allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',),
+                callback='parse_item',
+            ),
+        ]
 
         # Inherit parent
         super(Spider, self).__init__(*args, **kwargs)
 
-        # Defaul values
-        if date_from is None:
-            date_from = str(date.today() - timedelta(days=1))
-        if date_to is None:
-            date_to = str(date.today())
+    def process_url(self, url):
 
-        # Make start urls
-        self.start_urls = utils.make_start_urls(
-                base='https://www.clinicaltrials.gov/ct2/results',
-                date_from=date_from, date_to=date_to)
+        # Get url page
+        query = urlparse(url).query
+        query = parse_qs(query)
+        page = query.get('_page')
+
+        # Preserve if match
+        if page:
+            page_from = int(self.__page_from)
+            page_to = int(self.__page_to)
+            page = int(page[0])
+            if page >= page_from and page <= page_to:
+                return url
+
+        return None
 
     def parse_item(self, res):
 
         # Create item
         item = Item()
+
+        # Get data
+        key = None
+        value = None
+        for sel in res.xpath('//tr'):
+            tds = sel.xpath('tds')
+            if len(tds) == 2:
+                pass
 
         return item

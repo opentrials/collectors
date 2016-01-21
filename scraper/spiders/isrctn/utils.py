@@ -6,12 +6,17 @@ from __future__ import unicode_literals
 
 import re
 from urllib import urlencode
+from datetime import date, timedelta
 from collections import OrderedDict
 
 
-def make_start_urls(base, date_from, date_to):
+def make_start_urls(base, date_from=None, date_to=None):
     """ Return start_urls.
     """
+    if date_from is None:
+        date_from = str(date.today() - timedelta(days=1))
+    if date_to is None:
+        date_to = str(date.today())
     query = OrderedDict()
     query['q'] = ''
     gtle = 'GT lastEdited:%sT00:00:00.000Z' % date_from
