@@ -74,12 +74,26 @@ class Spider(CrawlSpider):
         # Create item
         item = Item()
 
-        # Get data
-        key = None
-        value = None
+        # Get meta
         for sel in res.xpath('//tr'):
-            tds = sel.xpath('tds')
-            if len(tds) == 2:
-                pass
+            columns = sel.xpath('td')
+            if len(columns) == 3:
+                key = ''.join(columns[0].xpath('.//text()').extract())
+                key = utils.slugify(key.strip())
+                value = ''.join(columns[2].xpath('.//text()').extract())
+                value = value.strip()
+                if key and value:
+                    item.add_data(key, value)
+
+        # Get data
+        for sel in res.xpath('//tr'):
+            columns = sel.xpath('td')
+            if len(columns) == 2:
+                key = ''.join(columns[0].xpath('.//text()').extract())
+                key = utils.slugify(key.strip())
+                value = ''.join(columns[0].xpath('.//text()').extract())
+                value = value.strip()
+                if key and value:
+                    item.add_data(key, value)
 
         return item
