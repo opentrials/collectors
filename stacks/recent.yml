@@ -24,6 +24,14 @@ isrctn:
     OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
+jprn:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl jprn -L INFO
+  restart: always
+  environment:
+    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
+
 nct:
   image: opentrialsrobot/scraper
   command: scrapy crawl nct -L INFO
