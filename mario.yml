@@ -9,7 +9,6 @@ deploy:
     -e $OPENTRIALS_TUTUM_EMAIL
     -u $OPENTRIALS_TUTUM_USER
     -p $OPENTRIALS_TUTUM_PASS
-    tutum.co
   - tutum login
     -u $OPENTRIALS_TUTUM_USER
     -p $OPENTRIALS_TUTUM_PASS
