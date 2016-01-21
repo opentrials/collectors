@@ -6,12 +6,12 @@ build:
 deploy:
   - ${CI?"Deployment is avaiable only on CI/CD server"}
   - docker login
-    -e $OPENTRIALS_TUTUM_EMAIL
-    -u $OPENTRIALS_TUTUM_USER
-    -p $OPENTRIALS_TUTUM_PASS
+    -e $OPENTRIALS_DOCKER_EMAIL
+    -u $OPENTRIALS_DOCKER_USER
+    -p $OPENTRIALS_DOCKER_PASS
   - tutum login
-    -u $OPENTRIALS_TUTUM_USER
-    -p $OPENTRIALS_TUTUM_PASS
+    -u $OPENTRIALS_DOCKER_USER
+    -p $OPENTRIALS_DOCKER_PASS
   - docker push opentrialsrobot/scraper
   # Entire
   - tutum stack inspect opentrials-scraper-entire ||

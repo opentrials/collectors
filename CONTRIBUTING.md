@@ -50,9 +50,9 @@ Required environment variables:
 Automatically on CI/CD server.
 
 Required environment variables:
-- $OPENTRIALS_TUTUM_EMAIL
-- $OPENTRIALS_TUTUM_USER
-- $OPENTRIALS_TUTUM_PASS
+- $OPENTRIALS_DOCKER_EMAIL
+- $OPENTRIALS_DOCKER_USER
+- $OPENTRIALS_DOCKER_PASS
 - $OPENTRIALS_DATABASE_URL
 
 ## Managing
