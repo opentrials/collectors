@@ -5,25 +5,25 @@ actrn:
   command: scrapy crawl actrn -a date_from=2015-01-01 -a date_to=2015-01-31 -L INFO
   environment:
     OPENTRIALS_DATABASE_URL:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 5
 
 euctr:
   image: opentrialsrobot/scraper
   command: scrapy crawl euctr -a date_from=2015-01-01 -a date_to=2015-01-31 -L INFO
   environment:
     OPENTRIALS_DATABASE_URL:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 5
 
 isrctn:
   image: opentrialsrobot/scraper
   command: scrapy crawl isrctn -a date_from=2015-01-01 -a date_to=2015-01-31 -L INFO
   environment:
     OPENTRIALS_DATABASE_URL:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 5
 
 nct:
   image: opentrialsrobot/scraper
   command: scrapy crawl nct -a date_from=2015-01-01 -a date_to=2015-01-05 -L INFO
   environment:
     OPENTRIALS_DATABASE_URL:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 5
