@@ -10,19 +10,13 @@ import os
 # Spiders
 
 NEWSPIDER_MODULE = 'scraper.spiders'
-SPIDER_MODULES = [
-    'scraper.spiders.actrn.spider',
-    'scraper.spiders.euctr.spider',
-    'scraper.spiders.isrctn.spider',
-    'scraper.spiders.jprn.spider',
-    'scraper.spiders.nct.spider',
-]
+SPIDER_MODULES = ['scraper.spiders']
 
 # Pipelines
 
 DATABASE_URL = os.environ['OPENTRIALS_DATABASE_URL']
 ITEM_PIPELINES = {
-    'scraper.pipelines.database.Database': 100,
+    'scraper.pipelines.Database': 100,
 }
 
 # Network

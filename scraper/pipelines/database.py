@@ -11,6 +11,8 @@ from .. import settings
 logger = logging.getLogger(__name__)
 
 
+# Module API
+
 class Database(object):
 
     # Public

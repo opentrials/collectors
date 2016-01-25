@@ -7,7 +7,9 @@ from __future__ import unicode_literals
 import scrapy
 
 
-class Item(scrapy.Item):
+# Module API
+
+class Isrctn(scrapy.Item):
 
     # Plain value fields
 

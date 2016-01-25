@@ -5,15 +5,20 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import re
+from urllib import urlencode
+from collections import OrderedDict
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from six.moves.urllib.parse import urlparse, parse_qs
 
-from . import utils
-from .item import Item
+from .. import items
+from .. import helpers
 
 
-class Spider(CrawlSpider):
+# Module API
+
+class Jprn(CrawlSpider):
 
     # Public
 
@@ -33,14 +38,14 @@ class Spider(CrawlSpider):
         self.__page_to = page_to
 
         # Make start urls
-        self.start_urls = utils.make_start_urls(
+        self.start_urls = _make_start_urls(
                 base='https://upload.umin.ac.jp/cgi-open-bin/ctr/ctr.cgi',
                 page_from=page_from)
 
         # Make rules
         self.rules = [
             Rule(LinkExtractor(
-                allow=utils.make_pattern('cgi-open-bin/ctr/ctr.cgi'),
+                allow=_make_pattern('cgi-open-bin/ctr/ctr.cgi'),
                 process_value=self.process_url,
             )),
             Rule(
@@ -50,7 +55,7 @@ class Spider(CrawlSpider):
         ]
 
         # Inherit parent
-        super(Spider, self).__init__(*args, **kwargs)
+        super(Jprn, self).__init__(*args, **kwargs)
 
     def process_url(self, url):
 
@@ -72,14 +77,14 @@ class Spider(CrawlSpider):
     def parse_item(self, res):
 
         # Create item
-        item = Item()
+        item = items.Jprn()
 
         # Get meta
         for sel in res.xpath('//tr'):
             columns = sel.xpath('td')
             if len(columns) == 3:
                 key = ''.join(columns[0].xpath('.//text()').extract())
-                key = utils.slugify(key.strip())
+                key = helpers.slugify(key.strip())
                 value = ''.join(columns[2].xpath('.//text()').extract())
                 value = value.strip()
                 if key and value:
@@ -90,10 +95,32 @@ class Spider(CrawlSpider):
             columns = sel.xpath('td')
             if len(columns) == 2:
                 key = ''.join(columns[0].xpath('.//text()').extract())
-                key = utils.slugify(key.strip())
+                key = helpers.slugify(key.strip())
                 value = ''.join(columns[0].xpath('.//text()').extract())
                 value = value.strip()
                 if key and value:
                     item.add_data(key, value)
 
         return item
+
+
+# Internal
+
+def _make_start_urls(base, page_from=None):
+    """ Return start_urls.
+    """
+    if page_from is None:
+        page_from = '1'
+    query = OrderedDict()
+    query['_page'] = page_from
+    query['sort'] = '05'
+    query['function'] = 'search'
+    query['action'] = 'list'
+    query['language'] = 'E'
+    return [base + '?' + urlencode(query)]
+
+
+def _make_pattern(base):
+    """ Return pattern.
+    """
+    return base + r'\?_page=\d+'
