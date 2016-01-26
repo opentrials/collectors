@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-# pylama:skip=1
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import re
 from urllib import urlencode
 from datetime import date, timedelta
 from collections import OrderedDict
@@ -46,47 +44,40 @@ class Isrctn(CrawlSpider):
         # Create item
         item = items.Isrctn()
 
-        # Get isrctn_id
+        # Add system data
+        item.add_data('source', res.url)
+
+        # Add isrctn_id
+        key = 'isrctn_id'
         path = '.ComplexTitle_primary::text'
-        item['isrctn_id'] = res.css(path).extract_first()
+        value = res.css(path).extract_first()
+        item.add_data(key, value)
 
-        # Get meta
-        key = None
-        value = None
-        for sel in res.css('.Meta_name, .Meta_name+.Meta_value'):
-            if sel.css('.Meta_name'):
-                key = None
-                value = None
-                elements = sel.xpath('text()').extract()
-                if elements:
-                    key = helpers.slugify(elements[0].strip())
-            else:
-                if key is not None:
-                    value = None
-                    elements = sel.xpath('text()').extract()
-                    if elements:
-                        value = elements[0].strip()
-            if key and value:
-                item.add_data(key, value)
+        # Add doi_isrctn_id
+        key = 'doi_isrctn_id'
+        path = '.ComplexTitle_secondary::text'
+        value = res.css(path).extract_first()
+        item.add_data(key, value)
 
-        # Get data
-        key = None
-        value = None
-        for sel in res.css('.Info_section_title, .Info_section_title+p'):
-            if sel.css('.Info_section_title'):
-                key = None
-                value = None
-                elements = sel.xpath('text()').extract()
-                if elements:
-                    key = helpers.slugify(elements[0].strip())
-            else:
-                if key is not None:
-                    value = None
-                    elements = sel.xpath('text()').extract()
-                    if elements:
-                        value = elements[0].strip()
-            if key and value:
-                item.add_data(key, value)
+        # Add title
+        key = 'title'
+        path = '//h1/text()'
+        value = res.xpath(path).extract_first()
+        item.add_data(key, value)
+
+        # Add meta data
+        key_path = '.Meta_name'
+        value_path = '.Meta_name+.Meta_value'
+        data = _extract_definition_list(res, key_path, value_path)
+        for key, value in data.items():
+            item.add_data(key, value)
+
+        # Add main data
+        key_path = '.Info_section_title'
+        value_path = '.Info_section_title+p'
+        data = _extract_definition_list(res, key_path, value_path)
+        for key, value in data.items():
+            item.add_data(key, value)
 
         return item
 
@@ -115,6 +106,30 @@ def _make_pattern(base):
     """ Return pattern.
     """
     pattern = base
-    pattern += r'\?q=&filters=GT[^,]*,LE[^,]*&page=\d+&'
+    pattern += r'\?q=&filters=[^&]+&page=\d+&'
     pattern += r'pageSize=100&searchType=advanced-search$'
     return pattern
+
+
+def _extract_definition_list(res, key_path, value_path):
+    """Extract data from title-paragraph like html.
+    """
+    data = {}
+    key = None
+    value = None
+    for sel in res.css('%s, %s' % (key_path, value_path)):
+        if sel.css(key_path):
+            key = None
+            value = None
+            elements = sel.xpath('text()').extract()
+            if elements:
+                key = helpers.slugify(elements[0].strip())
+        else:
+            if key is not None:
+                value = None
+                elements = sel.xpath('text()').extract()
+                if elements:
+                    value = elements[0].strip()
+        if key and value:
+            data[key] = value
+    return data

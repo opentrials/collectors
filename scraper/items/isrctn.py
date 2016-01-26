@@ -5,6 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from scrapy import Field
+from datetime import datetime
 
 from .base import Base
 
@@ -13,9 +14,16 @@ from .base import Base
 
 class Isrctn(Base):
 
+    # System
+
+    source = Field()
+    created = Field()
+    modified = Field()
+
     # General
 
-    isrctn_id = Field()
+    isrctn_id = Field(primary_key=True)
+    doi_isrctn_id = Field()
     title = Field()
     condition_category = Field()
     date_applied = Field(parser='_parse_date')
@@ -120,4 +128,4 @@ class Isrctn(Base):
 # Internal
 
 def _parse_date(value):
-    return value
+    return datetime.datetime.strptime(value, "%d/%m/%Y")
