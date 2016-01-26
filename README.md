@@ -19,25 +19,25 @@ The scraper uses dedicated spiders for different registers.
 #### ISRCTN
 
 - Website: http://www.isrctn.com/
-- Data model: https://github.com/opentrials/scraper/tree/master/docs/isrctn.com
+- Data model: https://github.com/opentrials/scraper/tree/master/docs/isrctn.md
 - Status: development
 
 #### EUCTR
 
 - Website: https://www.clinicaltrialsregister.eu/
-- Data model: https://github.com/opentrials/scraper/tree/master/docs/euctr.com
+- Data model: https://github.com/opentrials/scraper/tree/master/docs/euctr.md
 - Status: development
 
 #### ACTRN
 
 - Website: http://anzctr.org.au/
-- Data model: https://github.com/opentrials/scraper/tree/master/docs/actrn.com
+- Data model: https://github.com/opentrials/scraper/tree/master/docs/actrn.md
 - Status: planned
 
 #### JPRN
 
 - Website: http://www.umin.ac.jp/ctr/
-- Data model: https://github.com/opentrials/scraper/tree/master/docs/jprn.com
+- Data model: https://github.com/opentrials/scraper/tree/master/docs/jprn.md
 - Status: planned
 
 ## Contributing
