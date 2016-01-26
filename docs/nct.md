@@ -1,10 +1,8 @@
 # NCT
 
-## Data Update Strategy
+ClinicalTrials.gov is a registry and results database of publicly and privately supported clinical studies of human participants conducted around the world.
 
-## Scraper Overview
-
-## Data model
+## Source Data model
 
 Analysis of NCT data model.
 
@@ -92,6 +90,12 @@ results_references
 keywords
 ```
 
+## Warehouse Data Model
+
 ## Primary Identifiers
 
+## Data Update Strategy
+
 ## License Terms
+
+https://clinicaltrials.gov/ct2/about-site/terms-conditions

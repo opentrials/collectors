@@ -1,11 +1,16 @@
 # ACTRN
 
-## Data Update Strategy
+The ANZCTR is an online registry of clinical trials being
+undertaken in Australia, New Zealand and elsewhere.
 
-## Scraper Overview
+## Source Data Model
 
-## Data Model
+## Warehouse Data Model
 
 ## Primary Identifiers
 
+## Data Update Strategy
+
 ## License Terms
+
+http://www.anzctr.org.au/Support/Terms.aspx
