@@ -6,10 +6,12 @@ from __future__ import unicode_literals
 
 import scrapy
 
+from .base import Base
+
 
 # Module API
 
-class Actrn(scrapy.Item):
+class Actrn(Base):
 
     # Plain value fields
 
@@ -49,7 +51,3 @@ class Actrn(scrapy.Item):
                 self.get('trial_id'),
                 self.get('date_registered'))
         return text
-
-    def add_data(self, key, value):
-        if key in self.fields:
-            self[key] = value

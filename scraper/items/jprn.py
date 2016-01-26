@@ -6,10 +6,12 @@ from __future__ import unicode_literals
 
 import scrapy
 
+from .base import Base
+
 
 # Module API
 
-class Jprn(scrapy.Item):
+class Jprn(Base):
 
     # Plain value fields
 
@@ -112,7 +114,3 @@ class Jprn(scrapy.Item):
                 self.get('unique_trial_number'),
                 self.get('date_and_time_of_last_update'))
         return text
-
-    def add_data(self, key, value):
-        if key in self.fields:
-            self[key] = value

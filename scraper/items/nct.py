@@ -6,10 +6,12 @@ from __future__ import unicode_literals
 
 import scrapy
 
+from .base import Base
+
 
 # Module API
 
-class Nct(scrapy.Item):
+class Nct(Base):
 
     # Plain value fields
 

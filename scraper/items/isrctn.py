@@ -6,10 +6,12 @@ from __future__ import unicode_literals
 
 import scrapy
 
+from .base import Base
+
 
 # Module API
 
-class Isrctn(scrapy.Item):
+class Isrctn(Base):
 
     # Plain value fields
 
@@ -78,7 +80,3 @@ class Isrctn(scrapy.Item):
                 self.get('isrctn_id'),
                 self.get('last_edited'))
         return text
-
-    def add_data(self, key, value):
-        if key in self.fields:
-            self[key] = value

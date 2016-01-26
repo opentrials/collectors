@@ -56,15 +56,15 @@ class Euctr(CrawlSpider):
             if sel.css('.cellGrey'):
                 key = None
                 value = None
-                items = sel.xpath('text()').extract()
-                if items:
-                    key = helpers.slugify(items[0].strip())
+                elements = sel.xpath('text()').extract()
+                if elements:
+                    key = helpers.slugify(elements[0].strip())
             else:
                 if key is not None:
                     value = None
-                    items = sel.xpath('text()').extract()
-                    if items:
-                        value = items[0].strip()
+                    elements = sel.xpath('text()').extract()
+                    if elements:
+                        value = elements[0].strip()
             if key and value:
                 item.add_data(key, value)
 
@@ -75,15 +75,15 @@ class Euctr(CrawlSpider):
             if sel.css('.second'):
                 key = None
                 value = None
-                items = sel.xpath('text()').extract()
-                if items:
-                    key = helpers.slugify(items[0].strip())
+                elements = sel.xpath('text()').extract()
+                if elements:
+                    key = helpers.slugify(elements[0].strip())
             else:
                 if key is not None:
                     value = None
-                    items = sel.xpath('text()').extract()
-                    if items:
-                        value = items[0].strip()
+                    elements = sel.xpath('text()').extract()
+                    if elements:
+                        value = elements[0].strip()
             if key and value:
                 item.add_data(key, value)
 

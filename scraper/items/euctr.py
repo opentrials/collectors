@@ -7,10 +7,12 @@ from __future__ import unicode_literals
 
 import scrapy
 
+from .base import Base
+
 
 # Module API
 
-class Euctr(scrapy.Item):
+class Euctr(Base):
 
     # Plain value fields
 
@@ -168,7 +170,3 @@ class Euctr(scrapy.Item):
                 self.get('eudract_number'),
                 self.get('date_on_which_this_record_was_first_entered'))
         return text
-
-    def add_data(self, key, value):
-        if key in self.fields:
-            self[key] = value
