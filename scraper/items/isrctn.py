@@ -4,7 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import scrapy
+from scrapy import Field
 
 from .base import Base
 
@@ -13,64 +13,99 @@ from .base import Base
 
 class Isrctn(Base):
 
-    # Plain value fields
+    # General
 
-    isrctn_id = scrapy.Field()
-    last_edited = scrapy.Field()
-    scientific_title = scrapy.Field()
-    reason_abandoned = scrapy.Field()
-    participant_inclusion_criteria = scrapy.Field()
-    sponsor_details = scrapy.Field()
-    target_number_of_participants = scrapy.Field()
-    sponsor_type = scrapy.Field()
-    publication_summary = scrapy.Field()
-    participant_type = scrapy.Field()
-    funder_name = scrapy.Field()
-    clinicaltrials_gov_number = scrapy.Field()
-    primary_contact = scrapy.Field()
-    age_group = scrapy.Field()
-    participant_level_data = scrapy.Field()
-    intervention = scrapy.Field()
-    orcid_id = scrapy.Field()
-    participant_exclusion_criteria = scrapy.Field()
-    eudract_number = scrapy.Field()
-    results_basic_reporting = scrapy.Field()
-    organisation = scrapy.Field()
-    recruitment_start_date = scrapy.Field()
-    trial_setting = scrapy.Field()
-    study_hypothesis = scrapy.Field()
-    location = scrapy.Field()
-    intention_to_publish_date = scrapy.Field()
-    secondary_study_design = scrapy.Field()
-    type = scrapy.Field()
-    publication_and_dissemination_plan = scrapy.Field()
-    website = scrapy.Field()
-    contact_details = scrapy.Field()
-    trial_type = scrapy.Field()
-    acronym = scrapy.Field()
-    funding_body_type = scrapy.Field()
-    trial_participating_centre = scrapy.Field()
-    plain_english_summary = scrapy.Field()
-    protocol_serial_number = scrapy.Field()
-    overall_trial_start_date = scrapy.Field()
-    primary_study_design = scrapy.Field()
-    phase = scrapy.Field()
-    overall_trial_end_date = scrapy.Field()
-    condition = scrapy.Field()
-    trial_website = scrapy.Field()
-    ethics_approval = scrapy.Field()
-    study_design = scrapy.Field()
-    countries_of_recruitment = scrapy.Field()
-    intervention_type = scrapy.Field()
-    funder_type = scrapy.Field()
-    gender = scrapy.Field()
-    primary_outcome_measures = scrapy.Field()
-    recruitment_end_date = scrapy.Field()
-    drug_names = scrapy.Field()
-    secondary_outcome_measures = scrapy.Field()
-    patient_information_sheet = scrapy.Field()
-    funding_body_subtype = scrapy.Field()
-    alternative_name_s_ = scrapy.Field()
+    isrctn_id = Field()
+    title = Field()
+    condition_category = Field()
+    date_applied = Field(parser='_parse_date')
+    date_assigned = Field(parser='_parse_date')
+    last_edited = Field(parser='_parse_date')
+    prospective_retrospective = Field()
+    overall_trial_status = Field()
+    recruitement_status = Field()
+    plain_english_summary = Field()
+    trial_website = Field()
+
+    # Contant information
+
+    type = Field()
+    primary_contact = Field()
+    orcid_id = Field()
+    contact_details = Field()
+
+    # Additional identifiers
+
+    eudract_number = Field()
+    clinicaltrials_gov_number = Field()
+    protocol_serial_number = Field()
+
+    # Study information
+
+    scientific_title = Field()
+    acronym = Field()
+    study_hypothesis = Field()
+    ethics_approval = Field()
+    study_design = Field()
+    primary_study_design = Field()
+    secondary_study_design = Field()
+    trial_setting = Field()
+    trial_type = Field()
+    patient_information_sheet = Field()
+    condition = Field()
+    intervention = Field()
+    intervention_type = Field()
+    phase = Field()
+    drug_names = Field()
+    primary_outcome_measures = Field()
+    secondary_outcome_measures = Field()
+    overall_trial_start_date = Field()
+    overall_trial_end_date = Field()
+    reason_abandoned = Field()
+
+    # Eligability
+
+    participant_inclusion_criteria = Field()
+    participant_type = Field()
+    age_group = Field()
+    gender = Field()
+    target_number_of_participants = Field()
+    participant_exclusion_criteria = Field()
+    recruitment_start_date = Field()
+    recruitment_end_date = Field()
+
+    # Locations
+
+    countries_of_recruitment = Field()
+    trial_participating_centre = Field()
+
+    # Sponsor information
+
+    organisation = Field()
+    sponsor_details = Field()
+    sponsor_type = Field()
+    website = Field()
+
+    # Funders
+
+    funder_type = Field()
+    funder_name = Field()
+    alternative_name_s_ = Field()
+    funding_body_type = Field()
+    funding_body_subtype = Field()
+    location = Field()
+
+    # Result and publications
+
+    publication_and_dissemination_plan = Field()
+    intention_to_publish_date = Field()
+    participant_level_data = Field()
+    results_basic_reporting = Field()
+    publication_summary = Field()
+    publication_citations = Field()
+
+    # Additional files
+    # Editorial notes
 
     # Helpers
 
@@ -80,3 +115,9 @@ class Isrctn(Base):
                 self.get('isrctn_id'),
                 self.get('last_edited'))
         return text
+
+
+# Internal
+
+def _parse_date(value):
+    return value
