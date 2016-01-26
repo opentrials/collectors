@@ -1,5 +1,9 @@
 # NCT
 
+## Data Update Strategy
+
+## Scraper Overview
+
 ## Data model
 
 Analysis of NCT data model.
@@ -87,3 +91,7 @@ references
 results_references
 keywords
 ```
+
+## Primary Identifiers
+
+## License Terms
