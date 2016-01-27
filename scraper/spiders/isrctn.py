@@ -11,7 +11,7 @@ from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
 from .. import items
-from .. import helpers
+from .. import utils
 
 
 # Module API
@@ -42,10 +42,7 @@ class Isrctn(CrawlSpider):
     def parse_item(self, res):
 
         # Create item
-        item = items.Isrctn()
-
-        # Add system data
-        item.add_data('source', res.url)
+        item = items.Isrctn.create(source=res.url)
 
         # Add isrctn_id
         key = 'isrctn_id'
@@ -123,7 +120,7 @@ def _extract_definition_list(res, key_path, value_path):
             value = None
             elements = sel.xpath('text()').extract()
             if elements:
-                key = helpers.slugify(elements[0].strip())
+                key = utils.base.slugify(elements[0].strip())
         else:
             if key is not None:
                 value = None

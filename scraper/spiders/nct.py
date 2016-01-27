@@ -17,7 +17,6 @@ from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
 from .. import items
-from .. import helpers
 logger = logging.getLogger(__name__)
 
 
@@ -54,7 +53,7 @@ class Nct(CrawlSpider):
     def parse_item(self, res):
 
         # Create item
-        item = items.Nct()
+        item = items.Nct.create(source=res.url)
 
         # Extraction tools
         gtext = partial(_get_text, res)

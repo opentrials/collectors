@@ -13,7 +13,7 @@ from scrapy.linkextractors import LinkExtractor
 from six.moves.urllib.parse import urlparse, parse_qs
 
 from .. import items
-from .. import helpers
+from .. import utils
 
 
 # Module API
@@ -77,14 +77,14 @@ class Jprn(CrawlSpider):
     def parse_item(self, res):
 
         # Create item
-        item = items.Jprn()
+        item = items.Jprn.create(source=res.url)
 
         # Get meta
         for sel in res.xpath('//tr'):
             columns = sel.xpath('td')
             if len(columns) == 3:
                 key = ''.join(columns[0].xpath('.//text()').extract())
-                key = helpers.slugify(key.strip())
+                key = utils.base.slugify(key.strip())
                 value = ''.join(columns[2].xpath('.//text()').extract())
                 value = value.strip()
                 if key and value:
@@ -95,7 +95,7 @@ class Jprn(CrawlSpider):
             columns = sel.xpath('td')
             if len(columns) == 2:
                 key = ''.join(columns[0].xpath('.//text()').extract())
-                key = helpers.slugify(key.strip())
+                key = utils.base.slugify(key.strip())
                 value = ''.join(columns[0].xpath('.//text()').extract())
                 value = value.strip()
                 if key and value:

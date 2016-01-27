@@ -13,7 +13,7 @@ from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
 from .. import items
-from .. import helpers
+from .. import utils
 
 
 # Module API
@@ -47,7 +47,7 @@ class Euctr(CrawlSpider):
     def parse_item(self, res):
 
         # Create item
-        item = items.Euctr()
+        item = items.Euctr.create(source=res.url)
 
         # Get summary
         key = None
@@ -58,7 +58,7 @@ class Euctr(CrawlSpider):
                 value = None
                 elements = sel.xpath('text()').extract()
                 if elements:
-                    key = helpers.slugify(elements[0].strip())
+                    key = utils.base.slugify(elements[0].strip())
             else:
                 if key is not None:
                     value = None
@@ -77,7 +77,7 @@ class Euctr(CrawlSpider):
                 value = None
                 elements = sel.xpath('text()').extract()
                 if elements:
-                    key = helpers.slugify(elements[0].strip())
+                    key = utils.base.slugify(elements[0].strip())
             else:
                 if key is not None:
                     value = None

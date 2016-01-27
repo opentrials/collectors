@@ -24,7 +24,12 @@ class Database(object):
         pass
 
     def process_item(self, item, spider):
-        table = self.db.get_table(spider.name)
-        table.insert(item)
-        logger.info('Saved %s', item)
+        table = self.db.get_table(
+                spider.name,
+                primary_id=item.primary_key,
+                primary_type='String')
+        if table.find_one(**{item.primary_key: item[item.primary_key]}):
+            del item['created']
+        table.upsert(item, [item.primary_key], types=item.types)
+        logger.info('Saved item: %s', item)
         return item

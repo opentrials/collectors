@@ -4,9 +4,10 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import sqlalchemy as sa
 from scrapy import Field
-from datetime import datetime
 
+from .. import utils
 from .base import Base
 
 
@@ -14,21 +15,20 @@ from .base import Base
 
 class Isrctn(Base):
 
-    # System
+    # Config
 
-    source = Field()
-    created = Field()
-    modified = Field()
+    primary_key = 'isrctn_id'
+    updated_key = 'last_edited'
 
     # General
 
-    isrctn_id = Field(primary_key=True)
+    isrctn_id = Field()
     doi_isrctn_id = Field()
     title = Field()
     condition_category = Field()
-    date_applied = Field(parser='_parse_date')
-    date_assigned = Field(parser='_parse_date')
-    last_edited = Field(parser='_parse_date')
+    date_applied = Field(parser=utils.isrctn.parse_date, type=sa.Date)
+    date_assigned = Field(parser=utils.isrctn.parse_date, type=sa.Date)
+    last_edited = Field(parser=utils.isrctn.parse_date, type=sa.Date)
     prospective_retrospective = Field()
     overall_trial_status = Field()
     recruitement_status = Field()
@@ -113,19 +113,9 @@ class Isrctn(Base):
     publication_citations = Field()
 
     # Additional files
+
+    # ...
+
     # Editorial notes
 
-    # Helpers
-
-    def __repr__(self):
-        template = '<ISCTN: %s [%s]>'
-        text = template % (
-                self.get('isrctn_id'),
-                self.get('last_edited'))
-        return text
-
-
-# Internal
-
-def _parse_date(value):
-    return datetime.datetime.strptime(value, "%d/%m/%Y")
+    # ...
