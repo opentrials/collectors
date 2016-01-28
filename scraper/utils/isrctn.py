@@ -50,15 +50,15 @@ def extract_definition_list(res, key_path, value_path):
         if sel.css(key_path):
             key = None
             value = None
-            elements = sel.xpath('text()').extract()
-            if elements:
-                key = base.slugify(elements[0].strip())
+            texts = sel.xpath('.//text()').extract()
+            if texts:
+                key = base.slugify(' '.join(texts).strip())
         else:
             if key is not None:
                 value = None
-                elements = sel.xpath('text()').extract()
-                if elements:
-                    value = elements[0].strip()
+                texts = sel.xpath('.//text()').extract()
+                if texts:
+                    value = ' '.join(texts).strip()
         if key and value:
             data[key] = value
     return data
