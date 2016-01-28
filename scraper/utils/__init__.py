@@ -10,3 +10,4 @@ from . import base
 from . import euctr
 from . import isrctn
 from . import jprn
+from . import nct

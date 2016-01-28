@@ -13,6 +13,11 @@ from .base import Base
 
 class Nct(Base):
 
+    # Config
+
+    primary_key = 'nct_id'
+    updated_key = 'lastchanged_date'
+
     # Plain value fields
 
     download_date = Field()
