@@ -161,16 +161,3 @@ class Euctr(Base):
     # ethics_committee_opinion_reason_s_for_unfavourable_opinion = Field()
     # date_of_ethics_committee_opinion = Field()
     # end_of_trial_status = Field()
-
-    # Methods
-
-    def __repr__(self):
-        template = '<EUCTR: %s [%s]>'
-        text = template % (
-                self.get('eudract_number'),
-                self.get('date_on_which_this_record_was_first_entered'))
-        return text
-
-    @property
-    def item_id(self):
-        return self.get('eudract_number')

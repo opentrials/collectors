@@ -38,14 +38,14 @@ class Jprn(CrawlSpider):
         self.__page_to = page_to
 
         # Make start urls
-        self.start_urls = _make_start_urls(
-                base='https://upload.umin.ac.jp/cgi-open-bin/ctr/ctr.cgi',
+        self.start_urls = utils.jprn.make_start_urls(
+                prefix='https://upload.umin.ac.jp/cgi-open-bin/ctr/ctr.cgi',
                 page_from=page_from)
 
         # Make rules
         self.rules = [
             Rule(LinkExtractor(
-                allow=_make_pattern('cgi-open-bin/ctr/ctr.cgi'),
+                allow=utils.jprn.make_pattern('cgi-open-bin/ctr/ctr.cgi'),
                 process_value=self.process_url,
             )),
             Rule(
@@ -102,25 +102,3 @@ class Jprn(CrawlSpider):
                     item.add_data(key, value)
 
         return item
-
-
-# Internal
-
-def _make_start_urls(base, page_from=None):
-    """ Return start_urls.
-    """
-    if page_from is None:
-        page_from = '1'
-    query = OrderedDict()
-    query['_page'] = page_from
-    query['sort'] = '05'
-    query['function'] = 'search'
-    query['action'] = 'list'
-    query['language'] = 'E'
-    return [base + '?' + urlencode(query)]
-
-
-def _make_pattern(base):
-    """ Return pattern.
-    """
-    return base + r'\?_page=\d+'

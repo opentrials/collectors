@@ -13,6 +13,11 @@ from .base import Base
 
 class Jprn(Base):
 
+    # Config
+
+    primary_key = 'unique_trial_number'
+    updated_key = 'date_and_time_of_last_update'
+
     # Plain value fields
 
     recruitment_status = Field()
@@ -105,16 +110,3 @@ class Jprn(Base):
     date_of_last_update = Field()
     urljapanese = Field()
     urlenglish = Field()
-
-    # Methods
-
-    def __repr__(self):
-        template = '<JPRN: %s [%s]>'
-        text = template % (
-                self.get('unique_trial_number'),
-                self.get('date_and_time_of_last_update'))
-        return text
-
-    @property
-    def item_id(self):
-        return self.get('unique_trial_number')

@@ -8,3 +8,4 @@ from __future__ import unicode_literals
 from . import base
 from . import actrn
 from . import isrctn
+from . import jprn

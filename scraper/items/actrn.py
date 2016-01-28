@@ -47,16 +47,3 @@ class Actrn(Base):
     country = Field()
     phone = Field()
     email = Field()
-
-    # Helpers
-
-    def __repr__(self):
-        template = '<ACTRN: %s [%s]>'
-        text = template % (
-                self.get('trial_id'),
-                self.get('date_registered'))
-        return text
-
-    @property
-    def item_id(self):
-        return self.get('trial_id')

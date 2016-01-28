@@ -80,16 +80,3 @@ class Nct(Base):
     references = Field()
     results_references = Field()
     keywords = Field()
-
-    # Methods
-
-    def __repr__(self):
-        template = '<NCT: %s [%s]>'
-        text = template % (
-                self.get('nct_id'),
-                self.get('lastchanged_date'))
-        return text
-
-    @property
-    def item_id(self):
-        return self.get('nct_id')
