@@ -6,4 +6,5 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from . import base
+from . import actrn
 from . import isrctn

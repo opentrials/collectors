@@ -13,6 +13,11 @@ from .base import Base
 
 class Actrn(Base):
 
+    # Config
+
+    primary_key = 'trial_id'
+    updated_key = 'date_registered'
+
     # Plain value fields
 
     trial_id = Field()
