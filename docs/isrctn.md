@@ -6,11 +6,26 @@ The ISRCTN registry is a primary clinical trial registry recognised by WHO and I
 
 ## Source Data Model
 
+Data could be accessed thru the web interface.
+Example - http://www.isrctn.com/ISRCTN13619480.
+Data is moving to the warehouse as it is with additional type casting.
+See the next section for more details.
+
 ## Warehouse Data Model
+
+See item definition for the full data model:
+
+https://github.com/opentrials/scraper/blob/master/scraper/items/isrctn.py
 
 ## Primary Identifiers
 
+Trial identifier: `isrctn_id`
+
 ## Data Update Strategy
+
+Trials could be serched with `last_edited` filter.
+After initial scraping we should use the last 2 days searches
+to stay up to date (`recent` stack).
 
 ## License Terms
 
