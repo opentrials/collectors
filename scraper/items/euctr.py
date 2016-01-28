@@ -14,6 +14,11 @@ from .base import Base
 
 class Euctr(Base):
 
+    # Config
+
+    primary_key = 'eudract_number'
+    updated_key = 'date_on_which_this_record_was_first_entered'
+
     # Plain value fields
 
     date_on_which_this_record_was_first_entered = Field()
