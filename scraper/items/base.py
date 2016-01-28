@@ -22,12 +22,12 @@ class Base(Item):
     def create(cls, source, *args, **kwargs):
         self = cls(*args, **kwargs)
         timestamp = datetime.utcnow()
-        self.fields['source'] = Field()
-        self.fields['created'] = Field(type=sa.DateTime(timezone=True))
-        self.fields['updated'] = Field(type=sa.DateTime(timezone=True))
-        self.add_data('source', source)
-        self.add_data('created', timestamp)
-        self.add_data('updated', timestamp)
+        self.fields['meta_source'] = Field()
+        self.fields['meta_created'] = Field(type=sa.DateTime(timezone=True))
+        self.fields['meta_updated'] = Field(type=sa.DateTime(timezone=True))
+        self.add_data('meta_source', source)
+        self.add_data('meta_created', timestamp)
+        self.add_data('meta_updated', timestamp)
         return self
 
     def __repr__(self):
