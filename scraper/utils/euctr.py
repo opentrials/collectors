@@ -8,6 +8,8 @@ from urllib import urlencode
 from collections import OrderedDict
 from datetime import date, timedelta
 
+from . import base
+
 
 # Module API
 
@@ -31,3 +33,27 @@ def make_pattern(prefix):
     pattern = prefix
     pattern += r'\?query=&dateFrom=[^&]&dateTo=[^&]&page=\d+'
     return pattern
+
+
+def extract_definition_list(res, key_path, value_path):
+    """Extract data from title-paragraph like html.
+    """
+    data = {}
+    key = None
+    value = None
+    for sel in res.css('%s, %s' % (key_path, value_path)):
+        if sel.css(key_path):
+            key = None
+            value = None
+            elements = sel.xpath('text()').extract()
+            if elements:
+                key = base.slugify(elements[0].strip())
+        else:
+            if key is not None:
+                value = None
+                elements = sel.xpath('text()').extract()
+                if elements:
+                    value = elements[0].strip()
+        if key and value:
+            data[key] = value
+    return data

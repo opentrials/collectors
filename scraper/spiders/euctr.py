@@ -49,42 +49,18 @@ class Euctr(CrawlSpider):
         # Create item
         item = items.Euctr.create(source=res.url)
 
-        # Get summary
-        key = None
-        value = None
-        for sel in res.css('.cellGrey, .cellGrey+.cellLighterGrey'):
-            if sel.css('.cellGrey'):
-                key = None
-                value = None
-                elements = sel.xpath('text()').extract()
-                if elements:
-                    key = utils.base.slugify(elements[0].strip())
-            else:
-                if key is not None:
-                    value = None
-                    elements = sel.xpath('text()').extract()
-                    if elements:
-                        value = elements[0].strip()
-            if key and value:
-                item.add_data(key, value)
+        # Add summary
+        key_path = '.cellGrey'
+        value_path = '.cellGrey+.cellLighterGrey'
+        data = utils.euctr.extract_definition_list(res, key_path, value_path)
+        for key, value in data.items():
+            item.add_data(key, value)
 
-        # Get data
-        key = None
-        value = None
-        for sel in res.css('.second, .second+.third'):
-            if sel.css('.second'):
-                key = None
-                value = None
-                elements = sel.xpath('text()').extract()
-                if elements:
-                    key = utils.base.slugify(elements[0].strip())
-            else:
-                if key is not None:
-                    value = None
-                    elements = sel.xpath('text()').extract()
-                    if elements:
-                        value = elements[0].strip()
-            if key and value:
-                item.add_data(key, value)
+        # Add data
+        key_path = '.second'
+        value_path = '.second+.third'
+        data = utils.euctr.extract_definition_list(res, key_path, value_path)
+        for key, value in data.items():
+            item.add_data(key, value)
 
         return item
