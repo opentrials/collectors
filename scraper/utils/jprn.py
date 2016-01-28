@@ -7,6 +7,8 @@ from __future__ import unicode_literals
 from urllib import urlencode
 from collections import OrderedDict
 
+from . import base
+
 
 # Module API
 
@@ -28,3 +30,19 @@ def make_pattern(prefix):
     """ Return pattern.
     """
     return prefix + r'\?_page=\d+'
+
+
+def extract_table(res, key_index, value_index):
+    """Extract data from tabular structure.
+    """
+    data = {}
+    for sel in res.xpath('//tr'):
+        columns = sel.xpath('td')
+        if len(columns) == value_index+1:
+            key = ''.join(columns[key_index].xpath('.//text()').extract())
+            key = base.slugify(key.strip())
+            value = ''.join(columns[value_index].xpath('.//text()').extract())
+            value = value.strip()
+            if key and value:
+                data[key] = value
+    return data

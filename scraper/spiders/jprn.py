@@ -80,25 +80,13 @@ class Jprn(CrawlSpider):
         item = items.Jprn.create(source=res.url)
 
         # Get meta
-        for sel in res.xpath('//tr'):
-            columns = sel.xpath('td')
-            if len(columns) == 3:
-                key = ''.join(columns[0].xpath('.//text()').extract())
-                key = utils.base.slugify(key.strip())
-                value = ''.join(columns[2].xpath('.//text()').extract())
-                value = value.strip()
-                if key and value:
-                    item.add_data(key, value)
+        data = utils.jprn.extract_table(res, key_index=0, value_index=2)
+        for key, value in data.items():
+            item.add_data(key, value)
 
         # Get data
-        for sel in res.xpath('//tr'):
-            columns = sel.xpath('td')
-            if len(columns) == 2:
-                key = ''.join(columns[0].xpath('.//text()').extract())
-                key = utils.base.slugify(key.strip())
-                value = ''.join(columns[0].xpath('.//text()').extract())
-                value = value.strip()
-                if key and value:
-                    item.add_data(key, value)
+        data = utils.jprn.extract_table(res, key_index=0, value_index=1)
+        for key, value in data.items():
+            item.add_data(key, value)
 
         return item
