@@ -29,7 +29,7 @@ class Isrctn(Base):
     date_applied = Field(parser=utils.isrctn.parse_date, type=sa.Date)
     date_assigned = Field(parser=utils.isrctn.parse_date, type=sa.Date)
     last_edited = Field(parser=utils.isrctn.parse_date, type=sa.Date)
-    prospective_retrospective = Field()
+    prospectiveretrospective = Field()
     overall_trial_status = Field()
     recruitement_status = Field()
     plain_english_summary = Field()
@@ -39,14 +39,15 @@ class Isrctn(Base):
 
     type = Field()
     primary_contact = Field()
+    additional_contact = Field()
     orcid_id = Field()
     contact_details = Field()
 
     # Additional identifiers
 
     eudract_number = Field()
-    clinicaltrials_gov_number = Field()
-    protocol_serial_number = Field()
+    clinicaltrialsgov_number = Field()
+    protocolserial_number = Field()
 
     # Study information
 
@@ -98,7 +99,7 @@ class Isrctn(Base):
 
     funder_type = Field()
     funder_name = Field()
-    alternative_name_s_ = Field()
+    alternative_names = Field()
     funding_body_type = Field()
     funding_body_subtype = Field()
     location = Field()

@@ -4,11 +4,14 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import logging
 import sqlalchemy as sa
 from six import add_metaclass
 from datetime import datetime
 from scrapy import Item, Field
 from abc import ABCMeta, abstractmethod
+
+logger = logging.getLogger(__name__)
 
 
 # Module API
@@ -71,3 +74,5 @@ class Base(Item):
             if parser is not None:
                 value = parser(value)
             self[key] = value
+        else:
+            logger.debug('Missed data: %s: %s=%s' % (self, key, value))
