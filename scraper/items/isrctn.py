@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylama:skip=1
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -68,8 +69,8 @@ class Isrctn(Base):
     drug_names = Field()
     primary_outcome_measures = Field()
     secondary_outcome_measures = Field()
-    overall_trial_start_date = Field()
-    overall_trial_end_date = Field()
+    overall_trial_start_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
+    overall_trial_end_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
     reason_abandoned = Field()
 
     # Eligability
@@ -80,8 +81,8 @@ class Isrctn(Base):
     gender = Field()
     target_number_of_participants = Field()
     participant_exclusion_criteria = Field()
-    recruitment_start_date = Field()
-    recruitment_end_date = Field()
+    recruitment_start_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
+    recruitment_end_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
 
     # Locations
 
@@ -107,7 +108,7 @@ class Isrctn(Base):
     # Result and publications
 
     publication_and_dissemination_plan = Field()
-    intention_to_publish_date = Field()
+    intention_to_publish_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
     participant_level_data = Field()
     results_basic_reporting = Field()
     publication_summary = Field()
