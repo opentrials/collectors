@@ -39,7 +39,7 @@ OpenTrials scraper for all trial registers.
 ## Design Overview
 
 Terminology:
-- scraper - Scrapy project (the core python package).
+- scraper - Scrapy project (the core python package)
 - spider - object with rules and extractors to scrape concrete register
 - item - dictionary based on data model with scraped data for register
 - pipeline - item processor (like store item in database)
@@ -72,6 +72,8 @@ update warehouse to stay up to date could be used:
 Warehouse is a database to store scraped data:
 - table per register
 - fields are typed when possible
+- as primary keys trial identifiers is used
+- meta data: created(timestamp), updated(timestam), source (url)
 
 ### Deployment
 
