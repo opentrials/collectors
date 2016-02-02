@@ -5,6 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import re
+from datetime import datetime
 
 
 # Module API
@@ -17,3 +18,9 @@ def slugify(name):
     name = re.sub(r'[^\w]+', '', name)
     name = '_'.join(name.split('_')[:8])
     return name
+
+
+def parse_date(value, format):
+    """Parse sting date.
+    """
+    return datetime.strptime(value, format).date()

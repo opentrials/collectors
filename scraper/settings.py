@@ -10,7 +10,13 @@ import os
 # Spiders
 
 NEWSPIDER_MODULE = 'scraper.spiders'
-SPIDER_MODULES = ['scraper.spiders']
+SPIDER_MODULES = [
+    'scraper.spiders.actrn',
+    'scraper.spiders.euctr',
+    'scraper.spiders.isrctn',
+    'scraper.spiders.jprn',
+    'scraper.spiders.nct',
+]
 
 # Pipelines
 

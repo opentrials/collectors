@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 import dataset
 import logging
 
-from .. import settings
+from . import settings
 logger = logging.getLogger(__name__)
 
 

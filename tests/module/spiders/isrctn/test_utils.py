@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from importlib import import_module
-module = import_module('scraper.utils.isrctn')
+module = import_module('scraper.spiders.isrctn.utils')
 
 
 def test_make_start_urls():

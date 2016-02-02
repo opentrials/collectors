@@ -4,11 +4,11 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import scrapy
 import logging
 import sqlalchemy as sa
 from six import add_metaclass
 from datetime import datetime
-from scrapy import Item, Field
 from abc import ABCMeta, abstractmethod
 
 logger = logging.getLogger(__name__)
@@ -17,29 +17,38 @@ logger = logging.getLogger(__name__)
 # Module API
 
 @add_metaclass(ABCMeta)
-class Base(Item):
+class Item(scrapy.Item):
 
     # Public
 
     @classmethod
-    def create(cls, source, *args, **kwargs):
-        self = cls(*args, **kwargs)
+    def create(cls, source, **kwargs):
+        self = cls(**kwargs)
         timestamp = datetime.utcnow()
-        self.fields['meta_source'] = Field()
-        self.fields['meta_created'] = Field(type=sa.DateTime(timezone=True))
-        self.fields['meta_updated'] = Field(type=sa.DateTime(timezone=True))
-        self.add_data('meta_source', source)
-        self.add_data('meta_created', timestamp)
-        self.add_data('meta_updated', timestamp)
+        self.fields['meta_source'] = scrapy.Field()
+        self.fields['meta_created'] = scrapy.Field(
+                type=sa.DateTime(timezone=True))
+        self.fields['meta_updated'] = scrapy.Field(
+                type=sa.DateTime(timezone=True))
+        self.add_data({'meta_source': source})
+        self.add_data({'meta_created': timestamp})
+        self.add_data({'meta_updated': timestamp})
         return self
 
     def __repr__(self):
         template = '<%s: %s [%s]>'
         text = template % (
-                type(self).__name__.upper(),
+                self.table.upper(),
                 self.get(self.primary_key),
                 self.get(self.updated_key))
         return text
+
+    @property
+    @abstractmethod
+    def table(self):
+        """Source name.
+        """
+        pass  # pragma: no cover
 
     @property
     @abstractmethod
@@ -65,14 +74,12 @@ class Base(Item):
             types[key] = type
         return types
 
-    def add_data(self, key, value):
-        """Save field value.
+    def add_data(self, data):
+        """Add data to item.
         """
-        field = self.fields.get(key)
-        if field is not None:
-            parser = field.get('parser')
-            if parser is not None:
-                value = parser(value)
+        for key, value in data.items():
+            field = self.fields.get(key)
+            if field is None:
+                logger.debug('Missed data: %s: %s=%s' % (self, key, value))
+                continue
             self[key] = value
-        else:
-            logger.debug('Missed data: %s: %s=%s' % (self, key, value))

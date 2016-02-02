@@ -7,12 +7,12 @@ from __future__ import unicode_literals
 
 from scrapy import Field
 
-from .base import Base
+from .. import base
 
 
 # Module API
 
-class Euctr(Base):
+class Item(base.Item):
 
     # Config
 

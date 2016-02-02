@@ -4,16 +4,18 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from scrapy.spiders import CrawlSpider, Rule
+from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 
-from .. import items
-from .. import utils
+from .. import base
+from . import utils
+from .item import Item
+from .mapper import Mapper
 
 
 # Module API
 
-class Isrctn(CrawlSpider):
+class Spider(base.Spider):
 
     # Public
 
@@ -22,55 +24,61 @@ class Isrctn(CrawlSpider):
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
+        # Create mapper
+        self.mapper = Mapper()
+
         # Make start urls
-        self.start_urls = utils.isrctn.make_start_urls(
+        self.start_urls = utils.make_start_urls(
                 prefix='http://www.isrctn.com/search',
                 date_from=date_from, date_to=date_to)
 
         # Make rules
         self.rules = [
-            Rule(LinkExtractor(allow=utils.isrctn.make_pattern('search'))),
+            Rule(LinkExtractor(allow=utils.make_pattern('search'))),
             Rule(LinkExtractor(allow=r'ISRCTN\d+'), callback='parse_item'),
         ]
 
         # Inherit parent
-        super(Isrctn, self).__init__(*args, **kwargs)
+        super(Spider, self).__init__(*args, **kwargs)
 
     def parse_item(self, res):
 
-        # Create item
-        item = items.Isrctn.create(source=res.url)
+        # Init data
+        data = {}
 
         # Add isrctn_id
         key = 'isrctn_id'
         path = '.ComplexTitle_primary::text'
         value = res.css(path).extract_first()
-        item.add_data(key, value)
+        data[key] = value
 
         # Add doi_isrctn_id
         key = 'doi_isrctn_id'
         path = '.ComplexTitle_secondary::text'
         value = res.css(path).extract_first()
-        item.add_data(key, value)
+        data[key] = value
 
         # Add title
         key = 'title'
         path = '//h1/text()'
         value = res.xpath(path).extract_first()
-        item.add_data(key, value)
+        data[key] = value
 
         # Add meta data
         key_path = '.Meta_name'
         value_path = '.Meta_name+.Meta_value'
-        data = utils.isrctn.extract_definition_list(res, key_path, value_path)
-        for key, value in data.items():
-            item.add_data(key, value)
+        subdata = utils.extract_definition_list(res, key_path, value_path)
+        data.update(subdata)
 
         # Add main data
         key_path = '.Info_section_title'
         value_path = '.Info_section_title+p'
-        data = utils.isrctn.extract_definition_list(res, key_path, value_path)
-        for key, value in data.items():
-            item.add_data(key, value)
+        subdata = utils.extract_definition_list(res, key_path, value_path)
+        data.update(subdata)
+
+        # Create item, map and add data
+        item = Item.create(source=res.url)
+        data = self.mapper.map_data(data)
+        item.add_data(data)
 
         return item

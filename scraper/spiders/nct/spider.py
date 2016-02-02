@@ -9,13 +9,14 @@ from functools import partial
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
-from .. import items
-from .. import utils
+from .. import base
+from . import utils
+from .item import Item
 
 
 # Module API
 
-class Nct(CrawlSpider):
+class Spider(base.Spider):
 
     # Public
 
@@ -25,14 +26,14 @@ class Nct(CrawlSpider):
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
         # Make start urls
-        self.start_urls = utils.nct.make_start_urls(
+        self.start_urls = utils.make_start_urls(
                 prefix='https://www.clinicaltrials.gov/ct2/results',
                 date_from=date_from, date_to=date_to)
 
         # Make rules
         self.rules = [
             Rule(LinkExtractor(
-                allow=utils.nct.make_pattern('ct2/results'),
+                allow=utils.make_pattern('ct2/results'),
             )),
             Rule(LinkExtractor(
                 allow=r'ct2/show/NCT\d+',
@@ -41,17 +42,17 @@ class Nct(CrawlSpider):
         ]
 
         # Inherit parent
-        super(Nct, self).__init__(*args, **kwargs)
+        super(Spider, self).__init__(*args, **kwargs)
 
     def parse_item(self, res):
 
         # Create item
-        item = items.Nct.create(source=res.url)
+        item = Item.create(source=res.url)
 
         # Extraction tools
-        gtext = partial(utils.nct.get_text, res)
-        gdict = partial(utils.nct.get_dict, res)
-        glist = partial(utils.nct.get_list, res)
+        gtext = partial(utils.get_text, res)
+        gdict = partial(utils.get_dict, res)
+        glist = partial(utils.get_list, res)
 
         # Plain value fields
         item['download_date'] = gtext('required_header/download_date')

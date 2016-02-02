@@ -8,13 +8,14 @@ from __future__ import unicode_literals
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
-from .. import items
-from .. import utils
+from .. import base
+from . import utils
+from .item import Item
 
 
 # Module API
 
-class Actrn(CrawlSpider):
+class Spider(base.Spider):
 
     # Public
 
@@ -24,13 +25,13 @@ class Actrn(CrawlSpider):
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
         # Make start urls
-        self.start_urls = utils.actrn.make_start_urls(
+        self.start_urls = utils.make_start_urls(
                 prefix='http://www.anzctr.org.au/TrialSearch.aspx',
                 date_from=date_from, date_to=date_to)
 
         # Make rules
         self.rules = [
-            Rule(LinkExtractor(allow=utils.actrn.make_pattern('TrialSearch.aspx'))),
+            Rule(LinkExtractor(allow=utils.make_pattern('TrialSearch.aspx'))),
             Rule(
                 LinkExtractor(
                     allow=r'Trial/Registration/TrialReview.aspx',
@@ -41,17 +42,17 @@ class Actrn(CrawlSpider):
         ]
 
         # Inherit parent
-        super(Actrn, self).__init__(*args, **kwargs)
+        super(Spider, self).__init__(*args, **kwargs)
 
     def parse_item(self, res):
 
         # Create item
-        item = items.Actrn.create(source=res.url)
+        item = Item.create(source=res.url)
 
         # Add main data
         key_path = '.review-element-name'
         value_path = '.review-element-content'
-        data = utils.actrn.extract_definition_list(res, key_path, value_path)
+        data = utils.extract_definition_list(res, key_path, value_path)
         for key, value in data.items():
             item.add_data(key, value)
 

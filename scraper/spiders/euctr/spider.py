@@ -12,13 +12,14 @@ from collections import OrderedDict
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
-from .. import items
-from .. import utils
+from .. import base
+from . import utils
+from .item import Item
 
 
 # Module API
 
-class Euctr(CrawlSpider):
+class Spider(base.Spider):
 
     # Public
 
@@ -28,13 +29,13 @@ class Euctr(CrawlSpider):
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
         # Make start urls
-        self.start_urls = utils.euctr.make_start_urls(
+        self.start_urls = utils.make_start_urls(
                 prefix='https://www.clinicaltrialsregister.eu/ctr-search/search',
                 date_from=date_from, date_to=date_to)
 
         # Make rules
         self.rules = [
-            Rule(LinkExtractor(allow=utils.euctr.make_pattern('ctr-search/search'))),
+            Rule(LinkExtractor(allow=utils.make_pattern('ctr-search/search'))),
             Rule(
                 LinkExtractor(allow=r'ctr-search/trial/[\d-]+/[\w]+'),
                 callback='parse_item'
@@ -42,24 +43,24 @@ class Euctr(CrawlSpider):
         ]
 
         # Inherit parent
-        super(Euctr, self).__init__(*args, **kwargs)
+        super(Spider, self).__init__(*args, **kwargs)
 
     def parse_item(self, res):
 
         # Create item
-        item = items.Euctr.create(source=res.url)
+        item = Item.create(source=res.url)
 
         # Add summary
         key_path = '.cellGrey'
         value_path = '.cellGrey+.cellLighterGrey'
-        data = utils.euctr.extract_definition_list(res, key_path, value_path)
+        data = utils.extract_definition_list(res, key_path, value_path)
         for key, value in data.items():
             item.add_data(key, value)
 
         # Add data
         key_path = '.second'
         value_path = '.second+.third'
-        data = utils.euctr.extract_definition_list(res, key_path, value_path)
+        data = utils.extract_definition_list(res, key_path, value_path)
         for key, value in data.items():
             item.add_data(key, value)
 

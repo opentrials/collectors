@@ -8,16 +8,16 @@ from __future__ import unicode_literals
 import sqlalchemy as sa
 from scrapy import Field
 
-from .. import utils
-from .base import Base
+from .. import base
 
 
 # Module API
 
-class Isrctn(Base):
+class Item(base.Item):
 
     # Config
 
+    table = 'isrctn'
     primary_key = 'isrctn_id'
     updated_key = 'last_edited'
 
@@ -27,9 +27,9 @@ class Isrctn(Base):
     doi_isrctn_id = Field()
     title = Field()
     condition_category = Field()
-    date_applied = Field(parser=utils.isrctn.parse_date, type=sa.Date)
-    date_assigned = Field(parser=utils.isrctn.parse_date, type=sa.Date)
-    last_edited = Field(parser=utils.isrctn.parse_date, type=sa.Date)
+    date_applied = Field(type=sa.Date)
+    date_assigned = Field(type=sa.Date)
+    last_edited = Field(type=sa.Date)
     prospectiveretrospective = Field()
     overall_trial_status = Field()
     recruitement_status = Field()
@@ -69,8 +69,8 @@ class Isrctn(Base):
     drug_names = Field()
     primary_outcome_measures = Field()
     secondary_outcome_measures = Field()
-    overall_trial_start_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
-    overall_trial_end_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
+    overall_trial_start_date = Field(type=sa.Date)
+    overall_trial_end_date = Field(type=sa.Date)
     reason_abandoned = Field()
 
     # Eligability
@@ -81,8 +81,8 @@ class Isrctn(Base):
     gender = Field()
     target_number_of_participants = Field()
     participant_exclusion_criteria = Field()
-    recruitment_start_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
-    recruitment_end_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
+    recruitment_start_date = Field(type=sa.Date)
+    recruitment_end_date = Field(type=sa.Date)
 
     # Locations
 
@@ -108,7 +108,7 @@ class Isrctn(Base):
     # Result and publications
 
     publication_and_dissemination_plan = Field()
-    intention_to_publish_date = Field(parser=utils.isrctn.parse_date, type=sa.Date)
+    intention_to_publish_date = Field(type=sa.Date)
     participant_level_data = Field()
     results_basic_reporting = Field()
     publication_summary = Field()

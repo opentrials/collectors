@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 from urllib import urlencode
 from collections import OrderedDict
 
-from . import base
+from .. import base
 
 
 # Module API
@@ -40,7 +40,7 @@ def extract_table(res, key_index, value_index):
         columns = sel.xpath('td')
         if len(columns) == value_index+1:
             key = ''.join(columns[key_index].xpath('.//text()').extract())
-            key = base.slugify(key.strip())
+            key = base.utils.slugify(key.strip())
             value = ''.join(columns[value_index].xpath('.//text()').extract())
             value = value.strip()
             if key and value:

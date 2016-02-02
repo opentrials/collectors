@@ -8,7 +8,7 @@ from urllib import urlencode
 from collections import OrderedDict
 from datetime import date, timedelta
 
-from . import base
+from .. import base
 
 
 # Module API
@@ -21,9 +21,13 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     if date_to is None:
         date_to = str(date.today())
     query = OrderedDict()
-    query['query'] = ''
-    query['dateFrom'] = date_from
-    query['dateTo'] = date_to
+    query['q'] = ''
+    gtle = 'GT lastEdited:%sT00:00:00.000Z' % date_from
+    lele = 'LE lastEdited:%sT00:00:00.000Z' % date_to
+    query['filters'] = ','.join([gtle, lele])
+    query['page'] = '1'
+    query['pageSize'] = '100'
+    query['searchType'] = 'advanced-search'
     return [prefix + '?' + urlencode(query)]
 
 
@@ -31,7 +35,8 @@ def make_pattern(prefix):
     """ Return pattern.
     """
     pattern = prefix
-    pattern += r'\?query=&dateFrom=[^&]&dateTo=[^&]&page=\d+'
+    pattern += r'\?q=&filters=[^&]+&page=\d+&'
+    pattern += r'pageSize=100&searchType=advanced-search$'
     return pattern
 
 
@@ -45,15 +50,15 @@ def extract_definition_list(res, key_path, value_path):
         if sel.css(key_path):
             key = None
             value = None
-            elements = sel.xpath('text()').extract()
-            if elements:
-                key = base.slugify(elements[0].strip())
+            texts = sel.xpath('.//text()').extract()
+            if texts:
+                key = base.utils.slugify(' '.join(texts).strip())
         else:
             if key is not None:
                 value = None
-                elements = sel.xpath('text()').extract()
-                if elements:
-                    value = elements[0].strip()
+                texts = sel.xpath('.//text()').extract()
+                if texts:
+                    value = ' '.join(texts).strip()
         if key and value:
             data[key] = value
     return data

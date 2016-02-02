@@ -12,13 +12,14 @@ from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from six.moves.urllib.parse import urlparse, parse_qs
 
-from .. import items
-from .. import utils
+from .. import base
+from . import utils
+from .item import Item
 
 
 # Module API
 
-class Jprn(CrawlSpider):
+class Spider(base.Spider):
 
     # Public
 
@@ -38,14 +39,14 @@ class Jprn(CrawlSpider):
         self.__page_to = page_to
 
         # Make start urls
-        self.start_urls = utils.jprn.make_start_urls(
+        self.start_urls = utils.make_start_urls(
                 prefix='https://upload.umin.ac.jp/cgi-open-bin/ctr/ctr.cgi',
                 page_from=page_from)
 
         # Make rules
         self.rules = [
             Rule(LinkExtractor(
-                allow=utils.jprn.make_pattern('cgi-open-bin/ctr/ctr.cgi'),
+                allow=utils.make_pattern('cgi-open-bin/ctr/ctr.cgi'),
                 process_value=self.process_url,
             )),
             Rule(
@@ -55,7 +56,7 @@ class Jprn(CrawlSpider):
         ]
 
         # Inherit parent
-        super(Jprn, self).__init__(*args, **kwargs)
+        super(Spider, self).__init__(*args, **kwargs)
 
     def process_url(self, url):
 
@@ -77,15 +78,15 @@ class Jprn(CrawlSpider):
     def parse_item(self, res):
 
         # Create item
-        item = items.Jprn.create(source=res.url)
+        item = Item.create(source=res.url)
 
         # Get meta
-        data = utils.jprn.extract_table(res, key_index=0, value_index=2)
+        data = utils.extract_table(res, key_index=0, value_index=2)
         for key, value in data.items():
             item.add_data(key, value)
 
         # Get data
-        data = utils.jprn.extract_table(res, key_index=0, value_index=1)
+        data = utils.extract_table(res, key_index=0, value_index=1)
         for key, value in data.items():
             item.add_data(key, value)
 

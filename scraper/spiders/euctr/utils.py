@@ -6,9 +6,9 @@ from __future__ import unicode_literals
 
 from urllib import urlencode
 from collections import OrderedDict
-from datetime import datetime, date, timedelta
+from datetime import date, timedelta
 
-from . import base
+from .. import base
 
 
 # Module API
@@ -21,20 +21,18 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     if date_to is None:
         date_to = str(date.today())
     query = OrderedDict()
-    date_from = datetime.strptime(date_from, '%Y-%m-%d').strftime('%d/%m/%Y')
-    date_to = datetime.strptime(date_to, '%Y-%m-%d').strftime('%d/%m/%Y')
-    query['searchTxt'] = ''
-    query['dateOfRegistrationFrom'] = date_from
-    query['dateOfRegistrationTo'] = date_to
-    query['registry'] = 'ANZCTR'
-    query['isBasic'] = 'False'
+    query['query'] = ''
+    query['dateFrom'] = date_from
+    query['dateTo'] = date_to
     return [prefix + '?' + urlencode(query)]
 
 
 def make_pattern(prefix):
     """ Return pattern.
     """
-    return prefix + r'.*&page=\d+'
+    pattern = prefix
+    pattern += r'\?query=&dateFrom=[^&]&dateTo=[^&]&page=\d+'
+    return pattern
 
 
 def extract_definition_list(res, key_path, value_path):
@@ -49,11 +47,11 @@ def extract_definition_list(res, key_path, value_path):
             value = None
             elements = sel.xpath('text()').extract()
             if elements:
-                key = base.slugify(elements[0].strip())
+                key = base.utils.slugify(elements[0].strip())
         else:
             if key is not None:
                 value = None
-                elements = sel.xpath('span/text()').extract()
+                elements = sel.xpath('text()').extract()
                 if elements:
                     value = elements[0].strip()
         if key and value:
