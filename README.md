@@ -2,9 +2,9 @@
 
 [![Travis](https://img.shields.io/travis/opentrials/scraper/master.svg)](https://travis-ci.org/opentrials/scraper)
 
-OpenTrials scraper for all trial registers.
+OpenTrials scraper to get data using different spiders.
 
-## Registers
+## Spiders
 
 ### NCT
 
