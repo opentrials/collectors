@@ -9,31 +9,31 @@ OpenTrials scraper to get data using different spiders.
 ### NCT
 
 - Website: https://clinicaltrials.gov/
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/nct.md
+- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/nct.md
 - Status: development
 
 ### ISRCTN
 
 - Website: http://www.isrctn.com/
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/isrctn.md
+- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/isrctn.md
 - Status: development
 
 ### EUCTR
 
 - Website: https://www.clinicaltrialsregister.eu/
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/euctr.md
+- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/euctr.md
 - Status: development
 
 ### ACTRN
 
 - Website: http://anzctr.org.au/
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/actrn.md
+- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/actrn.md
 - Status: planned
 
 ### JPRN
 
 - Website: http://www.umin.ac.jp/ctr/
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/jprn.md
+- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/jprn.md
 - Status: planned
 
 ## Design Overview
