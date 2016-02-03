@@ -4,7 +4,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import json
 import logging
 import xmltodict
 from urllib import urlencode
@@ -45,9 +44,10 @@ def extract_text(res, path):
         nodes = res.xpath(path)
         if nodes:
             value = nodes.xpath('text()').extract_first()
+            value = value.strip()
     except Exception as exception:
         message = 'Extraction error: %s: %s'
-        message = message % (path, str(exception))
+        message = message % (path, repr(exception))
         logger.info(message)
     return value
 
@@ -63,10 +63,10 @@ def extract_dict(res, path, expand=None):
             hash = xmltodict.parse(text)
             if expand:
                 hash = hash[expand]
-            value = json.dumps(hash)
+            value = hash
     except Exception as exception:
         message = 'Extraction error: %s: %s'
-        message = message % (path, str(exception))
+        message = message % (path, repr(exception))
         logger.info(message)
     return value
 
@@ -85,9 +85,9 @@ def extract_list(res, path, expand=None):
                 if expand:
                     hash = hash[expand]
                 hashs.append(hash)
-            value = json.dumps(hashs)
+            value = hashs
     except Exception as exception:
         message = 'Extraction error: %s: %s'
-        message = message % (path, str(exception))
+        message = message % (path, repr(exception))
         logger.info(message)
     return value

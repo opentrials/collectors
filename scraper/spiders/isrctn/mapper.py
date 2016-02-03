@@ -11,18 +11,27 @@ from .. import base
 
 class Mapper(base.Mapper):
 
-    # Dates
+    # Helpers
 
     def map_date(self, key, value):
-        if value is not None:
-            value = base.utils.parse_date(value, format='%d/%m/%Y')
-        return {key: value}
+        return {key: base.utils.parse_date(value, format='%d/%m/%Y')}
 
-    data_applied = map_date
+    # General
+
+    date_applied = map_date
     date_assigned = map_date
     last_edited = map_date
+
+    # Study information
+
     overall_trial_start_date = map_date
     overall_trial_end_date = map_date
+
+    # Eligibility
+
     recruitment_start_date = map_date
     recruitment_end_date = map_date
+
+    # Result and publications
+
     intention_to_publish_date = map_date

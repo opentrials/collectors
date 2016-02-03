@@ -80,6 +80,8 @@ class Item(scrapy.Item):
         for key, value in data.items():
             field = self.fields.get(key)
             if field is None:
-                logger.debug('Missed data: %s: %s=%s' % (self, key, value))
+                logger.info('Undefined field: %s: %s=%s' % (self, key, value))
+                continue
+            if value is None:
                 continue
             self[key] = value
