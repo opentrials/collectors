@@ -15,7 +15,7 @@ See the next section for more details.
 
 See item definition for the full data model:
 
-https://github.com/opentrials/scraper/blob/master/scraper/items/isrctn.py
+https://github.com/opentrials/scraper/blob/master/scraper/spiders/isrct/item.py
 
 ## Primary Identifiers
 
