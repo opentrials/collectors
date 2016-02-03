@@ -15,6 +15,7 @@ class Item(base.Item):
 
     # Config
 
+    table = 'actrn'
     primary_key = 'trial_id'
     updated_key = 'date_registered'
 

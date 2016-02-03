@@ -11,6 +11,14 @@ from .. import base
 
 class Mapper(base.Mapper):
 
-    # Public
+    # Integers
 
-    pass
+    def map_integer(self, key, value):
+        if value is not None:
+            value = int(value)
+        return {key: value}
+
+    number_of_arms = map_integer
+    number_of_groups = map_integer
+    enrollment_actual = map_integer
+    enrollment_anticipated = map_integer

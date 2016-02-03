@@ -46,31 +46,31 @@ class Spider(base.Spider):
         # Init data
         data = {}
 
-        # Add isrctn_id
+        # Extract isrctn_id
         key = 'isrctn_id'
         path = '.ComplexTitle_primary::text'
         value = res.css(path).extract_first()
         data[key] = value
 
-        # Add doi_isrctn_id
+        # Extract doi_isrctn_id
         key = 'doi_isrctn_id'
         path = '.ComplexTitle_secondary::text'
         value = res.css(path).extract_first()
         data[key] = value
 
-        # Add title
+        # Extract title
         key = 'title'
         path = '//h1/text()'
         value = res.xpath(path).extract_first()
         data[key] = value
 
-        # Add meta data
+        # Extract meta data
         key_path = '.Meta_name'
         value_path = '.Meta_name+.Meta_value'
         subdata = utils.extract_definition_list(res, key_path, value_path)
         data.update(subdata)
 
-        # Add main data
+        # Extract main data
         key_path = '.Info_section_title'
         value_path = '.Info_section_title+p'
         subdata = utils.extract_definition_list(res, key_path, value_path)

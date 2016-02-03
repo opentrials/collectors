@@ -37,7 +37,7 @@ def make_pattern(prefix):
     return prefix + r'\?lup_s=[^&]+&lup_e=[^&]+(&pg=\d+)?$'
 
 
-def get_text(res, path, process=None):
+def extract_text(res, path):
     """Extract text from response by path.
     """
     value = None
@@ -45,14 +45,14 @@ def get_text(res, path, process=None):
         nodes = res.xpath(path)
         if nodes:
             value = nodes.xpath('text()').extract_first()
-            if process:
-                value = process(value)
     except Exception as exception:
-        logger.debug(path + ': ' + str(exception))
+        message = 'Extraction error: %s: %s'
+        message = message % (path, str(exception))
+        logger.info(message)
     return value
 
 
-def get_dict(res, path, expand=None):
+def extract_dict(res, path, expand=None):
     """Extract dict from response by path.
     """
     value = None
@@ -65,11 +65,13 @@ def get_dict(res, path, expand=None):
                 hash = hash[expand]
             value = json.dumps(hash)
     except Exception as exception:
-        logger.debug(path + ': ' + str(exception))
+        message = 'Extraction error: %s: %s'
+        message = message % (path, str(exception))
+        logger.info(message)
     return value
 
 
-def get_list(res, path, expand=None):
+def extract_list(res, path, expand=None):
     """Extract list from response by path.
     """
     value = None
@@ -85,5 +87,7 @@ def get_list(res, path, expand=None):
                 hashs.append(hash)
             value = json.dumps(hashs)
     except Exception as exception:
-        logger.debug(path + ': ' + str(exception))
+        message = 'Extraction error: %s: %s'
+        message = message % (path, str(exception))
+        logger.info(message)
     return value

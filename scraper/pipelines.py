@@ -25,7 +25,7 @@ class Database(object):
 
     def process_item(self, item, spider):
         table = self.db.get_table(
-                spider.name,
+                item.table,
                 primary_id=item.primary_key,
                 primary_type='String')
         if table.find_one(**{item.primary_key: item[item.primary_key]}):

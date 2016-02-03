@@ -16,6 +16,7 @@ class Item(base.Item):
 
     # Config
 
+    table = 'euctr'
     primary_key = 'eudract_number'
     updated_key = 'date_on_which_this_record_was_first_entered'
 

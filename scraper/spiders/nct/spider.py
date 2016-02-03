@@ -12,6 +12,7 @@ from scrapy.linkextractors import LinkExtractor
 from .. import base
 from . import utils
 from .item import Item
+from .mapper import Mapper
 
 
 # Module API
@@ -24,6 +25,9 @@ class Spider(base.Spider):
     allowed_domains = ['clinicaltrials.gov']
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
+
+        # Create mapper
+        self.mapper = Mapper()
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
@@ -46,77 +50,366 @@ class Spider(base.Spider):
 
     def parse_item(self, res):
 
-        # Create item
+        # Init data
+        data = {}
+
+        # Extract download_date
+        key = 'download_date'
+        path = 'required_header/download_date'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract link_text
+        key = 'link_text'
+        path = 'required_header/link_text'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract url
+        key = 'url'
+        path = 'required_header/url'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract org_study_id
+        key = 'org_study_id'
+        path = 'id_info/org_study_id'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract nct_id
+        key = 'nct_id'
+        path = 'id_info/nct_id'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract brief_title
+        key = 'brief_title'
+        path = 'brief_title'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract acronym
+        key = 'acronym'
+        path = 'acronym'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract official_title
+        key = 'official_title'
+        path = 'official_title'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract source
+        key = 'source'
+        path = 'source'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract brief_summary
+        key = 'brief_summary'
+        path = 'brief_summary/textblock'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract detailed_description
+        key = 'detailed_description'
+        path = 'detailed_description/textblock'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract overall_status
+        key = 'overall_status'
+        path = 'overall_status'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract why_stopped
+        key = 'why_stopped'
+        path = 'why_stopped'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract start_date
+        key = 'start_date'
+        path = 'start_date'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract completion_date_actual
+        key = 'completion_date_actual'
+        path = 'completion_date[@type="Actual"]'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract completion_date_anticipated
+        key = 'completion_date_anticipated'
+        path = 'completion_date[@type="Actual"]'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract primary_completion_date_actual
+        key = 'primary_completion_date_actual'
+        path = 'primary_completion_date[@type="Actual"]'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract primary_completion_date_anticipated
+        key = 'primary_completion_date_anticipated'
+        path = 'primary_completion_date[@type="Actual"]'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract phase
+        key = 'phase'
+        path = 'phase'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract study_type
+        key = 'study_type'
+        path = 'study_type'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract study_design
+        key = 'study_design'
+        path = 'study_design'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract target_duration
+        key = 'target_duration'
+        path = 'target_duration'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract number_of_arms
+        key = 'number_of_arms'
+        path = 'number_of_arms'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract nuber_of_groups
+        key = 'nuber_of_groups'
+        path = 'nuber_of_groups'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract enrollment_actual
+        key = 'enrollment_actual'
+        path = 'enrollment[@type="Actual"]'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract enrollment_anticipated
+        key = 'enrollment_anticipated'
+        path = 'enrollment[@type="Anticipated"]'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract biospec_retention
+        key = 'biospec_retention'
+        path = 'biospec_retention'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract biospec_desrc
+        key = 'biospec_desrc'
+        path = 'biospec_desrc'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract verification_date
+        key = 'verification_date'
+        path = 'verification_date'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract lastchanged_date
+        key = 'lastchanged_date'
+        path = 'lastchanged_date'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract firstreceived_date
+        key = 'firstreceived_date'
+        path = 'firstreceived_date'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract is_fda_regulated
+        key = 'is_fda_regulated'
+        path = 'is_fda_regulated'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract is_section_801
+        key = 'is_section_801'
+        path = 'is_section_801'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract has_expanded_access
+        key = 'has_expanded_access'
+        path = 'has_expanded_access'
+        value = utils.extract_text(res, path)
+        data[key] = value
+
+        # Extract oversight_info
+        key = 'oversight_info'
+        path = 'oversight_info'
+        value = utils.extract_dict(res, path, expand=key)
+        data[key] = value
+
+        # Extract eligibility
+        key = 'eligibility'
+        path = 'eligibility'
+        value = utils.extract_dict(res, path, expand=key)
+        data[key] = value
+
+        # Extract overall_contact
+        key = 'overall_contact'
+        path = 'overall_contact'
+        value = utils.extract_dict(res, path, expand=key)
+        data[key] = value
+
+        # Extract overall_contact_backup
+        key = 'overall_contact_backup'
+        path = 'overall_contact_backup'
+        value = utils.extract_dict(res, path, expand=key)
+        data[key] = value
+
+        # Extract resposible_party
+        key = 'resposible_party'
+        path = 'resposible_party'
+        value = utils.extract_dict(res, path, expand=key)
+        data[key] = value
+
+        # Extract clinical_results
+        key = 'clinical_results'
+        path = 'clinical_results'
+        value = utils.extract_dict(res, path, expand=key)
+        data[key] = value
+
+        # Extract condition_brows
+        key = 'condition_brows'
+        path = 'condition_brows'
+        value = utils.extract_dict(res, path, expand=key)
+        data[key] = value
+
+        # Extract intervention_brows
+        key = 'intervention_brows'
+        path = 'intervention_brows'
+        value = utils.extract_dict(res, path, expand=key)
+        data[key] = value
+
+        # Extract secondary_ids
+        key = 'secondary_ids'
+        path = 'id_info/secondary_id'
+        value = utils.extract_list(res, path, expand='secondary_id')
+        data[key] = value
+
+        # Extract nct_aliases
+        key = 'nct_aliases'
+        path = 'id_info/nct_alias'
+        value = utils.extract_list(res, path, expand='nct_alias')
+        data[key] = value
+
+        # Extract sponsors
+        key = 'sponsors'
+        path = 'sponsors/child::*'
+        value = utils.extract_list(res, path)
+        data[key] = value
+
+        # Extract primary_outcomes
+        key = 'primary_outcomes'
+        path = 'primary_outcome'
+        value = utils.extract_list(res, path, expand='primary_outcome')
+        data[key] = value
+
+        # Extract secondary_outcomes
+        key = 'secondary_outcomes'
+        path = 'secondary_outcome'
+        value = utils.extract_list(res, path, expand='secondary_outcome')
+        data[key] = value
+
+        # Extract other_outcomes
+        key = 'other_outcomes'
+        path = 'other_outcome'
+        value = utils.extract_list(res, path, expand='other_outcome')
+        data[key] = value
+
+        # Extract conditions
+        key = 'conditions'
+        path = 'condition'
+        value = utils.extract_list(res, path, expand='condition')
+        data[key] = value
+
+        # Extract arm_groups
+        key = 'arm_groups'
+        path = 'arm_group'
+        value = utils.extract_list(res, path, expand='arm_group')
+        data[key] = value
+
+        # Extract interventions
+        key = 'interventions'
+        path = 'intervention'
+        value = utils.extract_list(res, path, expand='intervention')
+        data[key] = value
+
+        # Extract overall_officials
+        key = 'overall_officials'
+        path = 'overall_official'
+        value = utils.extract_list(res, path, expand='overall_official')
+        data[key] = value
+
+        # Extract locations
+        key = 'locations'
+        path = 'location'
+        value = utils.extract_list(res, path, expand='location')
+        data[key] = value
+
+        # Extract location_countries
+        key = 'location_countries'
+        path = 'location_countries/child::*'
+        value = utils.extract_list(res, path, expand='country')
+        data[key] = value
+
+        # Extract removed_countries
+        key = 'removed_countries'
+        path = 'removed_countries/child::*'
+        value = utils.extract_list(res, path, expand='country')
+        data[key] = value
+
+        # Extract links
+        key = 'links'
+        path = 'link'
+        value = utils.extract_list(res, path, expand='link')
+        data[key] = value
+
+        # Extract references
+        key = 'references'
+        path = 'reference'
+        value = utils.extract_list(res, path, expand='reference')
+        data[key] = value
+
+        # Extract results_references
+        key = 'results_references'
+        path = 'results_reference'
+        value = utils.extract_list(res, path, expand='results_reference')
+        data[key] = value
+
+        # Extract keywords
+        key = 'keywords'
+        path = 'keyword'
+        value = utils.extract_list(res, path, expand='keyword')
+        data[key] = value
+
+        # Create item, map and add data
         item = Item.create(source=res.url)
-
-        # Extraction tools
-        gtext = partial(utils.get_text, res)
-        gdict = partial(utils.get_dict, res)
-        glist = partial(utils.get_list, res)
-
-        # Plain value fields
-        item['download_date'] = gtext('required_header/download_date')
-        item['link_text'] = gtext('required_header/link_text')
-        item['url'] = gtext('required_header/url')
-        item['org_study_id'] = gtext('id_info/org_study_id')
-        item['nct_id'] = gtext('id_info/nct_id')
-        item['brief_title'] = gtext('brief_title')
-        item['acronym'] = gtext('acronym')
-        item['official_title'] = gtext('official_title')
-        item['source'] = gtext('source')
-        item['brief_summary'] = gtext('brief_summary/textblock')
-        item['detailed_description'] = gtext('detailed_description/textblock')
-        item['overall_status'] = gtext('overall_status')
-        item['why_stopped'] = gtext('why_stopped')
-        item['start_date'] = gtext('start_date')
-        item['completion_date_actual'] = gtext('completion_date[@type="Actual"]')
-        item['completion_date_anticipated'] = gtext('completion_date[@type="Anticipated"]')
-        item['primary_completion_date_actual'] = gtext('primary_completion_date[@type="Actual"]')
-        item['primary_completion_date_anticipated'] = gtext('primary_completion_date[@type="Anticipated"]')
-        item['phase'] = gtext('phase')
-        item['study_type'] = gtext('study_type')
-        item['study_design'] = gtext('study_design')
-        item['target_duration'] = gtext('target_duration')
-        item['number_of_arms'] = gtext('number_of_arms', process=int)
-        item['number_of_groups'] = gtext('number_of_groups', process=int)
-        item['enrollment_actual'] = gtext('enrollment[@type="Actual"]', process=int)
-        item['enrollment_anticipated'] = gtext('enrollment[@type="Anticipated"]', process=int)
-        item['biospec_retention'] = gtext('biospec_retention')
-        item['biospec_descr'] = gtext('biospec_descr')
-        item['verification_date'] = gtext('verification_date')
-        item['lastchanged_date'] = gtext('lastchanged_date')
-        item['firstreceived_date'] = gtext('firstreceived_date')
-        item['is_fda_regulated'] = gtext('is_fda_regulated')
-        item['is_section_801'] = gtext('is_section_801')
-        item['has_expanded_access'] = gtext('has_expanded_access')
-
-        # Dict value fields
-        item['oversight_info'] = gdict('oversight_info', expand='oversight_info')
-        item['eligibility'] = gdict('eligibility', expand='eligibility')
-        item['overall_contact'] = gdict('overall_contact', expand='overall_contact')
-        item['overall_contact_backup'] = gdict('overall_contact_backup', expand='overall_contact_backup')
-        item['responsible_party'] = gdict('responsible_party', expand='responsible_party')
-        item['clinical_results'] = gdict('clinical_results', expand='clinical_results')
-        item['condition_browse'] = gdict('condition_browse', expand='condition_browse')
-        item['intervention_browse'] = gdict('intervention_browse', expand='intervention_browse')
-
-        # List value fields
-        item['secondary_ids'] = glist('id_info/secondary_id', expand='secondary_id')
-        item['nct_aliases'] = glist('id_info/nct_alias', expand='nct_alias')
-        item['sponsors'] = glist('sponsors/child::*')
-        item['primary_outcomes'] = glist('primary_outcome', expand='primary_outcome')
-        item['secondary_outcomes'] = glist('secondary_outcome', expand='secondary_outcome')
-        item['other_outcomes'] = glist('other_outcome', expand='other_outcome')
-        item['conditions'] = glist('condition', expand='condition')
-        item['arm_groups'] = glist('arm_group', expand='arm_group')
-        item['interventions'] = glist('intervention', expand='intervention')
-        item['overall_officials'] = glist('overall_official', expand='overall_official')
-        item['locations'] = glist('location', expand='location')
-        item['location_countries'] = glist('location_countries/child::*', expand='country')
-        item['removed_countries'] = glist('removed_countries/child::*', expand='country')
-        item['links'] = glist('link', expand='link')
-        item['references'] = glist('reference', expand='reference')
-        item['results_references'] = glist('results_reference', expand='results_reference')
-        item['keywords'] = glist('keyword', expand='keyword')
+        data = self.mapper.map_data(data)
+        item.add_data(data)
 
         return item

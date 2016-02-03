@@ -15,6 +15,7 @@ class Item(base.Item):
 
     # Config
 
+    table = 'nct'
     primary_key = 'nct_id'
     updated_key = 'lastchanged_date'
 
