@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 
 import sqlalchemy as sa
 from scrapy import Field
+from sqlalchemy.dialects.postgresql import JSON
 
 from .. import base
 
@@ -37,11 +38,7 @@ class Item(base.Item):
 
     # Contant information
 
-    type = Field()
-    primary_contact = Field()
-    additional_contact = Field()
-    orcid_id = Field()
-    contact_details = Field()
+    contacts = Field(type=JSON)
 
     # Additional identifiers
 
@@ -90,21 +87,13 @@ class Item(base.Item):
 
     # Sponsor information
 
-    organisation = Field()
-    sponsor_details = Field()
-    sponsor_type = Field()
-    website = Field()
+    sponsors = Field(type=JSON)
 
     # Funders
 
-    funder_type = Field()
-    funder_name = Field()
-    alternative_names = Field()
-    funding_body_type = Field()
-    funding_body_subtype = Field()
-    location = Field()
+    funders = Field(type=JSON)
 
-    # Result and publications
+    # Results and publications
 
     publication_and_dissemination_plan = Field()
     intention_to_publish_date = Field(type=sa.Date)

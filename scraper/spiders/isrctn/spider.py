@@ -46,34 +46,115 @@ class Spider(base.Spider):
         # Init data
         data = {}
 
-        # Extract isrctn_id
+        # Extract general (isrctn_id)
         key = 'isrctn_id'
         path = '.ComplexTitle_primary::text'
         value = res.css(path).extract_first()
         data[key] = value
 
-        # Extract doi_isrctn_id
+        # Extract general (doi_isrctn_id)
         key = 'doi_isrctn_id'
         path = '.ComplexTitle_secondary::text'
         value = res.css(path).extract_first()
         data[key] = value
 
-        # Extract title
+        # Extract general (title)
         key = 'title'
         path = '//h1/text()'
         value = res.xpath(path).extract_first()
         data[key] = value
 
-        # Extract meta data
-        key_path = '.Meta_name'
-        value_path = '.Meta_name+.Meta_value'
-        subdata = utils.extract_definition_list(res, key_path, value_path)
+        # Extract general (metadata)
+        kpath = '.Meta_name'
+        vpath = '.Meta_name+.Meta_value'
+        subdata = utils.extract_dict(res, kpath, vpath)
         data.update(subdata)
 
-        # Extract main data
-        key_path = '.Info_section_title'
-        value_path = '.Info_section_title+p'
-        subdata = utils.extract_definition_list(res, key_path, value_path)
+        # Extract general (paragraph)
+        tag = 'h3'
+        text = 'Plain English Summary'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Extract contact information
+        key = 'contacts'
+        tag = 'h2'
+        text = 'Contact information'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        first = 'type'
+        section = utils.select_parent(res, tag, text)
+        value = utils.extract_list(section, kpath, vpath, first)
+        data.update({key: value})
+
+        # Extract additional identifiers
+        tag = 'h2'
+        text = 'Additional identifiers'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Extract study information
+        tag = 'h2'
+        text = 'Study information'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Extract eligibility
+        tag = 'h2'
+        text = 'Eligibility'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Extract locations
+        tag = 'h2'
+        text = 'Locations'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Extract sponsor information
+        key = 'sponsors'
+        tag = 'h2'
+        text = 'Sponsor information'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        first = 'organisation'
+        section = utils.select_parent(res, tag, text)
+        value = utils.extract_list(section, kpath, vpath, first)
+        data.update({key: value})
+
+        # Extract funders
+        key = 'funders'
+        tag = 'h2'
+        text = 'Funders'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        first = 'funder_type'
+        section = utils.select_parent(res, tag, text)
+        value = utils.extract_list(section, kpath, vpath, first)
+        data.update({key: value})
+
+        # Extract results and publications
+        tag = 'h2'
+        text = 'Results and Publications'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
         data.update(subdata)
 
         # Create item, map and add data

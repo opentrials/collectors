@@ -35,5 +35,5 @@ class Database(object):
         except Exception as exception:
             logger.info('Saving error: %s: %s' % (item, repr(exception)))
         else:
-            logger.info('Saved item: %s', item)
+            logger.info('Saved item: %s - %s fields', item, len(item))
         return item

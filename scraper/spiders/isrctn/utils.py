@@ -40,14 +40,18 @@ def make_pattern(prefix):
     return pattern
 
 
-def extract_definition_list(res, key_path, value_path):
+def select_parent(sel, tag, text):
+    return sel.xpath('//%s[contains(.,"%s")]/..' % (tag, text))
+
+
+def extract_dict(sel, kpath, vpath):
     """Extract data from title-paragraph like html.
     """
     data = {}
     key = None
     value = None
-    for sel in res.css('%s, %s' % (key_path, value_path)):
-        if sel.css(key_path):
+    for sel in sel.css('%s, %s' % (kpath, vpath)):
+        if sel.css(kpath):
             key = None
             value = None
             texts = sel.xpath('.//text()').extract()
@@ -61,4 +65,34 @@ def extract_definition_list(res, key_path, value_path):
                     value = ' '.join(texts).strip()
         if key and value:
             data[key] = value
+    return data
+
+
+def extract_list(sel, kpath, vpath, first):
+    """Extract data from title-paragraph like html.
+    """
+    data = []
+    item = {}
+    key = None
+    value = None
+    for sel in sel.css('%s, %s' % (kpath, vpath)):
+        if sel.css(kpath):
+            key = None
+            value = None
+            texts = sel.xpath('.//text()').extract()
+            if texts:
+                key = base.utils.slugify(' '.join(texts).strip())
+        else:
+            if key is not None:
+                value = None
+                texts = sel.xpath('.//text()').extract()
+                if texts:
+                    value = ' '.join(texts).strip()
+        if key and value:
+            item[key] = value
+        if key == first and value is None and item:
+            data.append(item)
+            item = {}
+    if item:
+        data.append(item)
     return data
