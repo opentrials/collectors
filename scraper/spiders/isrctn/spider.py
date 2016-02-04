@@ -46,31 +46,31 @@ class Spider(base.Spider):
         # Init data
         data = {}
 
-        # Extract general (isrctn_id)
+        # General (isrctn_id)
         key = 'isrctn_id'
         path = '.ComplexTitle_primary::text'
         value = res.css(path).extract_first()
         data[key] = value
 
-        # Extract general (doi_isrctn_id)
+        # General (doi_isrctn_id)
         key = 'doi_isrctn_id'
         path = '.ComplexTitle_secondary::text'
         value = res.css(path).extract_first()
         data[key] = value
 
-        # Extract general (title)
+        # General (title)
         key = 'title'
         path = '//h1/text()'
         value = res.xpath(path).extract_first()
         data[key] = value
 
-        # Extract general (metadata)
+        # General (metadata)
         kpath = '.Meta_name'
         vpath = '.Meta_name+.Meta_value'
         subdata = utils.extract_dict(res, kpath, vpath)
         data.update(subdata)
 
-        # Extract general (paragraph)
+        # General (paragraph)
         tag = 'h3'
         text = 'Plain English Summary'
         kpath = '.Info_section_title'
@@ -79,7 +79,7 @@ class Spider(base.Spider):
         subdata = utils.extract_dict(section, kpath, vpath)
         data.update(subdata)
 
-        # Extract contact information
+        # Contact information
         key = 'contacts'
         tag = 'h2'
         text = 'Contact information'
@@ -90,7 +90,7 @@ class Spider(base.Spider):
         value = utils.extract_list(section, kpath, vpath, first)
         data.update({key: value})
 
-        # Extract additional identifiers
+        # Additional identifiers
         tag = 'h2'
         text = 'Additional identifiers'
         kpath = '.Info_section_title'
@@ -99,7 +99,7 @@ class Spider(base.Spider):
         subdata = utils.extract_dict(section, kpath, vpath)
         data.update(subdata)
 
-        # Extract study information
+        # Study information
         tag = 'h2'
         text = 'Study information'
         kpath = '.Info_section_title'
@@ -108,7 +108,7 @@ class Spider(base.Spider):
         subdata = utils.extract_dict(section, kpath, vpath)
         data.update(subdata)
 
-        # Extract eligibility
+        # Eligibility
         tag = 'h2'
         text = 'Eligibility'
         kpath = '.Info_section_title'
@@ -117,7 +117,7 @@ class Spider(base.Spider):
         subdata = utils.extract_dict(section, kpath, vpath)
         data.update(subdata)
 
-        # Extract locations
+        # Locations
         tag = 'h2'
         text = 'Locations'
         kpath = '.Info_section_title'
@@ -126,7 +126,7 @@ class Spider(base.Spider):
         subdata = utils.extract_dict(section, kpath, vpath)
         data.update(subdata)
 
-        # Extract sponsor information
+        # Sponsor information
         key = 'sponsors'
         tag = 'h2'
         text = 'Sponsor information'
@@ -137,7 +137,7 @@ class Spider(base.Spider):
         value = utils.extract_list(section, kpath, vpath, first)
         data.update({key: value})
 
-        # Extract funders
+        # Funders
         key = 'funders'
         tag = 'h2'
         text = 'Funders'
@@ -148,7 +148,7 @@ class Spider(base.Spider):
         value = utils.extract_list(section, kpath, vpath, first)
         data.update({key: value})
 
-        # Extract results and publications
+        # Results and publications
         tag = 'h2'
         text = 'Results and Publications'
         kpath = '.Info_section_title'

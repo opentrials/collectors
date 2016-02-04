@@ -79,7 +79,6 @@ class Spider(base.Spider):
         ident = 'section-b'
         # ...
 
-
         # Applicant Identification (Section C)
         # ...
 
