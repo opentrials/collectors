@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import uuid
 import scrapy
 import logging
 import sqlalchemy as sa
@@ -24,12 +25,15 @@ class Item(scrapy.Item):
     @classmethod
     def create(cls, source, **kwargs):
         self = cls(**kwargs)
+        ident = str(uuid.uuid4())
         timestamp = datetime.utcnow()
+        self.fields['meta_uuid'] = scrapy.Field()
         self.fields['meta_source'] = scrapy.Field()
         self.fields['meta_created'] = scrapy.Field(
                 type=sa.DateTime(timezone=True))
         self.fields['meta_updated'] = scrapy.Field(
                 type=sa.DateTime(timezone=True))
+        self.add_data({'meta_uuid': ident})
         self.add_data({'meta_source': source})
         self.add_data({'meta_created': timestamp})
         self.add_data({'meta_updated': timestamp})

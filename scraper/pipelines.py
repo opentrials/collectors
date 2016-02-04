@@ -29,6 +29,7 @@ class Database(object):
                 primary_id=item.primary_key,
                 primary_type='String')
         if table.find_one(**{item.primary_key: item[item.primary_key]}):
+            del item['meta_uuid']
             del item['meta_created']
         try:
             table.upsert(item, [item.primary_key], types=item.types)
