@@ -25,7 +25,7 @@ class Item(scrapy.Item):
     @classmethod
     def create(cls, source, **kwargs):
         self = cls(**kwargs)
-        ident = str(uuid.uuid4())
+        ident = uuid.uuid4().hex
         timestamp = datetime.utcnow()
         self.fields['meta_uuid'] = scrapy.Field()
         self.fields['meta_source'] = scrapy.Field()
