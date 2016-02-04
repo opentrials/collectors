@@ -11,6 +11,11 @@ from .. import base
 
 class Mapper(base.Mapper):
 
-    # Public
+    # Helpers
 
-    pass
+    def map_date(self, key, value):
+        return {key: base.utils.parse_date(value, format='%Y-%m-%d')}
+
+    # Summary
+
+    date_on_which_this_record_was_first_entered = map_date

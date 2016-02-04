@@ -35,25 +35,29 @@ def make_pattern(prefix):
     return pattern
 
 
-def extract_definition_list(res, key_path, value_path):
+def select_table(sel, ident):
+    return sel.xpath('//table[@id="%s"]' % ident)
+
+
+def extract_dict(sel, kpath, vpath):
     """Extract data from title-paragraph like html.
     """
     data = {}
     key = None
     value = None
-    for sel in res.css('%s, %s' % (key_path, value_path)):
-        if sel.css(key_path):
+    for sel in sel.css('%s, %s' % (kpath, vpath)):
+        if sel.css(kpath):
             key = None
             value = None
-            elements = sel.xpath('text()').extract()
-            if elements:
-                key = base.utils.slugify(elements[0].strip())
+            texts = sel.xpath('.//text()').extract()
+            if texts:
+                key = base.utils.slugify(' '.join(texts).strip())
         else:
             if key is not None:
                 value = None
-                elements = sel.xpath('text()').extract()
-                if elements:
-                    value = elements[0].strip()
+                texts = sel.xpath('.//text()').extract()
+                if texts:
+                    value = ' '.join(texts).strip()
         if key and value:
             data[key] = value
     return data

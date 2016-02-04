@@ -15,6 +15,7 @@ from scrapy.linkextractors import LinkExtractor
 from .. import base
 from . import utils
 from .item import Item
+from .mapper import Mapper
 
 
 # Module API
@@ -27,6 +28,9 @@ class Spider(base.Spider):
     allowed_domains = ['clinicaltrialsregister.eu']
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
+
+        # Create mapper
+        self.mapper = Mapper()
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
@@ -47,21 +51,62 @@ class Spider(base.Spider):
 
     def parse_item(self, res):
 
-        # Create item
+        # Init data item
+        data = {}
+
+        # Summary (main)
+        kpath = '.cellGrey'
+        vpath = '.cellGrey+.cellLighterGrey'
+        subdata = utils.extract_dict(res, kpath, vpath)
+        subdata['eudract_number_with_country'] = res.url.split('/')[-1]
+        data.update(subdata)
+
+        # Summary (eudract_number_with_country)
+        key = 'eudract_number_with_country'
+        value = '-'.join([data['eudract_number'], res.url.split('/')[-1]])
+        data.update({key: value})
+
+        # Protocol Information (Section A)
+        ident = 'section-a'
+        kpath = '.second'
+        vpath = '.second+.third'
+        table = utils.select_table(res, ident)
+        subdata = utils.extract_dict(table, kpath, vpath)
+        print(subdata.keys())
+        data.update(subdata)
+
+        # Sponsor information (Section B)
+        ident = 'section-b'
+        # ...
+
+
+        # Applicant Identification (Section C)
+        # ...
+
+        # IMP Identification (Section D)
+        ident = 'section-d'
+
+        # Information on Placebo (Section D8)
+        ident = 'section-d8'
+
+        # General Information on the Trial (Section E)
+        ident = 'section-e'
+
+        # Population of Trial Subjects (Section F)
+        ident = 'section-f'
+
+        # Investigator Networks to be involved in the Trial (Section G)
+        ident = 'section-g'
+
+        # Review by the Competent Authority or Ethics Committee (Section N)
+        ident = 'section-n'
+
+        # End of Trial (Section P)
+        ident = 'section-p'
+
+        # Create item, map and add data
         item = Item.create(source=res.url)
-
-        # Add summary
-        key_path = '.cellGrey'
-        value_path = '.cellGrey+.cellLighterGrey'
-        data = utils.extract_definition_list(res, key_path, value_path)
-        for key, value in data.items():
-            item.add_data(key, value)
-
-        # Add data
-        key_path = '.second'
-        value_path = '.second+.third'
-        data = utils.extract_definition_list(res, key_path, value_path)
-        for key, value in data.items():
-            item.add_data(key, value)
+        data = self.mapper.map_data(data)
+        item.add_data(data)
 
         return item
