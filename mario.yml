@@ -21,10 +21,6 @@ deploy:
   - tutum stack inspect scraper-recent ||
     tutum stack create --sync -f stacks/recent.yml -n scraper-recent
   - tutum stack update --sync -f stacks/recent.yml scraper-recent
-  # Sample
-  - tutum stack inspect scraper-sample ||
-    tutum stack create --sync -f stacks/sample.yml -n scraper-sample
-  - tutum stack update --sync -f stacks/sample.yml scraper-sample
 
 preview:
   - docker-compose -f stacks/sample.yml up
