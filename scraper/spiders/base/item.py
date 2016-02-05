@@ -7,11 +7,11 @@ from __future__ import unicode_literals
 import uuid
 import scrapy
 import logging
-import sqlalchemy as sa
 from six import add_metaclass
 from datetime import datetime
 from abc import ABCMeta, abstractmethod
 
+from . import fields
 logger = logging.getLogger(__name__)
 
 
@@ -23,20 +23,43 @@ class Item(scrapy.Item):
     # Public
 
     @classmethod
-    def create(cls, source, **kwargs):
-        self = cls(**kwargs)
+    def create(cls, source, data):
+
+        # Init dict
+        self = cls()
+
+        # Add metadata
         ident = uuid.uuid4().hex
         timestamp = datetime.utcnow()
-        self.fields['meta_uuid'] = scrapy.Field()
-        self.fields['meta_source'] = scrapy.Field()
-        self.fields['meta_created'] = scrapy.Field(
-                type=sa.DateTime(timezone=True))
-        self.fields['meta_updated'] = scrapy.Field(
-                type=sa.DateTime(timezone=True))
-        self.add_data({'meta_uuid': ident})
-        self.add_data({'meta_source': source})
-        self.add_data({'meta_created': timestamp})
-        self.add_data({'meta_updated': timestamp})
+        self.fields['meta_uuid'] = fields.Text()
+        self.fields['meta_source'] = fields.Text()
+        self.fields['meta_created'] = fields.Datetime()
+        self.fields['meta_updated'] = fields.Datetime()
+        self['meta_uuid'] = ident
+        self['meta_source'] = source
+        self['meta_created'] = timestamp
+        self['meta_updated'] = timestamp
+
+        # Add data
+        undefined = []
+        for key, value in data.items():
+            field = self.fields.get(key)
+            if field is None:
+                undefined.append(key)
+                continue
+            if value is None:
+                continue
+            try:
+                value = field.parse(value)
+            except Exception as exception:
+                message = 'Parsing error: %s=%s: %s'
+                message = message % (key, value, exception)
+                logger.info(message)
+                continue
+            self[key] = value
+        for key in undefined:
+            logger.info('Undefined field: %s - %s' % (self, key))
+
         return self
 
     def __repr__(self):
@@ -46,6 +69,15 @@ class Item(scrapy.Item):
                 self.get(self.primary_key),
                 self.get(self.updated_key))
         return text
+
+    @property
+    def types(self):
+        """Item types.
+        """
+        types = {}
+        for key, field in self.fields.items():
+            types[key] = field.type
+        return types
 
     @property
     @abstractmethod
@@ -67,28 +99,3 @@ class Item(scrapy.Item):
         """Item updated key.
         """
         pass  # pragma: no cover
-
-    @property
-    def types(self):
-        """Item types.
-        """
-        types = {}
-        for key, field in self.fields.items():
-            type = field.get('type', sa.Text())
-            types[key] = type
-        return types
-
-    def add_data(self, data):
-        """Add data to item.
-        """
-        undefined = []
-        for key, value in data.items():
-            field = self.fields.get(key)
-            if field is None:
-                undefined.append(key)
-                continue
-            if value is None:
-                continue
-            self[key] = value
-        for key in undefined:
-            logger.info('Undefined field: %s - %s' % (self, key))

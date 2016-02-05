@@ -4,11 +4,8 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import sqlalchemy as sa
-from scrapy import Field
-from sqlalchemy.dialects.postgresql import JSON
-
 from .. import base
+from ..base.fields import Text, Date, Json
 
 
 # Module API
@@ -23,84 +20,84 @@ class Item(base.Item):
 
     # General
 
-    isrctn_id = Field()
-    doi_isrctn_id = Field()
-    title = Field()
-    condition_category = Field()
-    date_applied = Field(type=sa.Date)
-    date_assigned = Field(type=sa.Date)
-    last_edited = Field(type=sa.Date)
-    prospectiveretrospective = Field()
-    overall_trial_status = Field()
-    recruitement_status = Field()
-    plain_english_summary = Field()
-    trial_website = Field()
+    isrctn_id = Text()
+    doi_isrctn_id = Text()
+    title = Text()
+    condition_category = Text()
+    date_applied = Date('%d/%m/%Y')
+    date_assigned = Date('%d/%m/%Y')
+    last_edited = Date('%d/%m/%Y')
+    prospectiveretrospective = Text()
+    overall_trial_status = Text()
+    recruitment_status = Text()
+    plain_english_summary = Text()
+    trial_website = Text()
 
     # Contant information
 
-    contacts = Field(type=JSON)
+    contacts = Json()
 
     # Additional identifiers
 
-    eudract_number = Field()
-    clinicaltrialsgov_number = Field()
-    protocolserial_number = Field()
+    eudract_number = Text()
+    clinicaltrialsgov_number = Text()
+    protocolserial_number = Text()
 
     # Study information
 
-    scientific_title = Field()
-    acronym = Field()
-    study_hypothesis = Field()
-    ethics_approval = Field()
-    study_design = Field()
-    primary_study_design = Field()
-    secondary_study_design = Field()
-    trial_setting = Field()
-    trial_type = Field()
-    patient_information_sheet = Field()
-    condition = Field()
-    intervention = Field()
-    intervention_type = Field()
-    phase = Field()
-    drug_names = Field()
-    primary_outcome_measures = Field()
-    secondary_outcome_measures = Field()
-    overall_trial_start_date = Field(type=sa.Date)
-    overall_trial_end_date = Field(type=sa.Date)
-    reason_abandoned = Field()
+    scientific_title = Text()
+    acronym = Text()
+    study_hypothesis = Text()
+    ethics_approval = Text()
+    study_design = Text()
+    primary_study_design = Text()
+    secondary_study_design = Text()
+    trial_setting = Text()
+    trial_type = Text()
+    patient_information_sheet = Text()
+    condition = Text()
+    intervention = Text()
+    intervention_type = Text()
+    phase = Text()
+    drug_names = Text()
+    primary_outcome_measures = Text()
+    secondary_outcome_measures = Text()
+    overall_trial_start_date = Date('%d/%m/%Y')
+    overall_trial_end_date = Date('%d/%m/%Y')
+    reason_abandoned = Text()
 
     # Eligability
 
-    participant_inclusion_criteria = Field()
-    participant_type = Field()
-    age_group = Field()
-    gender = Field()
-    target_number_of_participants = Field()
-    participant_exclusion_criteria = Field()
-    recruitment_start_date = Field(type=sa.Date)
-    recruitment_end_date = Field(type=sa.Date)
+    participant_inclusion_criteria = Text()
+    participant_type = Text()
+    age_group = Text()
+    gender = Text()
+    target_number_of_participants = Text()
+    participant_exclusion_criteria = Text()
+    recruitment_start_date = Date('%d/%m/%Y')
+    recruitment_end_date = Date('%d/%m/%Y')
 
     # Locations
 
-    countries_of_recruitment = Field()
-    trial_participating_centre = Field()
+    countries_of_recruitment = Text()
+    trial_participating_centre = Text()
 
     # Sponsor information
 
-    sponsors = Field(type=JSON)
+    sponsors = Json()
 
     # Funders
 
-    funders = Field(type=JSON)
+    funders = Json()
 
     # Results and publications
 
-    publication_and_dissemination_plan = Field()
-    intention_to_publish_date = Field(type=sa.Date)
-    participant_level_data = Field()
-    results_basic_reporting = Field()
-    publication_summary = Field()
-    publication_citations = Field()
+    publication_and_dissemination_plan = Text()
+    intention_to_publish_date = Date('%d/%m/%Y')
+    participant_level_data = Text()
+    results_basic_reporting = Text()
+    publication_summary = Text()
+    publication_citations = Text()
 
     # Additional files
 

@@ -5,33 +5,138 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from .. import base
+from . import utils
+from .item import Item
 
 
 # Module API
 
 class Mapper(base.Mapper):
 
-    # Helpers
+    # Public
 
-    def map_date(self, key, value):
-        return {key: base.utils.parse_date(value, format='%d/%m/%Y')}
+    def map_response(self, res):
 
-    # General
+        # Init data
+        data = {}
 
-    date_applied = map_date
-    date_assigned = map_date
-    last_edited = map_date
+        # General
 
-    # Study information
+        key = 'isrctn_id'
+        path = '.ComplexTitle_primary::text'
+        value = res.css(path).extract_first()
+        data[key] = value
 
-    overall_trial_start_date = map_date
-    overall_trial_end_date = map_date
+        key = 'doi_isrctn_id'
+        path = '.ComplexTitle_secondary::text'
+        value = res.css(path).extract_first()
+        data[key] = value
 
-    # Eligibility
+        key = 'title'
+        path = '//h1/text()'
+        value = res.xpath(path).extract_first()
+        data[key] = value
 
-    recruitment_start_date = map_date
-    recruitment_end_date = map_date
+        kpath = '.Meta_name'
+        vpath = '.Meta_name+.Meta_value'
+        subdata = utils.extract_dict(res, kpath, vpath)
+        data.update(subdata)
 
-    # Result and publications
+        tag = 'h3'
+        text = 'Plain English Summary'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
 
-    intention_to_publish_date = map_date
+        # Contact information
+
+        key = 'contacts'
+        tag = 'h2'
+        text = 'Contact information'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        first = 'type'
+        section = utils.select_parent(res, tag, text)
+        value = utils.extract_list(section, kpath, vpath, first)
+        data.update({key: value})
+
+        # Additional identifiers
+
+        tag = 'h2'
+        text = 'Additional identifiers'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Study information
+
+        tag = 'h2'
+        text = 'Study information'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Eligibility
+
+        tag = 'h2'
+        text = 'Eligibility'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Locations
+
+        tag = 'h2'
+        text = 'Locations'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Sponsor information
+
+        key = 'sponsors'
+        tag = 'h2'
+        text = 'Sponsor information'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        first = 'organisation'
+        section = utils.select_parent(res, tag, text)
+        value = utils.extract_list(section, kpath, vpath, first)
+        data.update({key: value})
+
+        # Funders
+
+        key = 'funders'
+        tag = 'h2'
+        text = 'Funders'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        first = 'funder_type'
+        section = utils.select_parent(res, tag, text)
+        value = utils.extract_list(section, kpath, vpath, first)
+        data.update({key: value})
+
+        # Results and publications
+
+        tag = 'h2'
+        text = 'Results and Publications'
+        kpath = '.Info_section_title'
+        vpath = '.Info_section_title+p'
+        section = utils.select_parent(res, tag, text)
+        subdata = utils.extract_dict(section, kpath, vpath)
+        data.update(subdata)
+
+        # Create item
+        item = Item.create(res.url, data)
+
+        return item

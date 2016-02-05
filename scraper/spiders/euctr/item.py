@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
-# pylama:skip=1
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import sqlalchemy as sa
-from scrapy import Field
-from sqlalchemy.dialects.postgresql import JSON
-
 from .. import base
+from ..base.fields import Text, Date, Boolean, Integer, Json
 
 
 # Module API
@@ -24,30 +20,31 @@ class Item(base.Item):
 
     # Summary
 
-    eudract_number_with_country = Field()
-    eudract_number = Field()
-    sponsors_protocol_code_number = Field()
-    us_nct_clinicaltrialsgov_registry_number = Field()
-    national_competent_authority = Field()
-    clinical_trial_type = Field()
-    trial_status = Field()
-    date_on_which_this_record_was_first_entered = Field(type=sa.Date)
-    trial_results = Field()
+    eudract_number_with_country = Text()
+    other_identifiers = Text()
+    national_competent_authority = Text()
+    clinical_trial_type = Text()
+    trial_status = Text()
+    date_on_which_this_record_was_first_entered = Date('%Y-%m-%d')
+    trial_results = Text()
 
     # A. Protocol Information
 
-    member_state_concerned = Field()
-    full_title_of_the_trial = Field()
-    title_of_the_trial_for_lay_people_in = Field()
-    name_or_abbreviated_title_of_the_trial_where = Field()
-    sponsors_protocol_code_number = Field()
-    isrctn_international_standard_randomised_controlled_trial_number = Field()
-    trial_is_part_of_a_paediatric_investigation_plan = Field()
-    ema_decision_number_of_paediatric_investigation_plan = Field()
+    member_state_concerned = Text()
+    eudract_number = Text()
+    full_title_of_the_trial = Text()
+    title_of_the_trial_for_lay_people_in = Text()
+    name_or_abbreviated_title_of_the_trial_where = Text()
+    sponsors_protocol_code_number = Text()
+    us_nct_clinicaltrialsgov_registry_number = Text()
+    who_universal_trial_reference_number_utrn = Text()
+    isrctn_international_standard_randomised_controlled_trial_number = Text()
+    trial_is_part_of_a_paediatric_investigation_plan = Text()
+    ema_decision_number_of_paediatric_investigation_plan = Text()
 
     # B. Sponsor information
 
-    sponsors = Field(type=JSON)
+    sponsors = Json()
 
     # C. Applicant Identification
 
@@ -55,132 +52,133 @@ class Item(base.Item):
 
     # D. IMP Identification
 
-    imps = Field(type=JSON)
+    imps = Json()
 
     # D8. Information on Placebo
 
-    placebos = Field(type=JSON)
+    placebos = Json()
 
     # E. General Information on the Trial
 
     # E.1 Medical condition or disease under investigation
-    trial_medical_conditions_being_investigated = Field()
-    trial_medical_condition_in_easily_understood_language = Field()
-    trial_therapeutic_area = Field()
-    trial_version = Field()
-    trial_level = Field()
-    trial_classification_code = Field()
-    trial_term = Field()
-    trial_system_organ_class = Field()
-    trial_condition_being_studied_is_a_rare_disease = Field()
+    trial_medical_conditions_being_investigated = Text()
+    trial_medical_condition_in_easily_understood_language = Text()
+    trial_therapeutic_area = Text()
+    trial_version = Text()
+    trial_level = Text()
+    trial_classification_code = Text()
+    trial_term = Text()
+    trial_system_organ_class = Text()
+    trial_condition_being_studied_is_a_rare_disease = Text()
 
     # E.2 Objective of the trial
-    trial_main_objective_of_the_trial = Field()
-    trial_secondary_objectives_of_the_trial = Field()
-    trial_trial_contains_a_substudy = Field()
-    trial_full_title_date_and_version_of_each_substudy = Field()
+    trial_main_objective_of_the_trial = Text()
+    trial_secondary_objectives_of_the_trial = Text()
+    trial_trial_contains_a_substudy = Text()
+    trial_full_title_date_and_version_of_each_substudy = Text()
 
     # E.3 and E.4 Eligibility
-    trial_principal_inclusion_criteria = Field()
-    trial_principal_exclusion_criteria = Field()
+    trial_principal_inclusion_criteria = Text()
+    trial_principal_exclusion_criteria = Text()
 
     # E.5 End points
-    trial_primary_end_points = Field()
-    trial_timepoints_of_evaluation_of_this_end_point = Field()
-    trial_secondary_end_points = Field()
-    trial_timepoints_of_evaluation_of_this_end_point = Field()
+    trial_primary_end_points = Text()
+    trial_timepoints_of_evaluation_of_this_end_point = Text()
+    trial_secondary_end_points = Text()
+    trial_timepoints_of_evaluation_of_this_end_point = Text()
 
     # E.6 and E.7 Scope of the trial
-    trial_diagnosis = Field()
-    trial_prophylaxis = Field()
-    trial_therapy = Field()
-    trial_safety = Field()
-    trial_efficacy = Field()
-    trial_pharmacokinetic = Field()
-    trial_pharmacodynamic = Field()
-    trial_bioequivalence = Field()
-    trial_dose_response = Field()
-    trial_pharmacogenetic = Field()
-    trial_pharmacogenomic = Field()
-    trial_pharmacoeconomic = Field()
-    trial_others = Field()
-    trial_human_pharmacology_phase_i = Field()
-    trial_first_administration_to_humans = Field()
-    trial_bioequivalence_study = Field()
-    trial_other = Field()
-    trial_therapeutic_exploratory_phase_ii = Field()
-    trial_therapeutic_confirmatory_phase_iii = Field()
-    trial_therapeutic_use_phase_iv = Field()
+    trial_diagnosis = Boolean('Yes')
+    trial_prophylaxis = Boolean('Yes')
+    trial_therapy = Boolean('Yes')
+    trial_safety = Boolean('Yes')
+    trial_efficacy = Boolean('Yes')
+    trial_pharmacokinetic = Boolean('Yes')
+    trial_pharmacodynamic = Boolean('Yes')
+    trial_bioequivalence = Boolean('Yes')
+    trial_dose_response = Boolean('Yes')
+    trial_pharmacogenetic = Boolean('Yes')
+    trial_pharmacogenomic = Boolean('Yes')
+    trial_pharmacoeconomic = Boolean('Yes')
+    trial_others = Boolean('Yes')
+    trial_other_scope_of_the_trial_description = Boolean('Yes')
+    trial_human_pharmacology_phase_i = Boolean('Yes')
+    trial_first_administration_to_humans = Boolean('Yes')
+    trial_bioequivalence_study = Boolean('Yes')
+    trial_other = Boolean('Yes')
+    trial_therapeutic_exploratory_phase_ii = Boolean('Yes')
+    trial_therapeutic_confirmatory_phase_iii = Boolean('Yes')
+    trial_therapeutic_use_phase_iv = Boolean('Yes')
 
     # E.8 Design of the trial
-    trial_controlled = Field()
-    trial_randomised = Field()
-    trial_open = Field()
-    trial_single_blind = Field()
-    trial_double_blind = Field()
-    trial_parallel_group = Field()
-    trial_cross_over = Field()
-    trial_other = Field()
-    trial_other_medicinal_products = Field()
-    trial_placebo = Field()
-    trial_other = Field()
-    trial_comparator_description = Field()
-    trial_number_of_treatment_arms_in_the_trial = Field()
-    trial_the_trial_involves_single_site_in_the_member = Field()
-    trial_the_trial_involves_multiple_sites_in_the_member = Field()
-    trial_number_of_sites_anticipated_in_member_state_concerned = Field()
-    trial_the_trial_involves_multiple_member_states = Field()
-    trial_number_of_sites_anticipated_in_the_eea = Field()
-    trial_trial_being_conducted_both_within_and_outside_the = Field()
-    trial_trial_being_conducted_completely_outside_of_the_eea = Field()
-    trial_if_e861_or_e862_are_yes_specify_the = Field()
-    trial_trial_has_a_data_monitoring_committee = Field()
-    trial_definition_of_the_end_of_the_trial_and = Field()
+    trial_controlled = Boolean('Yes')
+    trial_randomised = Text()
+    trial_open = Text()
+    trial_single_blind = Text()
+    trial_double_blind = Text()
+    trial_parallel_group = Text()
+    trial_cross_over = Text()
+    trial_other = Text()
+    trial_other_medicinal_products = Text()
+    trial_placebo = Text()
+    trial_other = Text()
+    trial_will_this_trial_be_conducted_at_a_single = Text()
+    trial_will_this_trial_be_conducted_at_multiple_sites = Text()
+
+    # E.8.6 Trial involving sites outside the EEA
+    trial_comparator_description = Text()
+    trial_number_of_treatment_arms_in_the_trial = Text()
+    trial_the_trial_involves_single_site_in_the_member = Text()
+    trial_the_trial_involves_multiple_sites_in_the_member = Text()
+    trial_number_of_sites_anticipated_in_member_state_concerned = Text()
+    trial_the_trial_involves_multiple_member_states = Text()
+    trial_number_of_sites_anticipated_in_the_eea = Text()
+    trial_trial_being_conducted_both_within_and_outside_the = Text()
+    trial_trial_being_conducted_completely_outside_of_the_eea = Text()
+    trial_specify_the_countries_outside_of_the_eea_in = Text()
+    trial_if_e861_or_e862_are_yes_specify_the = Text()
+    trial_trial_has_a_data_monitoring_committee = Text()
+    trial_definition_of_the_end_of_the_trial_and = Text()
 
     # E.8.9 Initial estimate of the duration of the trial
-    trial_in_the_member_state_concerned_years = Field()
-    trial_in_the_member_state_concerned_months = Field()
-    trial_in_the_member_state_concerned_days = Field()
-    trial_in_all_countries_concerned_by_the_trial_years = Field()
-    trial_in_all_countries_concerned_by_the_trial_months = Field()
-    trial_in_all_countries_concerned_by_the_trial_days = Field()
+    trial_in_the_member_state_concerned_years = Text()
+    trial_in_the_member_state_concerned_months = Text()
+    trial_in_the_member_state_concerned_days = Text()
+    trial_in_all_countries_concerned_by_the_trial_years = Text()
+    trial_in_all_countries_concerned_by_the_trial_months = Text()
+    trial_in_all_countries_concerned_by_the_trial_days = Text()
 
     # F. Population of Trial Subjects
 
     # F.1 Age Range
-    subject_trial_has_subjects_under_18 = Field()
-    subject_in_utero = Field()
-    subject_preterm_newborn_infants_up_to_gestational_age_ = Field()
-    subject_newborns_027_days = Field()
-    subject_infants_and_toddlers_28_days23_months = Field()
-    subject_children_211years = Field()
-    subject_adolescents_1217_years = Field()
-    subject_adults_1864_years = Field()
-    subject_elderly_65_years = Field()
+    subject_childs = Integer()
+    subject_adults = Integer()
+    subject_elderly = Integer()
 
     # F.2 Gender
-    subject_female = Field()
-    subject_male = Field()
+    subject_female = Boolean('Yes')
+    subject_male = Boolean('Yes')
 
     # F.3 Group of trial subjects
-    subject_healthy_volunteers = Field()
-    subject_patients = Field()
-    subject_specific_vulnerable_populations = Field()
-    subject_women_of_childbearing_potential_using_contraception = Field()
-    subject_women_of_childbearing_potential_not_using_contraception = Field()
-    subject_women_of_child_bearing_potential_using_contraception = Field()
-    subject_pregnant_women = Field()
-    subject_nursing_women = Field()
-    subject_emergency_situation = Field()
-    subject_subjects_incapable_of_giving_consent_personally = Field()
-    subject_details_of_subjects_incapable_of_giving_consent = Field()
-    subject_others = Field()
+    subject_healthy_volunteers = Boolean('Yes')
+    subject_patients = Boolean('Yes')
+    subject_specific_vulnerable_populations = Boolean('Yes')
+    subject_women_of_childbearing_potential_not_using_contraception = Boolean('Yes')  # noqa
+    subject_women_of_childbearing_potential_not_using_contraception_for = Boolean('Yes')  # noqa
+    subject_women_of_childbearing_potential_using_contraception = Boolean('Yes')  # noqa
+    subject_pregnant_women = Boolean('Yes')
+    subject_nursing_women = Boolean('Yes')
+    subject_emergency_situation = Boolean('Yes')
+    subject_subjects_incapable_of_giving_consent_personally = Boolean('Yes')
+    subject_details_of_subjects_incapable_of_giving_consent = Text()
+    subject_others = Boolean('Yes')
+    subject_details_of_other_specific_vulnerable_populations = Boolean('Yes')
 
     # F.4 Planned number of subjects to be included
-    subject_in_the_member_state = Field()
-    subject_in_the_eea = Field()
-    subject_in_the_whole_clinical_trial = Field()
-    subject_plans_for_treatment_or_care_after_the_subject = Field()
+    subject_in_the_member_state = Integer()
+    subject_in_the_eea = Integer()
+    subject_in_the_whole_clinical_trial = Integer()
+    subject_plans_for_treatment_or_care_after_the_subject = Text()
 
     # G. Investigator Networks to be involved in the Trial
 
@@ -188,12 +186,12 @@ class Item(base.Item):
 
     # N. Review by the Competent Authority or Ethics Committee
 
-    competent_authority_decision = Field()
-    date_of_competent_authority_decision = Field()
-    ethics_committee_opinion_of_the_trial_application = Field()
-    ethics_committee_opinion_reasons_for_unfavourable_opinion = Field()
-    date_of_ethics_committee_opinion = Field()
+    competent_authority_decision = Text()
+    date_of_competent_authority_decision = Text()
+    ethics_committee_opinion_of_the_trial_application = Text()
+    ethics_committee_opinion_reasons_for_unfavourable_opinion = Text()
+    date_of_ethics_committee_opinion = Text()
 
     # P. End of Trial
 
-    end_of_trial_status = Field()
+    end_of_trial_status = Text()

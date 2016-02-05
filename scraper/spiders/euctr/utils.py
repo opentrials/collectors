@@ -93,3 +93,13 @@ def extract_list(sel, kpath, vpath, first):
     if item:
         data.append(item)
     return data
+
+
+def extract_value(sel, code, index=0, default=None):
+    try:
+        tr = sel.xpath('//td[text() = "%s"]/..' % code)[index]
+        td = tr.xpath('td')[2]
+        value = ' '.join(td.xpath('.//text()').extract()).strip()
+        return value
+    except Exception:
+        return default
