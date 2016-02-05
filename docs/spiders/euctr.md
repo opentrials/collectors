@@ -19,7 +19,7 @@ https://github.com/opentrials/scraper/blob/master/scraper/spiders/euctr/item.py
 
 ## Primary Identifiers
 
-Trial identifier: `eudract_number`
+Trial identifier: `eudract_number_with_country`
 
 ## Data Update Strategy
 

@@ -39,7 +39,7 @@ def select_table(sel, ident):
     return sel.xpath('//table[@id="%s"]' % ident)
 
 
-def extract_dict(sel, kpath, vpath):
+def extract_dict(sel, kpath, vpath, prefix=None):
     """Extract data from title-paragraph like html.
     """
     data = {}
@@ -59,5 +59,37 @@ def extract_dict(sel, kpath, vpath):
                 if texts:
                     value = ' '.join(texts).strip()
         if key and value:
+            if prefix:
+                key = prefix + key
             data[key] = value
+    return data
+
+
+def extract_list(sel, kpath, vpath, first):
+    """Extract data from title-paragraph like html.
+    """
+    data = []
+    item = {}
+    key = None
+    value = None
+    for sel in sel.css('%s, %s' % (kpath, vpath)):
+        if sel.css(kpath):
+            key = None
+            value = None
+            texts = sel.xpath('.//text()').extract()
+            if texts:
+                key = base.utils.slugify(' '.join(texts).strip())
+        else:
+            if key is not None:
+                value = None
+                texts = sel.xpath('.//text()').extract()
+                if texts:
+                    value = ' '.join(texts).strip()
+        if key and value:
+            item[key] = value
+        if key == first and value is None and item:
+            data.append(item)
+            item = {}
+    if item:
+        data.append(item)
     return data

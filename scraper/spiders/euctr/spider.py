@@ -66,42 +66,83 @@ class Spider(base.Spider):
         value = '-'.join([data['eudract_number'], res.url.split('/')[-1]])
         data.update({key: value})
 
-        # Protocol Information (Section A)
+        # A. Protocol Information
         ident = 'section-a'
         kpath = '.second'
         vpath = '.second+.third'
         table = utils.select_table(res, ident)
         subdata = utils.extract_dict(table, kpath, vpath)
-        print(subdata.keys())
         data.update(subdata)
 
-        # Sponsor information (Section B)
+        # B. Sponsor information
+        key = 'sponsors'
         ident = 'section-b'
+        kpath = '.second'
+        vpath = '.second+.third'
+        first = 'name_of_sponsor'
+        table = utils.select_table(res, ident)
+        value = utils.extract_list(table, kpath, vpath, first)
+        data.update({key: value})
+
+        # C. Applicant Identification
         # ...
 
-        # Applicant Identification (Section C)
-        # ...
-
-        # IMP Identification (Section D)
+        # D. IMP Identification
+        key = 'imps'
         ident = 'section-d'
+        kpath = '.second'
+        vpath = '.second+.third'
+        first = 'imp_role'
+        table = utils.select_table(res, ident)
+        value = utils.extract_list(table, kpath, vpath, first)
+        data.update({key: value})
 
-        # Information on Placebo (Section D8)
+        # D8. Information on Placebo
+        key = 'placebos'
         ident = 'section-d8'
+        kpath = '.second'
+        vpath = '.second+.third'
+        first = 'is_a_placebo_used_in_this_trial'
+        table = utils.select_table(res, ident)
+        value = utils.extract_list(table, kpath, vpath, first)
+        data.update({key: value})
 
-        # General Information on the Trial (Section E)
+        # E. General Information on the Trial
         ident = 'section-e'
+        kpath = '.second'
+        vpath = '.second+.third'
+        prefix = 'trial_'
+        table = utils.select_table(res, ident)
+        subdata = utils.extract_dict(table, kpath, vpath, prefix)
+        data.update(subdata)
 
-        # Population of Trial Subjects (Section F)
+        # F. Population of Trial Subjects
         ident = 'section-f'
+        kpath = '.second'
+        vpath = '.second+.third'
+        prefix = 'subject_'
+        table = utils.select_table(res, ident)
+        subdata = utils.extract_dict(table, kpath, vpath, prefix)
+        data.update(subdata)
 
-        # Investigator Networks to be involved in the Trial (Section G)
-        ident = 'section-g'
+        # G. Investigator Networks to be involved in the Trial
+        # ...
 
-        # Review by the Competent Authority or Ethics Committee (Section N)
+        # N. Review by the Competent Authority or Ethics Committee
         ident = 'section-n'
+        kpath = '.second'
+        vpath = '.second+.third'
+        table = utils.select_table(res, ident)
+        subdata = utils.extract_dict(table, kpath, vpath)
+        data.update(subdata)
 
-        # End of Trial (Section P)
+        # P. End of Trial
         ident = 'section-p'
+        kpath = '.second'
+        vpath = '.second+.third'
+        table = utils.select_table(res, ident)
+        subdata = utils.extract_dict(table, kpath, vpath)
+        data.update(subdata)
 
         # Create item, map and add data
         item = Item.create(source=res.url)

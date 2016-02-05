@@ -19,3 +19,8 @@ class Mapper(base.Mapper):
     # Summary
 
     date_on_which_this_record_was_first_entered = map_date
+
+    # F. Population of Trial Subjects
+
+    def subject_number_of_subjects_for_this_age_range(self, key, value):
+        return {}

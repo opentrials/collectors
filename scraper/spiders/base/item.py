@@ -81,11 +81,14 @@ class Item(scrapy.Item):
     def add_data(self, data):
         """Add data to item.
         """
+        undefined = []
         for key, value in data.items():
             field = self.fields.get(key)
             if field is None:
-                logger.info('Undefined field: %s: %s=%s' % (self, key, value))
+                undefined.append(key)
                 continue
             if value is None:
                 continue
             self[key] = value
+        for key in undefined:
+            logger.info('Undefined field: %s - %s' % (self, key))
