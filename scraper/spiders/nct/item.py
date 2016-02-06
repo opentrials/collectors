@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from .. import base
-from ..base.fields import Text, Date, Integer, Json, Array
+from ..base.fields import Text, Date, Integer, Json, Array, Boolean
 
 
 # Module API
@@ -74,9 +74,9 @@ class Item(base.Item):
     firstreceived_results_date = Date('%B %d, %Y')
     responsible_party = Json()
     keywords = Array()
-    is_fda_regulated = Text()
-    is_section_801 = Text()
-    has_expanded_access = Text()
+    is_fda_regulated = Boolean('Yes')
+    is_section_801 = Boolean('Yes')
+    has_expanded_access = Boolean('Yes')
     condition_browse = Json()
     intervention_browse = Json()
     clinical_results = Json()
