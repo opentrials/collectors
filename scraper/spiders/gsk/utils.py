@@ -27,14 +27,6 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     return [prefix + '?' + urlencode(query)]
 
 
-def make_pattern(prefix):
-    """ Return pattern.
-    """
-    pattern = prefix
-    pattern += r'\?query=&dateFrom=[^&]&dateTo=[^&]&page=\d+'
-    return pattern
-
-
 def extract_definition_list(res, key_path, value_path):
     """Extract data from title-paragraph like html.
     """

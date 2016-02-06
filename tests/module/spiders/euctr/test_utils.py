@@ -14,9 +14,3 @@ def test_make_start_urls():
             '2015-01-01', '2015-01-02')
     print(result)
     assert result
-
-
-def test_make_pattetn():
-    result = module.make_pattern('ctr-search/search')
-    print(result)
-    assert result

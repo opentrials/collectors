@@ -4,7 +4,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import re
 from urllib import urlencode
 from collections import OrderedDict
 from datetime import date, timedelta
@@ -26,14 +25,6 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     query['dateFrom'] = date_from
     query['dateTo'] = date_to
     return [prefix + '?' + urlencode(query)]
-
-
-def make_pattern(prefix):
-    """ Return pattern.
-    """
-    pattern = re.escape(prefix)
-    pattern += r'\?query=&dateFrom=[^&]+&dateTo=[^&]+&page=\d+'
-    return pattern
 
 
 def select_table(sel, ident):

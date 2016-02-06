@@ -31,14 +31,13 @@ class Spider(base.Spider):
 
         # Make rules
         self.rules = [
-            Rule(LinkExtractor(allow=utils.make_pattern('TrialSearch.aspx'))),
-            Rule(
-                LinkExtractor(
-                    allow=r'Trial/Registration/TrialReview.aspx',
-                    process_value=lambda value: value.replace('http', 'https', 1),
-                ),
-                callback='parse_item'
-            ),
+            Rule(LinkExtractor(
+                allow=r'Trial/Registration/TrialReview.aspx',
+                process_value=lambda value: value.replace('http', 'https', 1),
+            ), callback='parse_item'),
+            Rule(LinkExtractor(
+                allow=r'page=\d+',
+            )),
         ]
 
         # Inherit parent

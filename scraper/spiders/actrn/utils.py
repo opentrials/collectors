@@ -4,7 +4,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import re
 from urllib import urlencode
 from collections import OrderedDict
 from datetime import datetime, date, timedelta
@@ -30,14 +29,6 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     query['registry'] = 'ANZCTR'
     query['isBasic'] = 'False'
     return [prefix + '?' + urlencode(query)]
-
-
-def make_pattern(prefix):
-    """ Return pattern.
-    """
-    pattern = re.escape(prefix)
-    pattern += r'.*&page=\d+'
-    return pattern
 
 
 def extract_definition_list(res, key_path, value_path):

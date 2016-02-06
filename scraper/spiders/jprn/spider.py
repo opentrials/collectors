@@ -46,13 +46,12 @@ class Spider(base.Spider):
         # Make rules
         self.rules = [
             Rule(LinkExtractor(
-                allow=utils.make_pattern('cgi-open-bin/ctr/ctr.cgi'),
+                allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',
+            ), callback='parse_item'),
+            Rule(LinkExtractor(
+                allow=r'page=\d+',
                 process_value=self.process_url,
             )),
-            Rule(
-                LinkExtractor(allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',),
-                callback='parse_item',
-            ),
         ]
 
         # Inherit parent

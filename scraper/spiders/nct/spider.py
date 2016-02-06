@@ -34,12 +34,12 @@ class Spider(base.Spider):
         # Make rules
         self.rules = [
             Rule(LinkExtractor(
-                allow=utils.make_pattern('ct2/results'),
-            )),
-            Rule(LinkExtractor(
                 allow=r'ct2/show/NCT\d+',
                 process_value=lambda value: value+'&resultsxml=true',
             ), callback=self.mapper.map_response),
+            Rule(LinkExtractor(
+                allow=r'pg=\d+$',
+            )),
         ]
 
         # Inherit parent

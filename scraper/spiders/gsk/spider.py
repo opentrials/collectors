@@ -35,11 +35,12 @@ class Spider(base.Spider):
 
         # Make rules
         self.rules = [
-            Rule(LinkExtractor(allow=utils.make_pattern('ctr-search/search'))),
-            Rule(
-                LinkExtractor(allow=r'ctr-search/trial/[\d-]+/[\w]+'),
-                callback='parse_item'
-            ),
+            Rule(LinkExtractor(
+                allow=r'ctr-search/trial/[\d-]+/[\w]+'
+            ), callback='parse_item'),
+            Rule(LinkExtractor(
+                allow=r'page=\d+',
+            )),
         ]
 
         # Inherit parent

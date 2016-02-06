@@ -12,9 +12,3 @@ def test_make_start_urls():
     result = module.make_start_urls('prefix', '2016-01-01', '2016-01-15')
     print(result)
     assert result
-
-
-def test_make_pattetn():
-    result = module.make_pattern('prefix')
-    print(result)
-    assert result

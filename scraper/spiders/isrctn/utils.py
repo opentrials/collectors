@@ -4,7 +4,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import re
 from urllib import urlencode
 from collections import OrderedDict
 from datetime import date, timedelta
@@ -30,15 +29,6 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     query['pageSize'] = '100'
     query['searchType'] = 'advanced-search'
     return [prefix + '?' + urlencode(query)]
-
-
-def make_pattern(prefix):
-    """ Return pattern.
-    """
-    pattern = re.escape(prefix)
-    pattern += r'\?q=&filters=[^&]+&page=\d+&'
-    pattern += r'pageSize=100&searchType=advanced-search$'
-    return pattern
 
 
 def select_parent(sel, tag, text):

@@ -33,11 +33,12 @@ class Spider(base.Spider):
 
         # Make rules
         self.rules = [
-            Rule(LinkExtractor(allow=utils.make_pattern('search'))),
-            Rule(
-                LinkExtractor(allow=r'ISRCTN\d+'),
-                callback=self.mapper.map_response,
-            ),
+            Rule(LinkExtractor(
+                allow=r'ISRCTN\d+',
+            ), callback=self.mapper.map_response),
+            Rule(LinkExtractor(
+                allow=r'page=\d+',
+            )),
         ]
 
         # Inherit parent
