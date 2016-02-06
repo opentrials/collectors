@@ -16,6 +16,9 @@ class Mapper(base.Mapper):
     # Public
 
     ignore = [
+        'trial_other',
+        'trial_will_this_trial_be_conducted_at_a_single',
+        'trial_will_this_trial_be_conducted_at_multiple_sites',
         'subject_number_of_subjects_for_this_age_range',
         'subject_trial_has_subjects_under_18',
         'subject_in_utero',
