@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import re
 from urllib import urlencode
 from collections import OrderedDict
 
@@ -29,7 +30,9 @@ def make_start_urls(prefix, page_from=None):
 def make_pattern(prefix):
     """ Return pattern.
     """
-    return prefix + r'\?_page=\d+'
+    pattern = re.escape(prefix)
+    pattern += r'\?_page=\d+'
+    return pattern
 
 
 def extract_table(res, key_index, value_index):

@@ -16,7 +16,7 @@ class Item(base.Item):
 
     table = 'euctr'
     primary_key = 'eudract_number_with_country'
-    updated_key = 'date_on_which_this_record_was_first_entered'
+    updated_key = None
 
     # Summary
 

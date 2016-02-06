@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import re
 import logging
 import xmltodict
 from urllib import urlencode
@@ -33,7 +34,9 @@ def make_start_urls(prefix, date_from=None, date_to=None):
 def make_pattern(prefix):
     """ Return pattern.
     """
-    return prefix + r'\?lup_s=[^&]+&lup_e=[^&]+(&pg=\d+)?$'
+    pattern = re.escape(prefix)
+    pattern += r'\?lup_s=[^&]+&lup_e=[^&]+(&pg=\d+)?$'
+    return pattern
 
 
 def extract_text(res, path):

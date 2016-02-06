@@ -11,6 +11,8 @@ Example - https://www.clinicaltrialsregister.eu/ctr-search/trial/2004-000534-36/
 Data is moving to the warehouse as it is with additional type casting.
 See the next section for more details.
 
+Additional information - https://eudract.ema.europa.eu/
+
 ## Warehouse Data Model
 
 See item definition for the full data model:
@@ -23,9 +25,10 @@ Trial identifier: `eudract_number_with_country`
 
 ## Data Update Strategy
 
-Trials could be serched with `dateFrom/dateTo` filter.
-After initial scraping we should use the last 2 days searches
-to stay up to date (`recent` stack).
+Web interface and source model doesn't have something like
+`updated` field. So to stay up to date full scan is needed.
+
+Proposed solution - use [feed](https://www.clinicaltrialsregister.eu/ctr-search/rest/feed/bydates?query=&dateFrom=2000-01-01&dateTo=2015-01-02) of created/updated in the last 7 days items matching the filter parameters.
 
 ## License Terms
 

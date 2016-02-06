@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import re
 from urllib import urlencode
 from collections import OrderedDict
 from datetime import date, timedelta
@@ -30,8 +31,8 @@ def make_start_urls(prefix, date_from=None, date_to=None):
 def make_pattern(prefix):
     """ Return pattern.
     """
-    pattern = prefix
-    pattern += r'\?query=&dateFrom=[^&]&dateTo=[^&]&page=\d+'
+    pattern = re.escape(prefix)
+    pattern += r'\?query=&dateFrom=[^&]+&dateTo=[^&]+&page=\d+'
     return pattern
 
 
