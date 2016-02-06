@@ -28,7 +28,9 @@ class Database(object):
                 item.table,
                 primary_id=item.primary_key,
                 primary_type='String')
+        action = 'Created'
         if table.find_one(**{item.primary_key: item[item.primary_key]}):
+            action = 'Updated'
             for key in item.skip_on_update:
                 del item[key]
         try:
@@ -36,5 +38,5 @@ class Database(object):
         except Exception as exception:
             logger.info('Saving error: %s: %s' % (item, repr(exception)))
         else:
-            logger.info('Saved item: %s - %s fields', item, len(item))
+            logger.info('%s item: %s - %s fields', action, item, len(item))
         return item
