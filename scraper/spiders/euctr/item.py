@@ -39,7 +39,7 @@ class Item(base.Item):
     us_nct_clinicaltrialsgov_registry_number = Text()
     who_universal_trial_reference_number_utrn = Text()
     isrctn_international_standard_randomised_controlled_trial_number = Text()
-    trial_is_part_of_a_paediatric_investigation_plan = Text()
+    trial_is_part_of_a_paediatric_investigation_plan = Boolean('Yes')
     ema_decision_number_of_paediatric_investigation_plan = Text()
 
     # B. Sponsor information
@@ -74,7 +74,7 @@ class Item(base.Item):
     # E.2 Objective of the trial
     trial_main_objective_of_the_trial = Text()
     trial_secondary_objectives_of_the_trial = Text()
-    trial_trial_contains_a_substudy = Text()
+    trial_trial_contains_a_substudy = Boolean('Yes')
     trial_full_title_date_and_version_of_each_substudy = Text()
 
     # E.3 and E.4 Eligibility
@@ -101,7 +101,7 @@ class Item(base.Item):
     trial_pharmacogenomic = Boolean('Yes')
     trial_pharmacoeconomic = Boolean('Yes')
     trial_others = Boolean('Yes')
-    trial_other_scope_of_the_trial_description = Boolean('Yes')
+    trial_other_scope_of_the_trial_description = Text()
     trial_human_pharmacology_phase_i = Boolean('Yes')
     trial_first_administration_to_humans = Boolean('Yes')
     trial_bioequivalence_study = Boolean('Yes')
@@ -112,41 +112,39 @@ class Item(base.Item):
 
     # E.8 Design of the trial
     trial_controlled = Boolean('Yes')
-    trial_randomised = Text()
-    trial_open = Text()
-    trial_single_blind = Text()
-    trial_double_blind = Text()
-    trial_parallel_group = Text()
-    trial_cross_over = Text()
-    trial_other = Text()
-    trial_other_medicinal_products = Text()
-    trial_placebo = Text()
-    trial_other = Text()
-    trial_will_this_trial_be_conducted_at_a_single = Text()
-    trial_will_this_trial_be_conducted_at_multiple_sites = Text()
+    trial_randomised = Boolean('Yes')
+    trial_open = Boolean('Yes')
+    trial_single_blind = Boolean('Yes')
+    trial_double_blind = Boolean('Yes')
+    trial_parallel_group = Boolean('Yes')
+    trial_cross_over = Boolean('Yes')
+    trial_other = Boolean('Yes')
+    trial_other_medicinal_products = Boolean('Yes')
+    trial_placebo = Boolean('Yes')
+    trial_other = Boolean('Yes')
+    trial_comparator_description = Text()
+    trial_number_of_treatment_arms_in_the_trial = Integer()
+    trial_the_trial_involves_single_site_in_the_member = Boolean('Yes')
+    trial_the_trial_involves_multiple_sites_in_the_member = Boolean('Yes')
+    trial_number_of_sites_anticipated_in_member_state_concerned = Integer()
+    trial_the_trial_involves_multiple_member_states = Boolean('Yes')
+    trial_number_of_sites_anticipated_in_the_eea = Integer()
 
     # E.8.6 Trial involving sites outside the EEA
-    trial_comparator_description = Text()
-    trial_number_of_treatment_arms_in_the_trial = Text()
-    trial_the_trial_involves_single_site_in_the_member = Text()
-    trial_the_trial_involves_multiple_sites_in_the_member = Text()
-    trial_number_of_sites_anticipated_in_member_state_concerned = Text()
-    trial_the_trial_involves_multiple_member_states = Text()
-    trial_number_of_sites_anticipated_in_the_eea = Text()
-    trial_trial_being_conducted_both_within_and_outside_the = Text()
-    trial_trial_being_conducted_completely_outside_of_the_eea = Text()
+    trial_trial_being_conducted_both_within_and_outside_the = Boolean('Yes')
+    trial_trial_being_conducted_completely_outside_of_the_eea = Boolean('Yes')
     trial_specify_the_countries_outside_of_the_eea_in = Text()
     trial_if_e861_or_e862_are_yes_specify_the = Text()
-    trial_trial_has_a_data_monitoring_committee = Text()
+    trial_trial_has_a_data_monitoring_committee = Boolean('Yes')
     trial_definition_of_the_end_of_the_trial_and = Text()
 
     # E.8.9 Initial estimate of the duration of the trial
-    trial_in_the_member_state_concerned_years = Text()
-    trial_in_the_member_state_concerned_months = Text()
-    trial_in_the_member_state_concerned_days = Text()
-    trial_in_all_countries_concerned_by_the_trial_years = Text()
-    trial_in_all_countries_concerned_by_the_trial_months = Text()
-    trial_in_all_countries_concerned_by_the_trial_days = Text()
+    trial_in_the_member_state_concerned_years = Integer()
+    trial_in_the_member_state_concerned_months = Integer()
+    trial_in_the_member_state_concerned_days = Integer()
+    trial_in_all_countries_concerned_by_the_trial_years = Integer()
+    trial_in_all_countries_concerned_by_the_trial_months = Integer()
+    trial_in_all_countries_concerned_by_the_trial_days = Integer()
 
     # F. Population of Trial Subjects
 
@@ -164,7 +162,6 @@ class Item(base.Item):
     subject_patients = Boolean('Yes')
     subject_specific_vulnerable_populations = Boolean('Yes')
     subject_women_of_childbearing_potential_not_using_contraception = Boolean('Yes')  # noqa
-    subject_women_of_childbearing_potential_not_using_contraception_for = Boolean('Yes')  # noqa
     subject_women_of_childbearing_potential_using_contraception = Boolean('Yes')  # noqa
     subject_pregnant_women = Boolean('Yes')
     subject_nursing_women = Boolean('Yes')
@@ -187,10 +184,10 @@ class Item(base.Item):
     # N. Review by the Competent Authority or Ethics Committee
 
     competent_authority_decision = Text()
-    date_of_competent_authority_decision = Text()
+    date_of_competent_authority_decision = Date('%Y-%m-%d')
     ethics_committee_opinion_of_the_trial_application = Text()
     ethics_committee_opinion_reasons_for_unfavourable_opinion = Text()
-    date_of_ethics_committee_opinion = Text()
+    date_of_ethics_committee_opinion = Date('%Y-%m-%d')
 
     # P. End of Trial
 
