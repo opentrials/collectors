@@ -10,7 +10,7 @@ from scrapy.linkextractors import LinkExtractor
 
 from .. import base
 from . import utils
-from .item import Item
+from .mapper import Mapper
 
 
 # Module API
@@ -24,6 +24,9 @@ class Spider(base.Spider):
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
+        # Create mapper
+        self.mapper = Mapper()
+
         # Make start urls
         self.start_urls = utils.make_start_urls(
                 prefix='http://www.anzctr.org.au/TrialSearch.aspx',
@@ -34,7 +37,7 @@ class Spider(base.Spider):
             Rule(LinkExtractor(
                 allow=r'Trial/Registration/TrialReview.aspx',
                 process_value=lambda value: value.replace('http', 'https', 1),
-            ), callback='parse_item'),
+            ), callback=self.mapper.map_response),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),
@@ -42,17 +45,3 @@ class Spider(base.Spider):
 
         # Inherit parent
         super(Spider, self).__init__(*args, **kwargs)
-
-    def parse_item(self, res):
-
-        # Create item
-        item = Item.create(source=res.url)
-
-        # Add main data
-        key_path = '.review-element-name'
-        value_path = '.review-element-content'
-        data = utils.extract_definition_list(res, key_path, value_path)
-        for key, value in data.items():
-            item.add_data(key, value)
-
-        return item

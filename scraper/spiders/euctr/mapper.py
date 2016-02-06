@@ -15,7 +15,7 @@ class Mapper(base.Mapper):
 
     # Public
 
-    ignore = [
+    remove = [
         'trial_other',
         'trial_will_this_trial_be_conducted_at_a_single',
         'trial_will_this_trial_be_conducted_at_multiple_sites',
@@ -154,8 +154,8 @@ class Mapper(base.Mapper):
         subdata = utils.extract_dict(table, kpath, vpath)
         data.update(subdata)
 
-        # Remove ignored data
-        for key in self.ignore:
+        # Remove data
+        for key in self.remove:
             if key in data:
                 del data[key]
 

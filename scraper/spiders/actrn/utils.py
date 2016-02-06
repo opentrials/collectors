@@ -31,25 +31,32 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     return [prefix + '?' + urlencode(query)]
 
 
-def extract_definition_list(res, key_path, value_path):
+def extract_dict(sel, kpath, vpath):
     """Extract data from title-paragraph like html.
     """
     data = {}
     key = None
     value = None
-    for sel in res.css('%s, %s' % (key_path, value_path)):
-        if sel.css(key_path):
+    for sel in sel.css('%s, %s' % (kpath, vpath)):
+        if sel.css(kpath):
             key = None
             value = None
-            elements = sel.xpath('text()').extract()
-            if elements:
-                key = base.utils.slugify(elements[0].strip())
+            raw_texts = sel.xpath('.//text()').extract()
+            texts = []
+            for text in raw_texts:
+                # Remove hidden int values
+                try:
+                    int(text)
+                except Exception:
+                    texts.append(text)
+            if texts:
+                key = base.utils.slugify(' '.join(texts).strip())
         else:
             if key is not None:
                 value = None
-                elements = sel.xpath('span/text()').extract()
-                if elements:
-                    value = elements[0].strip()
+                texts = sel.xpath('.//text()').extract()
+                if texts:
+                    value = ' '.join(texts).strip()
         if key and value:
             data[key] = value
     return data

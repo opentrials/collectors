@@ -12,6 +12,8 @@ Example - https://www.anzctr.org.au/Trial/Registration/TrialReview.aspx?id=36969
 Data is moving to the warehouse as it is with additional type casting.
 See the next section for more details.
 
+For more information - http://www.anzctr.org.au/docs/ANZCTR%20Data%20field%20explanation.pdf
+
 ## Warehouse Data Model
 
 See item definition for the full data model:
@@ -24,9 +26,8 @@ Trial identifier: `trial_id`
 
 ## Data Update Strategy
 
-Trials could be serched with `date_registered` filter.
-After initial scraping we should use the last 2 days searches
-to stay up to date (`recent` stack).
+Web interface and source model doesn't have something like
+`updated` field. So to stay up to date full scan is needed.
 
 ## License Terms
 

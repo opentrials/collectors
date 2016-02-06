@@ -4,9 +4,8 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from scrapy import Field
-
 from .. import base
+from ..base.fields import Text, Date, Boolean, Integer, Json, Array
 
 
 # Module API
@@ -17,34 +16,98 @@ class Item(base.Item):
 
     table = 'actrn'
     primary_key = 'trial_id'
-    updated_key = 'date_registered'
+    updated_key = None
 
-    # Plain value fields
+    # Summary
 
-    trial_id = Field()
-    ethics_application_status = Field()
-    date_submitted = Field()
-    date_registered = Field()
-    type_of_registration = Field()
-    procedure_for_enrolling_a_subject_and_allocating_the = Field()
-    methods_used_to_generate_the_sequence_in_which = Field()
-    intervention_assignment = Field()
-    primary_sponsor_type = Field()
-    name = Field()
-    address = Field()
-    country = Field()
-    name = Field()
-    address = Field()
-    country = Field()
-    phone = Field()
-    email = Field()
-    name = Field()
-    address = Field()
-    country = Field()
-    phone = Field()
-    email = Field()
-    name = Field()
-    address = Field()
-    country = Field()
-    phone = Field()
-    email = Field()
+    trial_id = Text()
+    ethics_application_status = Text()
+    date_submitted = Date('%d/%m/%Y')
+    date_registered = Date('%d/%m/%Y')
+    type_of_registration = Text()
+
+    # Titles & IDs
+
+    public_title = Text()
+    scientific_title = Text()
+    secondary_ids = Array()
+    universal_trial_number_utn = Text()
+    trial_acronym = Text()
+
+    # Health condition
+
+    health_conditions_or_problems_studied = Text()
+    condition_category = Text()
+    condition_code = Text()
+
+    # Intervention/exposure
+
+    study_type = Text()
+    description_of_interventions__exposure = Text()
+    intervention_codes = Array()
+    comparator__control_treatment = Text()
+    control_group = Text()
+
+    # Outcomes
+
+    primary_outcomes = Array()
+    secondary_outcomes = Array()
+
+    # Eligibility
+
+    key_inclusion_criteria = Text()
+    minimum_age = Text()
+    maximum_age = Text()
+    gender = Text()
+    can_healthy_volunteers_participate = Boolean('Yes')
+    key_exclusion_criteria = Text()
+
+    # Study design
+
+    purpose_of_the_study = Text()
+    allocation_to_intervention = Text()
+    procedure_for_enrolling_a_subject_and_allocating_the = Text()
+    methods_used_to_generate_the_sequence_in_which = Text()
+    masking__blinding = Text()
+    who_is__are_masked__blinded = Text()
+    intervention_assignment = Text()
+    other_design_features = Text()
+    phase = Text()
+    type_of_endpoints = Text()
+
+    # Recruitment
+
+    anticipated_date_of_first_participant_enrolment = Date('%d/%m/%Y')
+    actual_date_of_first_participant_enrolment = Date('%d/%m/%Y')
+    anticipated_date_last_participant_enrolled = Date('%d/%m/%Y')
+    actual_date_last_participant_enrolled = Date('%d/%m/%Y')
+    target_sample_size = Integer()
+    actual_sample_size = Integer()
+    recruitment_status = Text()
+    recruitment_states = Text()
+    recruitment_postcodess = Array()
+    recruitment_hospitals = Array()
+
+    # Funding & Sponsors
+
+    # ...
+
+    # Ethics approval
+
+    ethics_application_status = Text()
+    ethics_committee_countrys = Array()
+    ethics_approval_numbers = Array()
+    ethics_committee_addresss = Array()
+    ethics_committee_names = Array()
+    approval_dates = Array()
+
+    # Summary
+
+    brief_summary = Text()
+    trial_website = Text()
+    trial_related_presentations__publications = Text()
+    public_notes = Text()
+
+    # Contacts
+
+    contacts = Json()

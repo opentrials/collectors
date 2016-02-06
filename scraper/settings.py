@@ -11,7 +11,7 @@ import os
 
 NEWSPIDER_MODULE = 'scraper.spiders'
 SPIDER_MODULES = [
-    # 'scraper.spiders.actrn',
+    'scraper.spiders.actrn',
     'scraper.spiders.euctr',
     # 'scraper.spiders.gsk',
     'scraper.spiders.isrctn',
