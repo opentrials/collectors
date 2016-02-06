@@ -22,6 +22,11 @@ class Item(scrapy.Item):
 
     # Public
 
+    skip_on_update = [
+        'meta_uuid',
+        'meta_created',
+    ]
+
     @classmethod
     def create(cls, source, data):
 
