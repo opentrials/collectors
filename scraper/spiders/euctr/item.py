@@ -105,6 +105,7 @@ class Item(base.Item):
     trial_human_pharmacology_phase_i = Boolean('Yes')
     trial_first_administration_to_humans = Boolean('Yes')
     trial_bioequivalence_study = Boolean('Yes')
+    trial_other_trial_type_description = Text()
     trial_other = Boolean('Yes')
     trial_therapeutic_exploratory_phase_ii = Boolean('Yes')
     trial_therapeutic_confirmatory_phase_iii = Boolean('Yes')
@@ -191,3 +192,4 @@ class Item(base.Item):
     # P. End of Trial
 
     end_of_trial_status = Text()
+    date_of_the_global_end_of_the_trial = Date('%Y-%m-%d')
