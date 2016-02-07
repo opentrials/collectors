@@ -24,3 +24,9 @@ def parse_date(value, format):
     """Parse sting date.
     """
     return datetime.strptime(value, format).date()
+
+
+def parse_datetime(value, format):
+    """Parse sting datetime.
+    """
+    return datetime.strptime(value, format)

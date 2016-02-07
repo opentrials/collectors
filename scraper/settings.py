@@ -15,7 +15,7 @@ SPIDER_MODULES = [
     'scraper.spiders.euctr',
     # 'scraper.spiders.gsk',
     'scraper.spiders.isrctn',
-    # 'scraper.spiders.jprn',
+    'scraper.spiders.jprn',
     'scraper.spiders.nct',
 ]
 

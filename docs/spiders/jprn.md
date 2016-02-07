@@ -23,8 +23,10 @@ Trial identifier: `unique_trial_number`
 
 ## Data Update Strategy
 
-Trials could be serched with `date_and_time_of_last_update` filter.
-After initial scraping we should use the last 2 days searches
+Trials have `date_and_time_of_last_update` field.
+Newly created and updated trials have to be searched
+using desc last_updated ordering (by default).
+After initial scraping we should use the last 2 pages of search results
 to stay up to date (`recent` stack).
 
 ## License Terms

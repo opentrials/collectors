@@ -14,7 +14,7 @@ from six.moves.urllib.parse import urlparse, parse_qs
 
 from .. import base
 from . import utils
-from .item import Item
+from .mapper import Mapper
 
 
 # Module API
@@ -27,6 +27,9 @@ class Spider(base.Spider):
     allowed_domains = ['upload.umin.ac.jp']
 
     def __init__(self, page_from=None, page_to=None, *args, **kwargs):
+
+        # Create mapper
+        self.mapper = Mapper()
 
         # Default values
         if page_from is None:
@@ -47,7 +50,7 @@ class Spider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',
-            ), callback='parse_item'),
+            ), callback=self.mapper.map_response),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
                 process_value=self.process_url,
@@ -73,20 +76,3 @@ class Spider(base.Spider):
                 return url
 
         return None
-
-    def parse_item(self, res):
-
-        # Create item
-        item = Item.create(source=res.url)
-
-        # Get meta
-        data = utils.extract_table(res, key_index=0, value_index=2)
-        for key, value in data.items():
-            item.add_data(key, value)
-
-        # Get data
-        data = utils.extract_table(res, key_index=0, value_index=1)
-        for key, value in data.items():
-            item.add_data(key, value)
-
-        return item

@@ -77,7 +77,15 @@ class Datetime(Base):
 
     # Public
 
+    def __init__(self, format=None):
+        self.format = format
+
     type = sa.DateTime(timezone=True)
+
+    def parse(self, value):
+        if self.format is not None:
+            value = utils.parse_datetime(value, format=self.format)
+        return value
 
 
 class Json(Base):

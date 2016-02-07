@@ -29,7 +29,7 @@ def make_start_urls(prefix, page_from=None):
 def extract_table(res, key_index, value_index):
     """Extract data from tabular structure.
     """
-    data = {}
+    data = OrderedDict()
     for sel in res.xpath('//tr'):
         columns = sel.xpath('td')
         if len(columns) == value_index+1:
