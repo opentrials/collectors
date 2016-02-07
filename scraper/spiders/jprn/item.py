@@ -93,6 +93,7 @@ class Item(base.Item):
     research_division_name = Text()
     research_address = Text()
     research_tel = Text()
+    research_homepage_url = Text()
     research_email = Text()
 
     # Public contact
