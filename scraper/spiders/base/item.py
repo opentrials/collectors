@@ -7,9 +7,8 @@ from __future__ import unicode_literals
 import uuid
 import scrapy
 import logging
-from six import add_metaclass
 from datetime import datetime
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 
 from . import fields
 logger = logging.getLogger(__name__)
@@ -17,7 +16,6 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-@add_metaclass(ABCMeta)
 class Item(scrapy.Item):
 
     # Public
