@@ -31,32 +31,29 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     return [prefix + '?' + urlencode(query)]
 
 
-def extract_dict(sel, kpath, vpath):
-    """Extract data from title-paragraph like html.
-    """
-    data = {}
-    key = None
+def extract_data(sel, gpath, kpath, vpath):
+    data = []
+    group = None
+    name = None
     value = None
-    for sel in sel.css('%s, %s' % (kpath, vpath)):
+    for sel in sel.css('%s, %s, %s' % (gpath, kpath, vpath)):
+        text = extract_text(sel)
+        if sel.css(gpath):
+            group = text
         if sel.css(kpath):
-            key = None
+            name = base.utils.slugify(text)
+        if sel.css(vpath):
+            value = text
+            if name and value:
+                data.append((group, name, value))
+            name = None
             value = None
-            raw_texts = sel.xpath('.//text()').extract()
-            texts = []
-            for text in raw_texts:
-                # Remove hidden int values
-                try:
-                    int(text)
-                except Exception:
-                    texts.append(text)
-            if texts:
-                key = base.utils.slugify(' '.join(texts).strip())
-        else:
-            if key is not None:
-                value = None
-                texts = sel.xpath('.//text()').extract()
-                if texts:
-                    value = ' '.join(texts).strip()
-        if key and value:
-            data[key] = value
     return data
+
+
+def extract_text(sel):
+    text = ''
+    texts = sel.xpath('.//text()').extract()
+    if texts:
+        text = ' '.join(texts).strip()
+    return text

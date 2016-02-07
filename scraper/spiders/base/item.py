@@ -59,11 +59,11 @@ class Item(scrapy.Item):
             except Exception as exception:
                 message = 'Parsing error: %s=%s: %s'
                 message = message % (key, value, exception)
-                logger.info(message)
+                logger.warning(message)
                 continue
             self[key] = value
         for key in undefined:
-            logger.info('Undefined field: %s - %s' % (self, key))
+            logger.warning('Undefined field: %s - %s' % (self, key))
 
         return self
 

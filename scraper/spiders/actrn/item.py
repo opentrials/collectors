@@ -18,7 +18,7 @@ class Item(base.Item):
     primary_key = 'trial_id'
     updated_key = None
 
-    # Summary
+    # General
 
     trial_id = Text()
     ethics_application_status = Text()
@@ -43,6 +43,9 @@ class Item(base.Item):
     # Intervention/exposure
 
     study_type = Text()
+    patient_registry = Boolean('Yes')
+    target_followup_duration = Integer()
+    target_followup_type = Text()
     description_of_interventions__exposure = Text()
     intervention_codes = Array()
     comparator__control_treatment = Text()
@@ -50,8 +53,8 @@ class Item(base.Item):
 
     # Outcomes
 
-    primary_outcomes = Array()
-    secondary_outcomes = Array()
+    primary_outcomes = Json()
+    secondary_outcomes = Json()
 
     # Eligibility
 
@@ -74,6 +77,11 @@ class Item(base.Item):
     other_design_features = Text()
     phase = Text()
     type_of_endpoints = Text()
+    purpose = Text()
+    duration = Text()
+    selection = Text()
+    timing = Text()
+    statistical_methods__analysis = Text()
 
     # Recruitment
 
@@ -85,21 +93,16 @@ class Item(base.Item):
     actual_sample_size = Integer()
     recruitment_status = Text()
     recruitment_states = Text()
-    recruitment_postcodess = Array()
-    recruitment_hospitals = Array()
 
     # Funding & Sponsors
 
-    # ...
+    primary_sponsor = Json()
+    sponsors = Json()
 
     # Ethics approval
 
     ethics_application_status = Text()
-    ethics_committee_countrys = Array()
-    ethics_approval_numbers = Array()
-    ethics_committee_addresss = Array()
-    ethics_committee_names = Array()
-    approval_dates = Array()
+    ethics_applications = Json()
 
     # Summary
 
@@ -107,7 +110,10 @@ class Item(base.Item):
     trial_website = Text()
     trial_related_presentations__publications = Text()
     public_notes = Text()
+    attachments = Array()
 
     # Contacts
 
-    contacts = Json()
+    principal_investigator = Json()
+    public_queries = Json()
+    scientific_queries = Json()

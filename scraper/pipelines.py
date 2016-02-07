@@ -36,7 +36,7 @@ class Database(object):
         try:
             table.upsert(item, [item.primary_key], types=item.types)
         except Exception as exception:
-            logger.info('Saving error: %s: %s' % (item, repr(exception)))
+            logger.warning('Saving error: %s: %s' % (item, repr(exception)))
         else:
             logger.info('%s item: %s - %s fields', action, item, len(item))
         return item

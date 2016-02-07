@@ -42,7 +42,7 @@ def extract_text(res, path):
     except Exception as exception:
         message = 'Extraction error: %s: %s'
         message = message % (path, repr(exception))
-        logger.info(message)
+        logger.warning(message)
     return value
 
 
@@ -61,7 +61,7 @@ def extract_dict(res, path, expand=None):
     except Exception as exception:
         message = 'Extraction error: %s: %s'
         message = message % (path, repr(exception))
-        logger.info(message)
+        logger.warning(message)
     return value
 
 
@@ -83,5 +83,5 @@ def extract_list(res, path, expand=None):
     except Exception as exception:
         message = 'Extraction error: %s: %s'
         message = message % (path, repr(exception))
-        logger.info(message)
+        logger.warning(message)
     return value
