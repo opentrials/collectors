@@ -16,6 +16,14 @@ euctr:
     OPENTRIALS_DATABASE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
+gsk:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl gsk -L INFO
+  restart: always
+  environment:
+    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
+
 isrctn:
   image: opentrialsrobot/scraper
   command: scrapy crawl isrctn -L INFO
