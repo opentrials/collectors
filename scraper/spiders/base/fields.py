@@ -53,11 +53,13 @@ class Boolean(Base):
 
     type = sa.Boolean
 
-    def __init__(self, true_value):
+    def __init__(self, true_value=None):
         self.true_value = true_value
 
     def parse(self, value):
-        return value == self.true_value
+        if self.true_value is not None:
+            value = (value.lower() == self.true_value.lower())
+        return value
 
 
 class Date(Base):

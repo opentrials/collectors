@@ -21,31 +21,31 @@ def make_start_urls(prefix, date_from=None, date_to=None):
     if date_to is None:
         date_to = str(date.today())
     query = OrderedDict()
-    query['query'] = ''
-    query['dateFrom'] = date_from
-    query['dateTo'] = date_to
+    query['last_updated_from'] = date_from
+    query['last_updated_to'] = date_to
     return [prefix + '?' + urlencode(query)]
 
 
-def extract_definition_list(res, key_path, value_path):
-    """Extract data from title-paragraph like html.
-    """
-    data = {}
-    key = None
+def extract_data(sel, kpath, vpath):
+    data = []
+    name = None
     value = None
-    for sel in res.css('%s, %s' % (key_path, value_path)):
-        if sel.css(key_path):
-            key = None
-            value = None
-            elements = sel.xpath('text()').extract()
-            if elements:
-                key = base.utils.slugify(elements[0].strip())
+    for sel in sel.css('%s, %s' % (kpath, vpath)):
+        text = extract_text(sel)
+        if sel.css(kpath):
+            name = base.utils.slugify(text)
         else:
-            if key is not None:
-                value = None
-                elements = sel.xpath('text()').extract()
-                if elements:
-                    value = elements[0].strip()
-        if key and value:
-            data[key] = value
+            value = text
+            if name and value:
+                data.append((name, value))
+            name = None
+            value = None
     return data
+
+
+def extract_text(sel):
+    text = ''
+    texts = sel.xpath('.//text()').extract()
+    if texts:
+        text = ' '.join(texts).strip()
+    return text
