@@ -18,7 +18,7 @@ class Database(object):
     # Public
 
     def open_spider(self, spider):
-        self.db = dataset.connect(settings.DATABASE_URL)
+        self.db = dataset.connect(settings.WAREHOUSE_URL)
 
     def close_spider(self, spider):
         pass

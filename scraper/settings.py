@@ -21,7 +21,7 @@ SPIDER_MODULES = [
 
 # Pipelines
 
-DATABASE_URL = os.environ['OPENTRIALS_DATABASE_URL']
+WAREHOUSE_URL = os.environ['OPENTRIALS_WAREHOUSE_URL']
 ITEM_PIPELINES = {
     'scraper.pipelines.Database': 100,
 }

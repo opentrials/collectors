@@ -5,7 +5,7 @@ actrn:
   command: scrapy crawl actrn -L INFO
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 euctr:
@@ -13,7 +13,7 @@ euctr:
   command: scrapy crawl euctr -L INFO
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 gsk:
@@ -21,7 +21,7 @@ gsk:
   command: scrapy crawl gsk -L INFO
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 isrctn:
@@ -29,7 +29,7 @@ isrctn:
   command: scrapy crawl isrctn -L INFO
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 jprn:
@@ -37,7 +37,7 @@ jprn:
   command: scrapy crawl jprn -L INFO
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 nct:
@@ -45,5 +45,5 @@ nct:
   command: scrapy crawl nct -L INFO
   restart: always
   environment:
-    OPENTRIALS_DATABASE_URL:
+    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10

@@ -43,7 +43,7 @@ $ mario preview
 ```
 
 Required environment variables:
-- $OPENTRIALS_DATABASE_URL
+- $OPENTRIALS_WAREHOUSE_URL
 
 ## Deploying
 
@@ -53,7 +53,7 @@ Required environment variables:
 - $OPENTRIALS_DOCKER_EMAIL
 - $OPENTRIALS_DOCKER_USER
 - $OPENTRIALS_DOCKER_PASS
-- $OPENTRIALS_DATABASE_URL
+- $OPENTRIALS_WAREHOUSE_URL
 
 ## Managing
 
