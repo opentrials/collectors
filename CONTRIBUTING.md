@@ -12,7 +12,7 @@ To activate virtual environment, install
 dependencies, add pre-commit hook to review and test code:
 
 ```
-$ source activate.sh
+$ pip install --upgrade -r requirements.dev.txt
 ```
 
 ## Building

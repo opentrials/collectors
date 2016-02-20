@@ -11,7 +11,7 @@ services:
   - docker
 
 install:
-  - pip install -Urrequirements.dev.txt
+  - pip install --upgrade -r requirements.dev.txt
 
 script:
   - mario build
