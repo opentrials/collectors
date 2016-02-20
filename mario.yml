@@ -13,18 +13,10 @@ deploy:
     -u $OPENTRIALS_DOCKER_USER
     -p $OPENTRIALS_DOCKER_PASS
   - docker push opentrialsrobot/scraper
-  # Entire
-  - tutum stack inspect scraper-entire ||
-    tutum stack create --sync -f stacks/entire.yml -n scraper-entire
-  - tutum stack update --sync -f stacks/entire.yml scraper-entire
-  # Recent
-  - tutum stack inspect scraper-recent ||
-    tutum stack create --sync -f stacks/recent.yml -n scraper-recent
-  - tutum stack update --sync -f stacks/recent.yml scraper-recent
-
-preview:
-  - docker-compose -f stacks/sample.yml up
+  # Stacks
+  - bash scripts/update-stack.sh entire
+  - bash scripts/update-stack.sh recent
 
 test:
   - pylama scraper
-  - py.test -vs tests
+  - py.test tests
