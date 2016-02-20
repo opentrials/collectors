@@ -4,3 +4,4 @@ dataset
 psycopg2
 xmltodict
 sqlalchemy
+python-dotenv
