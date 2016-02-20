@@ -6,39 +6,33 @@ OpenTrials scraper to get data using different spiders.
 
 ## Design
 
-See - https://github.com/opentrials/scraper/tree/master/docs/design.md
+https://github.com/opentrials/scraper/tree/master/docs/design.md
 
 ## Spiders
 
 ### NCT
 
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/nct.md
-- Status: ready
+https://github.com/opentrials/scraper/tree/master/docs/spiders/nct.md
 
 ### ISRCTN
 
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/isrctn.md
-- Status: ready
+https://github.com/opentrials/scraper/tree/master/docs/spiders/isrctn.md
 
 ### EUCTR
 
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/euctr.md
-- Status: ready
+https://github.com/opentrials/scraper/tree/master/docs/spiders/euctr.md
 
 ### ACTRN
 
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/actrn.md
-- Status: ready
+https://github.com/opentrials/scraper/tree/master/docs/spiders/actrn.md
 
 ### JPRN
 
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/jprn.md
-- Status: ready
+https://github.com/opentrials/scraper/tree/master/docs/spiders/jprn.md
 
 ### GSK
 
-- Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/gsk.md
-- Status: ready
+https://github.com/opentrials/scraper/tree/master/docs/spiders/gsk.md
 
 ### Contributing
 
