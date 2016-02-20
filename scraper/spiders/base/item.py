@@ -20,6 +20,7 @@ class Item(scrapy.Item):
 
     # Public
 
+    ensure_fields = False
     skip_on_update = [
         'meta_uuid',
         'meta_created',
@@ -99,6 +100,13 @@ class Item(scrapy.Item):
     @property
     @abstractmethod
     def updated_key(self):
+        """Item updated key.
+        """
+        pass  # pragma: no cover
+
+    @property
+    @abstractmethod
+    def ensure_fields(self):
         """Item updated key.
         """
         pass  # pragma: no cover

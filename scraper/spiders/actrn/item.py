@@ -17,6 +17,7 @@ class Item(base.Item):
     table = 'actrn'
     primary_key = 'trial_id'
     updated_key = None
+    ensure_fields = False
 
     # General
 

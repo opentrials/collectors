@@ -17,6 +17,9 @@ deploy:
     tutum stack create --sync -f docker-compose.yml -n scraper
   - tutum stack update --sync -f docker-compose.yml scraper
 
+migrate:
+  - alembic upgrade head
+
 test:
   - pylama scraper
   - py.test tests

@@ -17,6 +17,7 @@ class Item(base.Item):
     table = 'isrctn'
     primary_key = 'isrctn_id'
     updated_key = 'last_edited'
+    ensure_fields = False
 
     # General
 

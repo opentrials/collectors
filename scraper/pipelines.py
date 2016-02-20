@@ -34,7 +34,8 @@ class Database(object):
             for key in item.skip_on_update:
                 del item[key]
         try:
-            table.upsert(item, [item.primary_key], types=item.types)
+            table.upsert(item, [item.primary_key],
+                    ensure=item.ensure_fields, types=item.types)
         except Exception as exception:
             logger.warning('Saving error: %s: %s' % (item, repr(exception)))
         else:

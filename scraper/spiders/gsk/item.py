@@ -18,6 +18,7 @@ class Item(base.Item):
     table = 'gsk'
     primary_key = 'study_id'
     updated_key = 'last_updated'
+    ensure_fields = False
 
     # General
 

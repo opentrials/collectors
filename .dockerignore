@@ -1,4 +1,6 @@
 *
+!migrations/
 !scraper/
+!alembic.ini
 !requirements.txt
 !scrapy.cfg
