@@ -12,39 +12,33 @@ See - https://github.com/opentrials/scraper/tree/master/docs/design.md
 
 ### NCT
 
-- Website: https://clinicaltrials.gov/
 - Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/nct.md
-- Status: running
+- Status: ready
 
 ### ISRCTN
 
-- Website: http://www.isrctn.com/
 - Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/isrctn.md
-- Status: running
+- Status: ready
 
 ### EUCTR
 
-- Website: https://www.clinicaltrialsregister.eu/
 - Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/euctr.md
-- Status: development
+- Status: ready
 
 ### ACTRN
 
-- Website: http://anzctr.org.au/
 - Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/actrn.md
-- Status: development
+- Status: ready
 
 ### JPRN
 
-- Website: http://www.umin.ac.jp/ctr/
 - Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/jprn.md
-- Status: development
+- Status: ready
 
 ### GSK
 
-- Website: http://www.gsk-clinicalstudyregister.com/
 - Readme: https://github.com/opentrials/scraper/tree/master/docs/spiders/gsk.md
-- Status: development
+- Status: ready
 
 ### Contributing
 
