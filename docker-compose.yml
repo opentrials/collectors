@@ -5,7 +5,7 @@
 # run database migrations
 
 migrate:
-  image: opentrials/scraper
+  image: opentrialsrobot/scraper
   command: alembic upgrade head
 
 
