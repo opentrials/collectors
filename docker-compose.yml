@@ -1,4 +1,5 @@
 # This services is independent, run it individually
+# Call `source env.export` before invocation in dev environment.
 
 
 # Migrate
