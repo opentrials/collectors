@@ -8,6 +8,8 @@
 migrate:
   image: opentrialsrobot/scraper
   command: alembic upgrade head
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
 
 
 # Update
