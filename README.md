@@ -4,9 +4,13 @@
 
 OpenTrials scraper to get data using different spiders.
 
-## Design
+## Warehouse
 
-https://github.com/opentrials/scraper/tree/master/docs/design.md
+https://github.com/opentrials/scraper/tree/master/docs/warehouse.md
+
+## Scraper
+
+https://github.com/opentrials/scraper/tree/master/docs/scraper.md
 
 ## Spiders
 

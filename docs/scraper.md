@@ -1,4 +1,4 @@
-# Design Overview
+# Scraper
 
 Terminology:
 - scraper - Scrapy project (the core python package)
@@ -48,4 +48,4 @@ it to opentrials account on Docker hub.
 
 To start/stop an actual scraping Tutum dashboard is used:
 
-![Dashboard Storage](dashboard.png)
+![Dashboard Storage](https://raw.githubusercontent.com/opentrials/scraper/master/files/dashboard.png)
