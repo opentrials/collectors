@@ -24,4 +24,6 @@ def upgrade():
 
 
 def downgrade():
-    pass
+    op.execute('ALTER TABLE nct ALTER COLUMN is_fda_regulated TYPE text USING is_fda_regulated::text')
+    op.execute('ALTER TABLE nct ALTER COLUMN is_section_801 TYPE text USING is_section_801::text')
+    op.execute('ALTER TABLE nct ALTER COLUMN has_expanded_access TYPE text USING has_expanded_access::text')
