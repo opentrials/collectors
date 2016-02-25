@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('trials',
         sa.Column('uuid', UUID, primary_key=True),
         sa.Column('updated', sa.DateTime(timezone=True), nullable=False),
-        sa.Column('records', JSONB, nullable=False, unique=True),
+        sa.Column('records', ARRAY(sa.Text), nullable=False, unique=True),
         sa.Column('nct_id', sa.Text, unique=True),
         sa.Column('euctr_id', sa.Text, unique=True),
         sa.Column('isrctn_id', sa.Text, unique=True),
