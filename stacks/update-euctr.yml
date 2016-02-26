@@ -1,0 +1,10 @@
+# Update
+# scrape only recently updated trials
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl euctr -L INFO
+  restart: always
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 10

@@ -13,9 +13,7 @@ deploy:
     -u $OPENTRIALS_DOCKER_USER
     -p $OPENTRIALS_DOCKER_PASS
   - docker push opentrialsrobot/scraper
-  - tutum stack inspect scraper ||
-    tutum stack create --sync -f docker-compose.yml -n scraper
-  - tutum stack update --sync -f docker-compose.yml scraper
+  - python stacks/deploy.py
 
 migrate:
   - alembic upgrade head

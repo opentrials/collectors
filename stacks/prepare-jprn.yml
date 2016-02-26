@@ -1,0 +1,9 @@
+# Prepare
+# scrape all data from register
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl jprn -a page_from=1 -a page_to=100000 -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1

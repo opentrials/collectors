@@ -1,0 +1,9 @@
+# Prepare
+# scrape all data from register
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl gsk -a date_from=2001-01-01 -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
