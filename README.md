@@ -38,7 +38,11 @@ https://github.com/opentrials/scraper/tree/master/docs/spiders/jprn.md
 
 https://github.com/opentrials/scraper/tree/master/docs/spiders/gsk.md
 
-### Contributing
+### Pfizer
+
+https://github.com/opentrials/scraper/tree/master/docs/spiders/pfizer.md
+
+## Contributing
 
 Please read the contribution guideline:
 

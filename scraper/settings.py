@@ -19,6 +19,7 @@ SPIDER_MODULES = [
     'scraper.spiders.isrctn',
     'scraper.spiders.jprn',
     'scraper.spiders.nct',
+    'scraper.spiders.pfizer',
 ]
 
 # Pipelines

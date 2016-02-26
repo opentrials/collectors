@@ -23,9 +23,10 @@ Trial identifier: `study_id`
 
 ## Data Update Strategy
 
-Web interface and source model doesn't have something like
-`updated` field. So to stay up to date full scan is needed.
+Trials could be serched with `last_updated` filter.
+After initial scraping we should use the last 2 days searches
+to stay up to date (`recent` stack).
 
 ## License Terms
 
-http://www.pfizer.com/general/terms
+http://www.gsk.com/en-gb/terms-of-use/
