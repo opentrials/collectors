@@ -1,13 +1,13 @@
 # GSK
 
-http://www.gsk-clinicalstudyregister.com/
+http://www.pfizer.com/research/clinical_trials
 
-The GlaxoSmithKline  (GSK)  Clinical Study Register provides an easily accessible repository of data from GSK-Sponsored Clinical Studies, supplementing communication in journals, at scientific meetings, in letters to healthcare professionals, and in approved prescribing information. It is important to emphasise that approved prescribing information must continue to guide appropriate use of GSK medicines. This information may vary from country to country.
+Pfizer works to discover and develop innovative, safe, and effective ways to prevent or treat some of the world’s most challenging diseases. We are committed to the safety of patients who take part in our trials, and uphold the highest ethical standards in all of our research initiatives.
 
 ## Source Data Model
 
 Data could be accessed thru the web interface.
-Example - http://www.gsk-clinicalstudyregister.com/study/100901.
+Example - http://www.pfizer.com/research/clinical_trials/find_a_trial/NCT00795938.
 Data is moving to the warehouse as it is with additional type casting.
 See the next section for more details.
 
@@ -15,18 +15,17 @@ See the next section for more details.
 
 See item definition for the full data model:
 
-https://github.com/opentrials/scraper/blob/master/scraper/spiders/gsk/item.py
+https://github.com/opentrials/scraper/blob/master/scraper/spiders/pfizer/item.py
 
 ## Primary Identifiers
 
-Trial identifier: `study_id`
+Trial identifier: `nct_id`
 
 ## Data Update Strategy
 
-Trials could be serched with `last_updated` filter.
-After initial scraping we should use the last 2 days searches
-to stay up to date (`recent` stack).
+Web interface and source model doesn't have something like
+`updated` field. So to stay up to date full scan is needed.
 
 ## License Terms
 
-http://www.gsk.com/en-gb/terms-of-use/
+http://www.pfizer.com/general/terms
