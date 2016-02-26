@@ -4,9 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import re
 from .. import base
-from . import utils
 from .item import Item
 
 
@@ -16,7 +14,7 @@ class Mapper(base.Mapper):
 
     # Public
 
-    def map_response(self, res):  # noqa
+    def map_response(self, res):
 
         # Init data
         data = {}
