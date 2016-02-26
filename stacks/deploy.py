@@ -13,8 +13,8 @@ for name in os.listdir(os.path.dirname(__file__)):
     if ext != 'yml':
         continue
     command = ''
-    command += 'tutum stack inspect scraper-{name} || '
-    command += 'tutum stack create --sync -f stacks/{name}.yml -n scraper-{name} && '
-    command += 'tutum stack update --sync -f stacks/{name}.yml scraper-{name}'
+    command += 'tutum stack inspect {name} || '
+    command += 'tutum stack create --sync -f stacks/{name}.yml -n {name} && '
+    command += 'tutum stack update --sync -f stacks/{name}.yml {name}'
     command = command.format(name=name)
     subprocess.call(command, shell=True)
