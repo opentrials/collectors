@@ -9,7 +9,10 @@ import subprocess
 
 
 for name in os.listdir(os.path.dirname(__file__)):
-    name, ext = name.split('.')
+    try:
+        name, ext = name.split('.')
+    except Exception:
+        continue
     if ext != 'yml':
         continue
     command = ''
