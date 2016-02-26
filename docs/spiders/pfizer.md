@@ -1,4 +1,4 @@
-# GSK
+# Pfizer
 
 http://www.pfizer.com/research/clinical_trials
 
