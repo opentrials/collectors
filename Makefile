@@ -1,4 +1,4 @@
-.PHONY: all develop list lint release test version
+.PHONY: all build deploy develop list migrate test
 
 
 all: list
