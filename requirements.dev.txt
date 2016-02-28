@@ -1,7 +1,6 @@
 -r requirements.txt
 pyyaml==3.10 # for tutum
 tutum
-mario
 pylama
 tox
 mock
