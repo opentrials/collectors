@@ -6,15 +6,16 @@ OpenTrials scraper to get data using different spiders.
 
 ## Documentation
 
-- [Warehouse](https://github.com/opentrials/scraper/tree/master/docs/warehouse.md)
-- [Scraper](https://github.com/opentrials/scraper/tree/master/docs/scraper.md)
-  - [NCT](https://github.com/opentrials/scraper/tree/master/docs/spiders/nct.md)
-  - [ISRCTN](https://github.com/opentrials/scraper/tree/master/docs/spiders/isrctn.md)
-  - [EUCTR](https://github.com/opentrials/scraper/tree/master/docs/spiders/euctr.md)
-  - [ACTRN](https://github.com/opentrials/scraper/tree/master/docs/spiders/actrn.md)
-  - [JPRN](https://github.com/opentrials/scraper/tree/master/docs/spiders/jprn.md)
-  - [GSK](https://github.com/opentrials/scraper/tree/master/docs/spiders/gsk.md)
-  - [Pfizer](https://github.com/opentrials/scraper/tree/master/docs/spiders/pfizer.md)
+- [Warehouse](docs/warehouse.md)
+- [Scraper](docs/scraper.md)
+  - [NCT](docs/spiders/nct.md)
+  - [ISRCTN](docs/spiders/isrctn.md)
+  - [EUCTR](docs/spiders/euctr.md)
+  - [ACTRN](docs/spiders/actrn.md)
+  - [JPRN](docs/spiders/jprn.md)
+  - [GSK](docs/spiders/gsk.md)
+  - [Pfizer](docs/spiders/pfizer.md)
+  - [Takeda](docs/spiders/takeda.md)
 
 ## Contributing
 
