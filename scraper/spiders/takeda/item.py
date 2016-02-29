@@ -18,7 +18,7 @@ class Item(base.Item):
     table = 'takeda'
     primary_key = 'takeda_trial_id'
     updated_key = None
-    ensure_fields = True
+    ensure_fields = False
 
     # General
 
