@@ -4,10 +4,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from urllib import urlencode
-from collections import OrderedDict
-from datetime import datetime, date, timedelta
-
 from .. import base
 
 
