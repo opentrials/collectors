@@ -20,6 +20,7 @@ SPIDER_MODULES = [
     'scraper.spiders.jprn',
     'scraper.spiders.nct',
     'scraper.spiders.pfizer',
+    'scraper.spiders.takeda',
 ]
 
 # Pipelines
