@@ -16,6 +16,7 @@ OpenTrials scraper to get data using different spiders.
   - [GSK](docs/spiders/gsk.md)
   - [Pfizer](docs/spiders/pfizer.md)
   - [Takeda](docs/spiders/takeda.md)
+  - [ICTRP](docs/spiders/ictrp.md)
 
 ## Contributing
 
