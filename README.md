@@ -23,5 +23,6 @@ OpenTrials scraper to get data using different spiders.
 Please read the contribution guideline:
 
 [How to Contribute](CONTRIBUTING.md)
+[How to Write a Spider](docs/spider-guide.md)
 
 Thanks!
