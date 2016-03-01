@@ -18,7 +18,7 @@ class Item(base.Item):
     table = 'ictrp'
     primary_key = 'main_id'
     updated_key = 'last_refreshed_on'
-    ensure_fields = True
+    ensure_fields = False
 
     # Main
 
