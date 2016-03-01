@@ -65,7 +65,7 @@ implemetation requirement:
 
 > `scraper/spiders/guide/__init__.py`
 
-```
+```python
 # -*- coding: utf-8 -*-
 # pylama:skip=1
 from __future__ import absolute_import
@@ -92,7 +92,7 @@ Also important to set `spider` name:
 
 > `scraper/spiders/guide/spider.py`
 
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from __future__ import division
@@ -222,7 +222,7 @@ scrapy documentation - http://scrapy.readthedocs.org/en/latest/topics/selectors.
 
 > `scraper/spiders/guide/mapper.py`
 
-```
+```python
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 from __future__ import division
