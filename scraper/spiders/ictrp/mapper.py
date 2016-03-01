@@ -156,9 +156,10 @@ class Mapper(base.Mapper):
         value = res.xpath(path).extract()
         data[key] = value
 
-        # Remove empty elements
+        # Skip empty
         if not data['main_id']:
             logger.debug('No main_id: ICTRP - %s' % res.url)
+            return None
 
         # Create item
         item = Item.create(res.url, data)
