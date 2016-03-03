@@ -1,7 +1,7 @@
 # Update
 # scrape only recently updated trials
 
-script:
+actrn:
   image: opentrialsrobot/scraper
   command: scrapy crawl actrn -L INFO
   restart: always
@@ -9,7 +9,7 @@ script:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-script:
+euctr:
   image: opentrialsrobot/scraper
   command: scrapy crawl euctr -L INFO
   restart: always
@@ -17,7 +17,7 @@ script:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-script:
+gsk:
   image: opentrialsrobot/scraper
   command: scrapy crawl gsk -L INFO
   restart: always
@@ -25,7 +25,7 @@ script:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-script:
+ictrp:
   image: opentrialsrobot/scraper
   command: scrapy crawl ictrp -L INFO
   restart: always
@@ -33,7 +33,7 @@ script:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-script:
+isrctn:
   image: opentrialsrobot/scraper
   command: scrapy crawl isrctn -L INFO
   restart: always
@@ -41,7 +41,7 @@ script:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-script:
+jprn:
   image: opentrialsrobot/scraper
   command: scrapy crawl jprn -L INFO
   restart: always
@@ -49,7 +49,7 @@ script:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-script:
+nct:
   image: opentrialsrobot/scraper
   command: scrapy crawl nct -L INFO
   restart: always
@@ -57,7 +57,7 @@ script:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-script:
+pfizer:
   image: opentrialsrobot/scraper
   command: scrapy crawl pfizer -L INFO
   restart: always
@@ -65,7 +65,7 @@ script:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
-script:
+takeda:
   image: opentrialsrobot/scraper
   command: scrapy crawl takeda -L INFO
   restart: always
