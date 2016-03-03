@@ -1,6 +1,0 @@
-script:
-  image: opentrialsrobot/scraper
-  command: scrapy crawl ictrp -L INFO
-  environment:
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_DOWNLOAD_DELAY: 1

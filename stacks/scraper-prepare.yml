@@ -1,0 +1,65 @@
+# Prepare
+# scrape all data from register
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl actrn -a date_from=2001-01-01 -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl euctr -a date_from=2001-01-01 -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl gsk -a date_from=2001-01-01 -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl ictrp -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl isrctn -a date_from=2001-01-01 -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl jprn -a page_from=1 -a page_to=100000 -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl nct -a date_from=2001-01-01 -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl pfizer -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
+
+script:
+  image: opentrialsrobot/scraper
+  command: scrapy crawl takeda -L INFO
+  environment:
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_DOWNLOAD_DELAY: 1
