@@ -16,4 +16,9 @@ install:
 script:
   - make build
   - make test
-  - make deploy
+
+deploy:
+  provider: script
+  script: make deploy
+  on:
+    tags: true
