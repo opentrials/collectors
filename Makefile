@@ -1,4 +1,4 @@
-.PHONY: all build deploy develop list migrate test
+.PHONY: all build deploy develop lint list migrate test
 
 
 all: list
@@ -21,6 +21,9 @@ deploy:
 develop:
 	pip install --upgrade -r requirements.dev.txt
 
+lint:
+	pylama scraper
+
 list:
 	@grep '^\.PHONY' Makefile | cut -d' ' -f2- | tr ' ' '\n'
 
@@ -28,5 +31,4 @@ migrate:
 	alembic upgrade head
 
 test:
-	pylama scraper
-	py.test tests
+	py.test

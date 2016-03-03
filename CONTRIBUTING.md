@@ -2,6 +2,9 @@
 
 The contributing guideline.
 
+The project follow the next style guides:
+- [PEP 8 - Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
+
 ## Getting Started
 
 Prerequisites:
@@ -23,16 +26,21 @@ To build a docker image:
 $ make build
 ```
 
+## Linting
+
+To run lint:
+
+```
+$ make lint
+```
+
 ## Testing
 
-To run code review and tests:
+To run tests:
 
 ```
 $ make test
 ```
-
-The project follow the next style guides:
-- [PEP 8 - Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
 
 ## Deploying
 
@@ -43,8 +51,6 @@ Required environment variables:
 - $OPENTRIALS_DOCKER_USER
 - $OPENTRIALS_DOCKER_PASS
 - $OPENTRIALS_WAREHOUSE_URL
-- $OPENTRIALS_ICTRP_USER
-- $OPENTRIALS_ICTRP_PASS
 
 ## Managing
 
