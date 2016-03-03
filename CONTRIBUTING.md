@@ -1,9 +1,6 @@
 # Contributing
 
-The contributing guideline.
-
-The project follow the next style guides:
-- [PEP 8 - Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
+The project follows the [Open Knowledge International coding standards](https://github.com/okfn/coding-standards).
 
 ## Getting Started
 
