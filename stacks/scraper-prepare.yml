@@ -28,8 +28,8 @@ ictrp:
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 1
-    ICTRP_USER:
-    ICTRP_PASS:
+    OPENTRIALS_ICTRP_USER:
+    OPENTRIALS_ICTRP_PASS:
 
 isrctn:
   image: opentrialsrobot/scraper
