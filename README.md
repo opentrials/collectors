@@ -1,5 +1,6 @@
 # opentrials-scraper
 
+[![Gitter](https://img.shields.io/gitter/room/opentrials/chat.svg)](https://gitter.im/opentrials/chat)
 [![Travis](https://img.shields.io/travis/opentrials/scraper/master.svg)](https://travis-ci.org/opentrials/scraper)
 
 OpenTrials scraper to get data using different spiders.
