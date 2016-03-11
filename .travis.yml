@@ -19,7 +19,7 @@ script:
   - make test
 
 deploy:
-  provider: script
-  script: make deploy
-  on:
-    tags: true
+  - provider: script
+    script: make deploy
+    on:
+      condition: '`git show -s --format=%B ${TRAVIS_COMMIT} | grep "[deploy]"`'
