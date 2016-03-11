@@ -22,7 +22,7 @@ class Item(scrapy.Item):
 
     ensure_fields = False
     skip_on_update = [
-        'meta_uuid',
+        'meta_id',
         'meta_created',
     ]
 
@@ -35,11 +35,11 @@ class Item(scrapy.Item):
         # Add metadata
         ident = uuid.uuid4().hex
         timestamp = datetime.utcnow()
-        self.fields['meta_uuid'] = fields.Text()
+        self.fields['meta_id'] = fields.Text()
         self.fields['meta_source'] = fields.Text()
         self.fields['meta_created'] = fields.Datetime()
         self.fields['meta_updated'] = fields.Datetime()
-        self['meta_uuid'] = ident
+        self['meta_id'] = ident
         self['meta_source'] = source
         self['meta_created'] = timestamp
         self['meta_updated'] = timestamp
