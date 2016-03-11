@@ -22,4 +22,4 @@ deploy:
   - provider: script
     script: make deploy
     on:
-      condition: '`git show -s --format=%B ${TRAVIS_COMMIT} | grep "[deploy]"`'
+      condition: '`git show -s --format=%B ${TRAVIS_COMMIT} | grep "\[deploy\]"`'
