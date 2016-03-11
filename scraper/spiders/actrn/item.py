@@ -14,7 +14,7 @@ class Item(base.Item):
 
     # Config
 
-    table = 'actrn'
+    table = 'data_actrn'
     primary_key = 'trial_id'
     updated_key = None
     ensure_fields = False

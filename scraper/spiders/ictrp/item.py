@@ -14,7 +14,7 @@ class Item(base.Item):
 
     # Config
 
-    table = 'ictrp'
+    table = 'data_ictrp'
     primary_key = 'main_id'
     updated_key = 'last_refreshed_on'
     ensure_fields = False

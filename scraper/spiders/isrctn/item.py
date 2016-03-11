@@ -14,7 +14,7 @@ class Item(base.Item):
 
     # Config
 
-    table = 'isrctn'
+    table = 'data_isrctn'
     primary_key = 'isrctn_id'
     updated_key = 'last_edited'
     ensure_fields = False

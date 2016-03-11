@@ -179,7 +179,7 @@ class Item(base.Item):
 
     # Config
 
-    table = 'guide'  # table name for warehouse
+    table = 'data_guide'  # table name for warehouse
     primary_key = 'nct_id'  # primary key for warehouse
     updated_key = None  # key showing last updated date
     ensure_fields = True  # auto create tables/fields (debug mode)
@@ -326,7 +326,7 @@ $ scrapy crawl guide -L INFO
 ...
 ```
 
-Scraped data will be in the warehouse's `guide` table.
+Scraped data will be in the warehouse's `data_guide` table.
 
 ## Sharing the Work
 
