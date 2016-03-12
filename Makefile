@@ -16,7 +16,7 @@ deploy:
 	-u $$OPENTRIALS_DOCKER_USER \
 	-p $$OPENTRIALS_DOCKER_PASS
 	docker push opentrialsrobot/scraper
-	python stacks/deploy.py
+	python scripts/deploy-stacks.py
 
 develop:
 	pip install --upgrade -r requirements.dev.txt

@@ -8,7 +8,7 @@ import os
 import subprocess
 
 
-for name in os.listdir(os.path.dirname(__file__)):
+for name in os.listdir('stacks'):
     try:
         name, ext = name.split('.')
     except Exception:
