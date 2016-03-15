@@ -4,7 +4,7 @@
 all: list
 
 build:
-	docker build -t opentrialsrobot/scraper .
+	docker build -t opentrialsrobot/collectors .
 
 deploy:
 	$${CI?"Deployment is avaiable only on CI/CD server"}
@@ -15,7 +15,7 @@ deploy:
 	tutum login \
 	-u $$OPENTRIALS_DOCKER_USER \
 	-p $$OPENTRIALS_DOCKER_PASS
-	docker push opentrialsrobot/scraper
+	docker push opentrialsrobot/collectors
 	python scripts/deploy-stacks.py
 
 develop:

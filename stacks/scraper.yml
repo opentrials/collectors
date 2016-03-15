@@ -2,7 +2,7 @@
 # scrape only recently updated trials
 
 actrn:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl actrn -L INFO
   restart: always
   environment:
@@ -10,7 +10,7 @@ actrn:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 euctr:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl euctr -L INFO
   restart: always
   environment:
@@ -18,7 +18,7 @@ euctr:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 gsk:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl gsk -L INFO
   restart: always
   environment:
@@ -26,7 +26,7 @@ gsk:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 ictrp:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl ictrp -L INFO
   restart: always
   environment:
@@ -36,7 +36,7 @@ ictrp:
     OPENTRIALS_ICTRP_PASS:
 
 isrctn:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl isrctn -L INFO
   restart: always
   environment:
@@ -44,7 +44,7 @@ isrctn:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 jprn:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl jprn -L INFO
   restart: always
   environment:
@@ -52,7 +52,7 @@ jprn:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 nct:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl nct -L INFO
   restart: always
   environment:
@@ -60,7 +60,7 @@ nct:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 pfizer:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl pfizer -L INFO
   restart: always
   environment:
@@ -68,7 +68,7 @@ pfizer:
     OPENTRIALS_DOWNLOAD_DELAY: 10
 
 takeda:
-  image: opentrialsrobot/scraper
+  image: opentrialsrobot/collectors
   command: scrapy crawl takeda -L INFO
   restart: always
   environment:
