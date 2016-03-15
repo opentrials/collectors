@@ -3,7 +3,7 @@
 [![Gitter](https://img.shields.io/gitter/room/opentrials/chat.svg)](https://gitter.im/opentrials/chat)
 [![Travis](https://img.shields.io/travis/opentrials/collectors/master.svg)](https://travis-ci.org/opentrials/collectors)
 
-OpenTrials data collectors and warehouse schema definition.
+The OpenTrials data collectors + warehouse schema definition.
 
 ## Documentation
 
