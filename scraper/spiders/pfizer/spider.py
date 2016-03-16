@@ -34,7 +34,7 @@ class PfizerSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'find_a_trial/NCT\d+',
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),

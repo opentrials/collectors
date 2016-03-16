@@ -46,7 +46,7 @@ class JprnSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
                 process_value=self.process_url,

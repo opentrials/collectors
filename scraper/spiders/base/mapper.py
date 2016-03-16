@@ -16,5 +16,14 @@ class Mapper(object):
     # Public
 
     @abstractmethod
-    def map_response(self, res):
+    def map(self, res):
+        """Map response to item.
+
+        Args:
+            res (object): http response
+
+        Returns:
+            dict: item
+
+        """
         pass  # pragma: no cover

@@ -24,7 +24,7 @@ class ActrnMapper(base.Mapper):
         'recruitment_hospital',
     ]
 
-    def map_response(self, res):  # noqa
+    def map(self, res):  # noqa
 
         # Init data
         data = {}

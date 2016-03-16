@@ -36,7 +36,7 @@ class NctSpider(base.Spider):
             Rule(LinkExtractor(
                 allow=r'ct2/show/NCT\d+',
                 process_value=lambda value: value+'&resultsxml=true',
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'pg=\d+$',
             )),

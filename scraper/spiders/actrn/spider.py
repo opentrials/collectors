@@ -36,7 +36,7 @@ class ActrnSpider(base.Spider):
             Rule(LinkExtractor(
                 allow=r'Trial/Registration/TrialReview.aspx',
                 process_value=lambda value: value.replace('http', 'https', 1),
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),

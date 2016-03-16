@@ -19,7 +19,7 @@ class JprnMapper(base.Mapper):
         'item',
     ]
 
-    def map_response(self, res):
+    def map(self, res):
 
         # Extract rawdata
         data = {}

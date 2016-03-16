@@ -35,7 +35,7 @@ class IsrctnSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'ISRCTN\d+',
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),

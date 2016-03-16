@@ -35,7 +35,7 @@ class GskSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'study\/\d+'
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
         ]
 
         # Inherit parent

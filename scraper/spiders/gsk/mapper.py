@@ -20,7 +20,7 @@ class GskMapper(base.Mapper):
         'explanation',
     ]
 
-    def map_response(self, res):  # noqa
+    def map(self, res):  # noqa
 
         # Init data
         data = {}

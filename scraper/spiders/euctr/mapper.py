@@ -32,7 +32,7 @@ class EuctrMapper(base.Mapper):
         'subject_women_of_childbearing_potential_not_using_contraception_for',
     ]
 
-    def map_response(self, res):
+    def map(self, res):
 
         # Init data item
         data = {}

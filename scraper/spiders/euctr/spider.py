@@ -35,7 +35,7 @@ class EuctrSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'ctr-search/trial/[\d-]+/[\w]+'
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             ), process_links=self.process_links),

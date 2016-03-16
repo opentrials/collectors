@@ -34,7 +34,7 @@ class TakedaSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'browse/summary/',
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'browse',
             )),

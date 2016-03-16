@@ -15,7 +15,7 @@ class TakedaMapper(base.Mapper):
 
     # Public
 
-    def map_response(self, res):
+    def map(self, res):
 
         # Init data
         data = {}

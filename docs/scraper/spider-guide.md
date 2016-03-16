@@ -125,7 +125,7 @@ class GuideSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'find_a_trial/NCT\d+',
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),
@@ -135,7 +135,7 @@ class GuideSpider(base.Spider):
         super(GuideSpider, self).__init__(*args, **kwargs)
 ```
 
-An instance of this class will call `mapper.map_response(response)` for
+An instance of this class will call `mapper.map(response)` for
 every http response from trial pages. We'll write a mapper a bit later.
 
 ## Writing an Item
@@ -202,7 +202,7 @@ class GuideItem(base.Item):
     healthy_volunteers_allowed = Boolean('Accepts Healthy Volunteers')
 ```
 
-Item is what `mapper.map_response(response)` has to return to `Spider`.
+Item is what `mapper.map(response)` has to return to `Spider`.
 Now we're ready to bring all together and write a mapper.
 
 ## Writing a Mapper
@@ -235,7 +235,7 @@ class GuideMapper(base.Mapper):
 
     # Public
 
-    def map_response(self, res):
+    def map(self, res):
 
         # Init data
         data = {}

@@ -37,7 +37,7 @@ class IctrpSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'trialsearch/Trial\d+\.aspx\?trialid=.+',
-            ), callback=self.mapper.map_response),
+            ), callback=self.mapper.map),
             Rule(LinkExtractor(
                 allow=r'trialsearch/crawl/crawl\d+\.aspx',
             )),
