@@ -7,13 +7,13 @@ from __future__ import unicode_literals
 import logging
 
 from .. import base
-from .item import Item
+from .item import IctrpItem
 logger = logging.getLogger(__name__)
 
 
 # Module API
 
-class Mapper(base.Mapper):
+class IctrpMapper(base.Mapper):
 
     # Public
 
@@ -162,6 +162,6 @@ class Mapper(base.Mapper):
             return None
 
         # Create item
-        item = Item.create(res.url, data)
+        item = IctrpItem.create(res.url, data)
 
         return item

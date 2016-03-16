@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Boolean, Integer, Json, Array
 
 # Module API
 
-class Item(base.Item):
+class GskItem(base.Item):
 
     # Config
 

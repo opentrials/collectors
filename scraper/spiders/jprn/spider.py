@@ -10,12 +10,12 @@ from six.moves.urllib.parse import urlparse, parse_qs
 
 from .. import base
 from . import utils
-from .mapper import Mapper
+from .mapper import JprnMapper
 
 
 # Module API
 
-class Spider(base.Spider):
+class JprnSpider(base.Spider):
 
     # Public
 
@@ -25,7 +25,7 @@ class Spider(base.Spider):
     def __init__(self, page_from=None, page_to=None, *args, **kwargs):
 
         # Create mapper
-        self.mapper = Mapper()
+        self.mapper = JprnMapper()
 
         # Default values
         if page_from is None:
@@ -54,7 +54,7 @@ class Spider(base.Spider):
         ]
 
         # Inherit parent
-        super(Spider, self).__init__(*args, **kwargs)
+        super(JprnSpider, self).__init__(*args, **kwargs)
 
     def process_url(self, url):
 

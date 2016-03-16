@@ -8,12 +8,12 @@ from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 
 from .. import base
-from .mapper import Mapper
+from .mapper import PfizerMapper
 
 
 # Module API
 
-class Spider(base.Spider):
+class PfizerSpider(base.Spider):
 
     # Public
 
@@ -23,7 +23,7 @@ class Spider(base.Spider):
     def __init__(self, *args, **kwargs):
 
         # Make mapper
-        self.mapper = Mapper()
+        self.mapper = PfizerMapper()
 
         # Make urls
         self.start_urls = [
@@ -41,4 +41,4 @@ class Spider(base.Spider):
         ]
 
         # Inherit parent
-        super(Spider, self).__init__(*args, **kwargs)
+        super(PfizerSpider, self).__init__(*args, **kwargs)

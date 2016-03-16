@@ -6,12 +6,12 @@ from __future__ import unicode_literals
 
 from .. import base
 from . import utils
-from .item import Item
+from .item import NctItem
 
 
 # Module API
 
-class Mapper(base.Mapper):
+class NctMapper(base.Mapper):
 
     # Public
 
@@ -323,6 +323,6 @@ class Mapper(base.Mapper):
         data[key] = value
 
         # Create item
-        item = Item.create(res.url, data)
+        item = NctItem.create(res.url, data)
 
         return item

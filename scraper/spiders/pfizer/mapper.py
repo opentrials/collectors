@@ -5,12 +5,12 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from .. import base
-from .item import Item
+from .item import PfizerItem
 
 
 # Module API
 
-class Mapper(base.Mapper):
+class PfizerMapper(base.Mapper):
 
     # Public
 
@@ -74,6 +74,6 @@ class Mapper(base.Mapper):
         data[key] = value
 
         # Create item
-        item = Item.create(res.url, data)
+        item = PfizerItem.create(res.url, data)
 
         return item

@@ -12,17 +12,7 @@ load_dotenv('.env')
 # Spiders
 
 NEWSPIDER_MODULE = 'scraper.spiders'
-SPIDER_MODULES = [
-    'scraper.spiders.actrn',
-    'scraper.spiders.euctr',
-    'scraper.spiders.gsk',
-    'scraper.spiders.ictrp',
-    'scraper.spiders.isrctn',
-    'scraper.spiders.jprn',
-    'scraper.spiders.nct',
-    'scraper.spiders.pfizer',
-    'scraper.spiders.takeda',
-]
+SPIDER_MODULES = ['scraper.spiders']
 
 # Pipelines
 

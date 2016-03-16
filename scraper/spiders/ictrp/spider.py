@@ -9,12 +9,12 @@ from scrapy.linkextractors import LinkExtractor
 
 from ... import settings
 from .. import base
-from .mapper import Mapper
+from .mapper import IctrpMapper
 
 
 # Module API
 
-class Spider(base.Spider):
+class IctrpSpider(base.Spider):
 
     # Public
 
@@ -26,7 +26,7 @@ class Spider(base.Spider):
     def __init__(self, *args, **kwargs):
 
         # Make mapper
-        self.mapper = Mapper()
+        self.mapper = IctrpMapper()
 
         # Make urls
         self.start_urls = [
@@ -44,4 +44,4 @@ class Spider(base.Spider):
         ]
 
         # Inherit parent
-        super(Spider, self).__init__(*args, **kwargs)
+        super(IctrpSpider, self).__init__(*args, **kwargs)

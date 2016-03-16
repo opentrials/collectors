@@ -6,12 +6,12 @@ from __future__ import unicode_literals
 
 from .. import base
 from . import utils
-from .item import Item
+from .item import IsrctnItem
 
 
 # Module API
 
-class Mapper(base.Mapper):
+class IsrctnMapper(base.Mapper):
 
     # Public
 
@@ -137,6 +137,6 @@ class Mapper(base.Mapper):
         data.update(subdata)
 
         # Create item
-        item = Item.create(res.url, data)
+        item = IsrctnItem.create(res.url, data)
 
         return item

@@ -7,12 +7,12 @@ from __future__ import unicode_literals
 import re
 from .. import base
 from . import utils
-from .item import Item
+from .item import GskItem
 
 
 # Module API
 
-class Mapper(base.Mapper):
+class GskMapper(base.Mapper):
 
     # Public
 
@@ -123,6 +123,6 @@ class Mapper(base.Mapper):
                 del data[key]
 
         # Create item
-        item = Item.create(res.url, data)
+        item = GskItem.create(res.url, data)
 
         return item

@@ -6,12 +6,12 @@ from __future__ import unicode_literals
 
 from .. import base
 from . import utils
-from .item import Item
+from .item import EuctrItem
 
 
 # Module API
 
-class Mapper(base.Mapper):
+class EuctrMapper(base.Mapper):
 
     # Public
 
@@ -160,6 +160,6 @@ class Mapper(base.Mapper):
                 del data[key]
 
         # Create item
-        item = Item.create(res.url, data)
+        item = EuctrItem.create(res.url, data)
 
         return item

@@ -9,12 +9,12 @@ from scrapy.linkextractors import LinkExtractor
 
 from .. import base
 from . import utils
-from .mapper import Mapper
+from .mapper import GskMapper
 
 
 # Module API
 
-class Spider(base.Spider):
+class GskSpider(base.Spider):
 
     # Public
 
@@ -24,7 +24,7 @@ class Spider(base.Spider):
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
         # Create mapper
-        self.mapper = Mapper()
+        self.mapper = GskMapper()
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
@@ -39,4 +39,4 @@ class Spider(base.Spider):
         ]
 
         # Inherit parent
-        super(Spider, self).__init__(*args, **kwargs)
+        super(GskSpider, self).__init__(*args, **kwargs)

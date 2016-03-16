@@ -49,19 +49,16 @@ $ touch scraper/spiders/guide/mapper.py
 $ touch scraper/spiders/guide/spider.py
 ```
 
-Register the new spider in `scrapy` settings:
+Expose `GuideSpider` (as `Guide`) class in `spiders` module
+as the only one `scrapy` interface implemetation requirement:
 
-> `scraper/settings.py`
+> `scraper/spiders/__inint__.py`
 
 ```python
-SPIDER_MODULES = [
-    ...
-    'scraper.spiders.guide',
-]
+...
+from .guide import GuideSpider as Guide
+...
 ```
-
-Expose `Spider` class as the only one `scrapy` interface
-implemetation requirement:
 
 > `scraper/spiders/guide/__init__.py`
 
@@ -72,7 +69,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from .spider import Spider
+from .spider import GuideSpider
 ```
 
 ## Writing a Spider
@@ -102,12 +99,12 @@ from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 
 from .. import base
-from .mapper import Mapper
+from .mapper import GuideMapper
 
 
 # Module API
 
-class Spider(base.Spider):
+class GuideSpider(base.Spider):
 
     # Public
 
@@ -117,7 +114,7 @@ class Spider(base.Spider):
     def __init__(self, *args, **kwargs):
 
         # Make mapper
-        self.mapper = Mapper()
+        self.mapper = GuideMapper()
 
         # Make urls
         self.start_urls = [
@@ -135,7 +132,7 @@ class Spider(base.Spider):
         ]
 
         # Inherit parent
-        super(Spider, self).__init__(*args, **kwargs)
+        super(GuideSpider, self).__init__(*args, **kwargs)
 ```
 
 An instance of this class will call `mapper.map_response(response)` for
@@ -175,7 +172,7 @@ from ..base.fields import Text, Date, Boolean, Integer, Json, Array  # noqa
 
 # Module API
 
-class Item(base.Item):
+class GuideItem(base.Item):
 
     # Config
 
@@ -229,12 +226,12 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from .. import base
-from .item import Item
+from .item import GuideItem
 
 
 # Module API
 
-class Mapper(base.Mapper):
+class GuideMapper(base.Mapper):
 
     # Public
 
@@ -298,7 +295,7 @@ class Mapper(base.Mapper):
         data[key] = value
 
         # Create item
-        item = Item.create(res.url, data)
+        item = GuideItem.create(res.url, data)
 
         return item
 ```

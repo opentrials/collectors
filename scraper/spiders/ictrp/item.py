@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Boolean, Integer, Json, Array  # noqa
 
 # Module API
 
-class Item(base.Item):
+class IctrpItem(base.Item):
 
     # Config
 

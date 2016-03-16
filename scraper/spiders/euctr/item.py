@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Boolean, Integer, Json
 
 # Module API
 
-class Item(base.Item):
+class EuctrItem(base.Item):
 
     # Config
 

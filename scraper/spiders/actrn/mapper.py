@@ -8,12 +8,12 @@ import re
 
 from .. import base
 from . import utils
-from .item import Item
+from .item import ActrnItem
 
 
 # Module API
 
-class Mapper(base.Mapper):
+class ActrnMapper(base.Mapper):
 
     # Public
 
@@ -180,6 +180,6 @@ class Mapper(base.Mapper):
                 del data[key]
 
         # Create item
-        item = Item.create(res.url, data)
+        item = ActrnItem.create(res.url, data)
 
         return item
