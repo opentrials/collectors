@@ -9,7 +9,7 @@ from scrapy.linkextractors import LinkExtractor
 
 from .. import base
 from . import utils
-from .mapper import IsrctnMapper
+from .parser import IsrctnParser
 
 
 # Module API
@@ -23,8 +23,8 @@ class IsrctnSpider(base.Spider):
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
-        # Create mapper
-        self.mapper = IsrctnMapper()
+        # Create parser
+        self.parser = IsrctnParser()
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
@@ -35,7 +35,7 @@ class IsrctnSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'ISRCTN\d+',
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),

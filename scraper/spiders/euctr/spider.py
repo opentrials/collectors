@@ -9,7 +9,7 @@ from scrapy.linkextractors import LinkExtractor
 
 from .. import base
 from . import utils
-from .mapper import EuctrMapper
+from .parser import EuctrParser
 
 
 # Module API
@@ -23,8 +23,8 @@ class EuctrSpider(base.Spider):
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
-        # Create mapper
-        self.mapper = EuctrMapper()
+        # Create parser
+        self.parser = EuctrParser()
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
@@ -35,7 +35,7 @@ class EuctrSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'ctr-search/trial/[\d-]+/[\w]+'
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             ), process_links=self.process_links),

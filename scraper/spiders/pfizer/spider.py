@@ -8,7 +8,7 @@ from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 
 from .. import base
-from .mapper import PfizerMapper
+from .parser import PfizerParser
 
 
 # Module API
@@ -22,8 +22,8 @@ class PfizerSpider(base.Spider):
 
     def __init__(self, *args, **kwargs):
 
-        # Make mapper
-        self.mapper = PfizerMapper()
+        # Make parser
+        self.parser = PfizerParser()
 
         # Make urls
         self.start_urls = [
@@ -34,7 +34,7 @@ class PfizerSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'find_a_trial/NCT\d+',
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),

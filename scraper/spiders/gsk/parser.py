@@ -12,7 +12,7 @@ from .item import GskItem
 
 # Module API
 
-class GskMapper(base.Mapper):
+class GskParser(base.Parser):
 
     # Public
 
@@ -20,7 +20,7 @@ class GskMapper(base.Mapper):
         'explanation',
     ]
 
-    def map(self, res):  # noqa
+    def parse(self, res):  # noqa
 
         # Init data
         data = {}

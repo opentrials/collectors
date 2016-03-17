@@ -7,5 +7,5 @@ from __future__ import unicode_literals
 from . import fields
 from . import utils
 from .item import Item
-from .mapper import Mapper
+from .parser import Parser
 from .spider import Spider

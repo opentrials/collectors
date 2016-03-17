@@ -13,11 +13,11 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-class IctrpMapper(base.Mapper):
+class IctrpParser(base.Parser):
 
     # Public
 
-    def map(self, res):
+    def parse(self, res):
 
         # Init data
         data = {}

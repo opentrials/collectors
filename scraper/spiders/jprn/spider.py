@@ -10,7 +10,7 @@ from six.moves.urllib.parse import urlparse, parse_qs
 
 from .. import base
 from . import utils
-from .mapper import JprnMapper
+from .parser import JprnParser
 
 
 # Module API
@@ -24,8 +24,8 @@ class JprnSpider(base.Spider):
 
     def __init__(self, page_from=None, page_to=None, *args, **kwargs):
 
-        # Create mapper
-        self.mapper = JprnMapper()
+        # Create parser
+        self.parser = JprnParser()
 
         # Default values
         if page_from is None:
@@ -46,7 +46,7 @@ class JprnSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
                 process_value=self.process_url,

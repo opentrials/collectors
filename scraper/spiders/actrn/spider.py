@@ -9,7 +9,7 @@ from scrapy.linkextractors import LinkExtractor
 
 from .. import base
 from . import utils
-from .mapper import ActrnMapper
+from .parser import ActrnParser
 
 
 # Module API
@@ -23,8 +23,8 @@ class ActrnSpider(base.Spider):
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
-        # Create mapper
-        self.mapper = ActrnMapper()
+        # Create parser
+        self.parser = ActrnParser()
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
@@ -36,7 +36,7 @@ class ActrnSpider(base.Spider):
             Rule(LinkExtractor(
                 allow=r'Trial/Registration/TrialReview.aspx',
                 process_value=lambda value: value.replace('http', 'https', 1),
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parser),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),

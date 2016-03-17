@@ -10,11 +10,11 @@ from .item import PfizerItem
 
 # Module API
 
-class PfizerMapper(base.Mapper):
+class PfizerParser(base.Parser):
 
     # Public
 
-    def map(self, res):
+    def parse(self, res):
 
         # Init data
         data = {}

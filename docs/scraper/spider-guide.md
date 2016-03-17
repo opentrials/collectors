@@ -45,7 +45,7 @@ To bootstrap a new `guide` spider:
 ```
 $ mkdir scraper/spiders/guide
 $ touch scraper/spiders/guide/item.py
-$ touch scraper/spiders/guide/mapper.py
+$ touch scraper/spiders/guide/parser.py
 $ touch scraper/spiders/guide/spider.py
 ```
 
@@ -99,7 +99,7 @@ from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 
 from .. import base
-from .mapper import GuideMapper
+from .parser import GuideParser
 
 
 # Module API
@@ -113,8 +113,8 @@ class GuideSpider(base.Spider):
 
     def __init__(self, *args, **kwargs):
 
-        # Make mapper
-        self.mapper = GuideMapper()
+        # Make parser
+        self.parser = GuideParser()
 
         # Make urls
         self.start_urls = [
@@ -125,7 +125,7 @@ class GuideSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'find_a_trial/NCT\d+',
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),
@@ -135,8 +135,8 @@ class GuideSpider(base.Spider):
         super(GuideSpider, self).__init__(*args, **kwargs)
 ```
 
-An instance of this class will call `mapper.map(response)` for
-every http response from trial pages. We'll write a mapper a bit later.
+An instance of this class will call `parser.parse(response)` for
+every http response from trial pages. We'll write a parser a bit later.
 
 ## Writing an Item
 
@@ -202,21 +202,21 @@ class GuideItem(base.Item):
     healthy_volunteers_allowed = Boolean('Accepts Healthy Volunteers')
 ```
 
-Item is what `mapper.map(response)` has to return to `Spider`.
-Now we're ready to bring all together and write a mapper.
+Item is what `parser.parse(response)` has to return to `Spider`.
+Now we're ready to bring all together and write a parser.
 
-## Writing a Mapper
+## Writing a Parser
 
 In this step we're working on `mapping http response to data model (item)`.
 
-Mapper is a connecting link between `Spider` and `Item`. We get http response
+Parser is a connecting link between `Spider` and `Item`. We get http response
 from `Spider` and return `Item` (or `None` to skip the data).
 
 Any html parsing technique could be used. We will use scrapy's built-in
 css selectors. Much more about other possibilities could be found at
 scrapy documentation - http://scrapy.readthedocs.org/en/latest/topics/selectors.html.
 
-> `scraper/spiders/guide/mapper.py`
+> `scraper/spiders/guide/parser.py`
 
 ```python
 # -*- coding: utf-8 -*-
@@ -231,7 +231,7 @@ from .item import GuideItem
 
 # Module API
 
-class GuideMapper(base.Mapper):
+class GuideParser(base.Parser):
 
     # Public
 

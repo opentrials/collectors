@@ -13,7 +13,7 @@ from .item import ActrnItem
 
 # Module API
 
-class ActrnMapper(base.Mapper):
+class ActrnParser(base.Parser):
 
     # Public
 
@@ -24,7 +24,7 @@ class ActrnMapper(base.Mapper):
         'recruitment_hospital',
     ]
 
-    def map(self, res):  # noqa
+    def parse(self, res):  # noqa
 
         # Init data
         data = {}

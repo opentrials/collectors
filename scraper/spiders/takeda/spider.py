@@ -8,7 +8,7 @@ from scrapy.spiders import Rule
 from scrapy.linkextractors import LinkExtractor
 
 from .. import base
-from .mapper import TakedaMapper
+from .parser import TakedaParser
 
 
 # Module API
@@ -22,8 +22,8 @@ class TakedaSpider(base.Spider):
 
     def __init__(self, *args, **kwargs):
 
-        # Make mapper
-        self.mapper = TakedaMapper()
+        # Make parser
+        self.parser = TakedaParser()
 
         # Make urls
         self.start_urls = [
@@ -34,7 +34,7 @@ class TakedaSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'browse/summary/',
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parse),
             Rule(LinkExtractor(
                 allow=r'browse',
             )),

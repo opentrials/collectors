@@ -9,7 +9,7 @@ from scrapy.linkextractors import LinkExtractor
 
 from ... import settings
 from .. import base
-from .mapper import IctrpMapper
+from .parser import IctrpParser
 
 
 # Module API
@@ -25,8 +25,8 @@ class IctrpSpider(base.Spider):
 
     def __init__(self, *args, **kwargs):
 
-        # Make mapper
-        self.mapper = IctrpMapper()
+        # Make parser
+        self.parser = IctrpParser()
 
         # Make urls
         self.start_urls = [
@@ -37,7 +37,7 @@ class IctrpSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'trialsearch/Trial\d+\.aspx\?trialid=.+',
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parse),
             Rule(LinkExtractor(
                 allow=r'trialsearch/crawl/crawl\d+\.aspx',
             )),

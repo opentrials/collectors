@@ -11,11 +11,11 @@ from .item import NctItem
 
 # Module API
 
-class NctMapper(base.Mapper):
+class NctParser(base.Parser):
 
     # Public
 
-    def map(self, res):
+    def parse(self, res):
 
         # Init data
         data = {}

@@ -11,12 +11,12 @@ from abc import ABCMeta, abstractmethod
 # Module API
 
 @add_metaclass(ABCMeta)
-class Mapper(object):
+class Parser(object):
 
     # Public
 
     @abstractmethod
-    def map(self, res):
+    def parse(self, res):
         """Map response to item.
 
         Args:

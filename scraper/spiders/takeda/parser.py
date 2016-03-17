@@ -11,11 +11,11 @@ from .item import TakedaItem
 
 # Module API
 
-class TakedaMapper(base.Mapper):
+class TakedaParser(base.Parser):
 
     # Public
 
-    def map(self, res):
+    def parse(self, res):
 
         # Init data
         data = {}

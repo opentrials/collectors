@@ -11,7 +11,7 @@ from .item import JprnItem
 
 # Module API
 
-class JprnMapper(base.Mapper):
+class JprnParser(base.Parser):
 
     # Public
 
@@ -19,7 +19,7 @@ class JprnMapper(base.Mapper):
         'item',
     ]
 
-    def map(self, res):
+    def parse(self, res):
 
         # Extract rawdata
         data = {}

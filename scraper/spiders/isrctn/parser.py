@@ -11,11 +11,11 @@ from .item import IsrctnItem
 
 # Module API
 
-class IsrctnMapper(base.Mapper):
+class IsrctnParser(base.Parser):
 
     # Public
 
-    def map(self, res):
+    def parse(self, res):
 
         # Init data
         data = {}

@@ -11,7 +11,7 @@ from .item import EuctrItem
 
 # Module API
 
-class EuctrMapper(base.Mapper):
+class EuctrParser(base.Parser):
 
     # Public
 
@@ -32,7 +32,7 @@ class EuctrMapper(base.Mapper):
         'subject_women_of_childbearing_potential_not_using_contraception_for',
     ]
 
-    def map(self, res):
+    def parse(self, res):
 
         # Init data item
         data = {}

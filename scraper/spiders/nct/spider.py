@@ -9,7 +9,7 @@ from scrapy.linkextractors import LinkExtractor
 
 from .. import base
 from . import utils
-from .mapper import NctMapper
+from .parser import NctParser
 
 
 # Module API
@@ -23,8 +23,8 @@ class NctSpider(base.Spider):
 
     def __init__(self, date_from=None, date_to=None, *args, **kwargs):
 
-        # Create mapper
-        self.mapper = NctMapper()
+        # Create parser
+        self.parser = NctParser()
 
         # Make start urls
         self.start_urls = utils.make_start_urls(
@@ -36,7 +36,7 @@ class NctSpider(base.Spider):
             Rule(LinkExtractor(
                 allow=r'ct2/show/NCT\d+',
                 process_value=lambda value: value+'&resultsxml=true',
-            ), callback=self.mapper.map),
+            ), callback=self.parser.parse),
             Rule(LinkExtractor(
                 allow=r'pg=\d+$',
             )),
