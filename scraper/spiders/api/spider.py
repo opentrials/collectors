@@ -4,14 +4,15 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from scrapy.spiders import CrawlSpider
-
-from .. import api
+import scrapy
+from six import add_metaclass
+from abc import ABCMeta, abstractmethod
 
 
 # Module API
 
-class Spider(CrawlSpider, api.Spider):
+@add_metaclass(ABCMeta)
+class Spider(scrapy.Spider):
 
     # Public
 

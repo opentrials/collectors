@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+from .api import Spider as API
 from .actrn import ActrnSpider as Actrn
 from .euctr import EuctrSpider as Euctr
 from .gsk import GskSpider as Gsk
