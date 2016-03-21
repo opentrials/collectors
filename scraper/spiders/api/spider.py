@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import scrapy
 from six import add_metaclass
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 
 
 # Module API
