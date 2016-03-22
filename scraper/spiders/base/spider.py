@@ -6,12 +6,10 @@ from __future__ import unicode_literals
 
 from scrapy.spiders import CrawlSpider
 
-from .. import api
-
 
 # Module API
 
-class Spider(CrawlSpider, api.Spider):
+class Spider(CrawlSpider):
 
     # Public
 
