@@ -54,11 +54,11 @@ class Boolean(Base):
     type = sa.Boolean
 
     def __init__(self, true_value=None):
-        self.true_value = true_value
+        self.__true_value = true_value
 
     def parse(self, value):
-        if self.true_value is not None:
-            value = (value.lower() == self.true_value.lower())
+        if self.__true_value is not None:
+            value = (value.lower() == self.__true_value.lower())
         return value
 
 
@@ -69,10 +69,10 @@ class Date(Base):
     type = sa.Date
 
     def __init__(self, format):
-        self.format = format
+        self.__format = format
 
     def parse(self, value):
-        return utils.parse_date(value, format=self.format)
+        return utils.parse_date(value, format=self.__format)
 
 
 class Datetime(Base):
@@ -80,13 +80,13 @@ class Datetime(Base):
     # Public
 
     def __init__(self, format=None):
-        self.format = format
+        self.__format = format
 
     type = sa.DateTime(timezone=True)
 
     def parse(self, value):
-        if self.format is not None:
-            value = utils.parse_datetime(value, format=self.format)
+        if self.__format is not None:
+            value = utils.parse_datetime(value, format=self.__format)
         return value
 
 
