@@ -14,7 +14,7 @@ class JprnItem(base.Item):
 
     # Config
 
-    table = 'data_jprn'
+    table = 'jprn'
     primary_key = 'unique_trial_number'
     updated_key = 'date_and_time_of_last_update'
     ensure_fields = False

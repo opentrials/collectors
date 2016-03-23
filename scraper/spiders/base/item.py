@@ -69,7 +69,7 @@ class Item(scrapy.Item):
     def __repr__(self):
         template = '<%s: %s [%s]>'
         text = template % (
-                self.table.replace('data_', '').upper(),
+                self.table.upper(),
                 self.get(self.primary_key),
                 self.get(self.updated_key))
         return text

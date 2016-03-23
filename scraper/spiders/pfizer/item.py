@@ -14,7 +14,7 @@ class PfizerItem(base.Item):
 
     # Config
 
-    table = 'data_pfizer'
+    table = 'pfizer'
     primary_key = 'nct_id'
     updated_key = None
     ensure_fields = False

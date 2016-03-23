@@ -14,7 +14,7 @@ class GskItem(base.Item):
 
     # Config
 
-    table = 'data_gsk'
+    table = 'gsk'
     primary_key = 'study_id'
     updated_key = 'last_updated'
     ensure_fields = False
