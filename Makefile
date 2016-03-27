@@ -1,4 +1,4 @@
-.PHONY: all build deploy develop lint list migrate test
+.PHONY: all build deploy install lint list migrate test
 
 
 all: list
@@ -18,7 +18,7 @@ deploy:
 	docker push opentrialsrobot/collectors
 	python scripts/deploy-stacks.py
 
-develop:
+install:
 	pip install --upgrade -r requirements.dev.txt
 
 lint:

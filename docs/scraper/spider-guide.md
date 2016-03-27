@@ -20,7 +20,7 @@ $ cd opentrials-scraper
 $ git checkout -b feature/giude-spider
 $ virtualenv .python -p python2
 $ source .python/bin/activate
-$ make develop
+$ make install
 $ cp .env.example .env && editor .env
 ```
 

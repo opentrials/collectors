@@ -11,7 +11,7 @@ services:
   - docker
 
 install:
-  - make develop
+  - make install
 
 script:
   - make build
