@@ -21,4 +21,4 @@ for name in os.listdir('stacks'):
     command += 'tutum stack update --sync -f stacks/{name}.yml {name}'
     command = command.format(name=name)
     subprocess.call(command, shell=True)
-    print('Deployed stack: %s' % name)
+    print('Pushed stack: %s' % name)
