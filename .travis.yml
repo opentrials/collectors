@@ -20,4 +20,6 @@ script:
 
 deploy:
   - provider: script
-    script: make deploy
+    script: make push
+    on:
+      branch: master
