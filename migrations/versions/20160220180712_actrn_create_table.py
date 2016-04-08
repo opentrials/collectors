@@ -9,7 +9,6 @@ from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 from alembic import op
 
 
-
 # revision identifiers, used by Alembic.
 revision = 'babb1b77ca56'
 down_revision = u'296d1e273220'
