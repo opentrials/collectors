@@ -2,28 +2,28 @@
 # scrape all data from register
 
 actrn:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl actrn -a date_from=2001-01-01 -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 1
 
 euctr:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl euctr -a date_from=2001-01-01 -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 1
 
 gsk:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl gsk -a date_from=2001-01-01 -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 1
 
 ictrp:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl ictrp -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:
@@ -32,35 +32,35 @@ ictrp:
     OPENTRIALS_ICTRP_PASS:
 
 isrctn:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl isrctn -a date_from=2001-01-01 -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 1
 
 jprn:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl jprn -a page_from=1 -a page_to=100000 -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 1
 
 nct:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl nct -a date_from=2001-01-01 -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 1
 
 pfizer:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl pfizer -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 1
 
 takeda:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: scrapy crawl takeda -L INFO
   environment:
     OPENTRIALS_WAREHOUSE_URL:

@@ -2,7 +2,7 @@
 # run database migrations
 
 main:
-  image: opentrialsrobot/collectors
+  image: okibot/collectors
   command: alembic upgrade head
   environment:
     OPENTRIALS_WAREHOUSE_URL:

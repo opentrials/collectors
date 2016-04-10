@@ -4,7 +4,7 @@
 all: list
 
 build:
-	docker build -t opentrialsrobot/collectors .
+	docker build -t okibot/collectors .
 
 install:
 	pip install --upgrade -r requirements.dev.txt
@@ -24,7 +24,7 @@ push:
     -e $$OPENTRIALS_DOCKER_EMAIL \
     -u $$OPENTRIALS_DOCKER_USER \
     -p $$OPENTRIALS_DOCKER_PASS
-	docker push opentrialsrobot/collectors
+	docker push okibot/collectors
 	python scripts/push-stacks.py
 
 test:
