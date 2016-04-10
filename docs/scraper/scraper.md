@@ -6,7 +6,7 @@ Terminology:
 - item - dictionary based on data model with scraped data for register
 - pipeline - item processor (like store item in database)
 - utils - collection of utils for register
-- stack - collection of scrapy process containers to run on Tutum
+- stack - collection of scrapy process containers to run on Docker Cloud
 - warehouse - database to store collected data
 
 ## Scraper
@@ -42,10 +42,10 @@ Warehouse is a database to store scraped data:
 Deployment process:
 - CI/CD server builds Docker image from scraper package and push
 it to opentrials account on Docker hub.
-- CI/CD server updates stacks on Tutum.
+- CI/CD server updates stacks on Docker Cloud.
 
 ## Management
 
-To start/stop an actual scraping Tutum dashboard is used:
+To start/stop an actual scraping Docker Cloud dashboard is used:
 
 ![Dashboard Storage](https://raw.githubusercontent.com/opentrials/scraper/master/files/dashboard.png)

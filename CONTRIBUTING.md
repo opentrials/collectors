@@ -51,4 +51,4 @@ Required environment variables:
 
 ## Managing
 
-To update, run and stop scrapers use Tutum's web UI.
+To update, run and stop scrapers use Docker Cloud web UI.

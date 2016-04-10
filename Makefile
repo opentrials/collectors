@@ -24,9 +24,6 @@ push:
     -e $$OPENTRIALS_DOCKER_EMAIL \
     -u $$OPENTRIALS_DOCKER_USER \
     -p $$OPENTRIALS_DOCKER_PASS
-	tutum login \
-	-u $$OPENTRIALS_DOCKER_USER \
-	-p $$OPENTRIALS_DOCKER_PASS
 	docker push opentrialsrobot/collectors
 	python scripts/push-stacks.py
 

@@ -1,4 +1,4 @@
-six==1.9.0 # for tutum
+six==1.9.0 # for docker-cloud
 scrapy
 dataset
 alembic

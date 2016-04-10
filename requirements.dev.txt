@@ -1,6 +1,6 @@
 -r requirements.txt
-pyyaml==3.10 # for tutum
-tutum
+pyyaml==3.10 # for docker-cloud
+docker-cloud
 pylama
 tox
 mock

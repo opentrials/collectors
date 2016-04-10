@@ -16,9 +16,9 @@ for name in os.listdir('stacks'):
     if ext != 'yml':
         continue
     command = ''
-    command += 'tutum stack inspect {name} || '
-    command += 'tutum stack create --sync -f stacks/{name}.yml -n {name} && '
-    command += 'tutum stack update --sync -f stacks/{name}.yml {name}'
+    command += 'docker-cloud stack inspect {name} || '
+    command += 'docker-cloud stack create --sync -f stacks/{name}.yml -n {name} && '
+    command += 'docker-cloud stack update --sync -f stacks/{name}.yml {name}'
     command = command.format(name=name)
     subprocess.call(command, shell=True)
     print('Pushed stack: %s' % name)
