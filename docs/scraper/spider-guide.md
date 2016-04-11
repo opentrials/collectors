@@ -314,12 +314,12 @@ guide
 And start an actual scraping:
 
 ```
-$ scrapy crawl guide -L INFO
+$ scrapy crawl guide -L DEBUG
 ...
-2016-03-01 17:38:25 [scraper.pipelines] INFO: Created item: <GUIDE: NCT00440492 [None]> - 14 fields
-2016-03-01 17:38:36 [scraper.pipelines] INFO: Created item: <GUIDE: NCT00195234 [None]> - 14 fields
-2016-03-01 17:38:44 [scraper.pipelines] INFO: Created item: <GUIDE: NCT00195221 [None]> - 14 fields
-2016-03-01 17:38:48 [scraper.pipelines] INFO: Created item: <GUIDE: NCT00366249 [None]> - 14 fields
+2016-03-01 17:38:25 [scraper.pipelines] DEBUG: Created item: <GUIDE: NCT00440492 [None]> - 14 fields
+2016-03-01 17:38:36 [scraper.pipelines] DEBUG: Created item: <GUIDE: NCT00195234 [None]> - 14 fields
+2016-03-01 17:38:44 [scraper.pipelines] DEBUG: Created item: <GUIDE: NCT00195221 [None]> - 14 fields
+2016-03-01 17:38:48 [scraper.pipelines] DEBUG: Created item: <GUIDE: NCT00366249 [None]> - 14 fields
 ...
 ```
 

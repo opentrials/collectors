@@ -3,7 +3,7 @@
 
 actrn:
   image: okibot/collectors
-  command: scrapy crawl actrn -L INFO
+  command: scrapy crawl actrn -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10
@@ -12,7 +12,7 @@ actrn:
 
 euctr:
   image: okibot/collectors
-  command: scrapy crawl euctr -L INFO
+  command: scrapy crawl euctr -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10
@@ -21,7 +21,7 @@ euctr:
 
 gsk:
   image: okibot/collectors
-  command: scrapy crawl gsk -L INFO
+  command: scrapy crawl gsk -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10
@@ -30,7 +30,7 @@ gsk:
 
 ictrp:
   image: okibot/collectors
-  command: scrapy crawl ictrp -L INFO
+  command: scrapy crawl ictrp -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10
@@ -41,7 +41,7 @@ ictrp:
 
 isrctn:
   image: okibot/collectors
-  command: scrapy crawl isrctn -L INFO
+  command: scrapy crawl isrctn -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10
@@ -50,7 +50,7 @@ isrctn:
 
 jprn:
   image: okibot/collectors
-  command: scrapy crawl jprn -L INFO
+  command: scrapy crawl jprn -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10
@@ -59,7 +59,7 @@ jprn:
 
 nct:
   image: okibot/collectors
-  command: scrapy crawl nct -L INFO
+  command: scrapy crawl nct -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10
@@ -68,7 +68,7 @@ nct:
 
 pfizer:
   image: okibot/collectors
-  command: scrapy crawl pfizer -L INFO
+  command: scrapy crawl pfizer -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10
@@ -77,7 +77,7 @@ pfizer:
 
 takeda:
   image: okibot/collectors
-  command: scrapy crawl takeda -L INFO
+  command: scrapy crawl takeda -L DEBUG
   restart: always
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 10

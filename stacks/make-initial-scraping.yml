@@ -3,7 +3,7 @@
 
 actrn:
   image: okibot/collectors
-  command: scrapy crawl actrn -a date_from=2001-01-01 -L INFO
+  command: scrapy crawl actrn -a date_from=2001-01-01 -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
@@ -11,7 +11,7 @@ actrn:
 
 euctr:
   image: okibot/collectors
-  command: scrapy crawl euctr -a date_from=2001-01-01 -L INFO
+  command: scrapy crawl euctr -a date_from=2001-01-01 -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
@@ -19,7 +19,7 @@ euctr:
 
 gsk:
   image: okibot/collectors
-  command: scrapy crawl gsk -a date_from=2001-01-01 -L INFO
+  command: scrapy crawl gsk -a date_from=2001-01-01 -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
@@ -27,7 +27,7 @@ gsk:
 
 ictrp:
   image: okibot/collectors
-  command: scrapy crawl ictrp -L INFO
+  command: scrapy crawl ictrp -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
@@ -37,7 +37,7 @@ ictrp:
 
 isrctn:
   image: okibot/collectors
-  command: scrapy crawl isrctn -a date_from=2001-01-01 -L INFO
+  command: scrapy crawl isrctn -a date_from=2001-01-01 -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
@@ -45,7 +45,7 @@ isrctn:
 
 jprn:
   image: okibot/collectors
-  command: scrapy crawl jprn -a page_from=1 -a page_to=100000 -L INFO
+  command: scrapy crawl jprn -a page_from=1 -a page_to=100000 -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
@@ -53,7 +53,7 @@ jprn:
 
 nct:
   image: okibot/collectors
-  command: scrapy crawl nct -a date_from=2001-01-01 -L INFO
+  command: scrapy crawl nct -a date_from=2001-01-01 -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
@@ -61,7 +61,7 @@ nct:
 
 pfizer:
   image: okibot/collectors
-  command: scrapy crawl pfizer -L INFO
+  command: scrapy crawl pfizer -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
@@ -69,7 +69,7 @@ pfizer:
 
 takeda:
   image: okibot/collectors
-  command: scrapy crawl takeda -L INFO
+  command: scrapy crawl takeda -L DEBUG
   environment:
     OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
