@@ -9,8 +9,7 @@ import sqlalchemy as sa
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
-from dotenv import load_dotenv
-load_dotenv('.env')
+from dotenv import load_dotenv; load_dotenv('.env')
 
 
 # Settings
