@@ -6,32 +6,36 @@ actrn:
   command: scrapy crawl actrn -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
 
 euctr:
   image: okibot/collectors
   command: scrapy crawl euctr -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
 
 gsk:
   image: okibot/collectors
   command: scrapy crawl gsk -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
 
 ictrp:
   image: okibot/collectors
   command: scrapy crawl ictrp -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
     OPENTRIALS_ICTRP_USER:
     OPENTRIALS_ICTRP_PASS:
 
@@ -40,37 +44,42 @@ isrctn:
   command: scrapy crawl isrctn -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
 
 jprn:
   image: okibot/collectors
   command: scrapy crawl jprn -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
 
 nct:
   image: okibot/collectors
   command: scrapy crawl nct -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
 
 pfizer:
   image: okibot/collectors
   command: scrapy crawl pfizer -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
 
 takeda:
   image: okibot/collectors
   command: scrapy crawl takeda -L INFO
   restart: always
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:

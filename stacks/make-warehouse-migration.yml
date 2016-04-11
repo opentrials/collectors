@@ -6,3 +6,4 @@ main:
   command: alembic upgrade head
   environment:
     OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
