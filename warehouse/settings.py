@@ -16,6 +16,7 @@ WAREHOUSE_URL = os.environ['OPENTRIALS_WAREHOUSE_URL']
 # Logging
 
 LOGGING_URL = os.environ['OPENTRIALS_LOGGING_URL']
+logging.basicConfig(level=logging.DEBUG)
 root_logger = logging.getLogger()
 host, port = LOGGING_URL.split(':')
 syslog_handler = SysLogHandler(address=(host, int(port)))

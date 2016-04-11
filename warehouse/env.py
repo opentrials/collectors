@@ -17,7 +17,7 @@ import settings
 
 # Alembis stuff
 config = context.config
-fileConfig(config.config_file_name)
+# fileConfig(config.config_file_name)
 target_metadata = None
 
 
