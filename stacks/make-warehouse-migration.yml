@@ -1,5 +1,5 @@
 # Migrate
-# run database migrations
+# run warehouse migrations
 
 main:
   image: okibot/collectors
