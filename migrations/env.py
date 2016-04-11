@@ -5,15 +5,14 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import os
+import sys
 import sqlalchemy as sa
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
-from dotenv import load_dotenv; load_dotenv('.env')  # noqa
 
-
-# Settings
-WAREHOUSE_URL = os.environ['OPENTRIALS_WAREHOUSE_URL']
+sys.path.append(os.path.dirname(__file__))
+import settings
 
 
 # Alembis stuff
@@ -49,7 +48,7 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = sa.create_engine(WAREHOUSE_URL)
+    connectable = sa.create_engine(settings.WAREHOUSE_URL)
 
     with connectable.connect() as connection:
         context.configure(
