@@ -11,15 +11,15 @@ The OpenTrials data collectors + warehouse schema definition.
 
 - [Scraper](docs/scraper/scraper.md)
   - [Spiders](docs/scraper/spiders/)
-    - [NCT](docs/scraper/spiders/nct.md)
-    - [ISRCTN](docs/scraper/spiders/isrctn.md)
-    - [EUCTR](docs/scraper/spiders/euctr.md)
     - [ACTRN](docs/scraper/spiders/actrn.md)
-    - [JPRN](docs/scraper/spiders/jprn.md)
+    - [EUCTR](docs/scraper/spiders/euctr.md)
     - [GSK](docs/scraper/spiders/gsk.md)
+    - [ICTRP](docs/scraper/spiders/ictrp.md)
+    - [ISRCTN](docs/scraper/spiders/isrctn.md)
+    - [JPRN](docs/scraper/spiders/jprn.md)
+    - [NCT](docs/scraper/spiders/nct.md)
     - [Pfizer](docs/scraper/spiders/pfizer.md)
     - [Takeda](docs/scraper/spiders/takeda.md)
-    - [ICTRP](docs/scraper/spiders/ictrp.md)
 - [Warehouse](docs/warehouse/warehouse.md)
 
 ## Contributing
