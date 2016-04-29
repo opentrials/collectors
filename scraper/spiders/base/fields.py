@@ -8,7 +8,7 @@ import sqlalchemy as sa
 from scrapy import Field
 from six import add_metaclass
 from abc import ABCMeta, abstractmethod
-from sqlalchemy.dialects.postgresql import ARRAY, JSON
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 
 from . import utils
 
@@ -94,7 +94,7 @@ class Json(Base):
 
     # Public
 
-    type = JSON
+    type = JSONB
 
 
 class Array(Base):

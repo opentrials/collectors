@@ -20,6 +20,7 @@ The OpenTrials data collectors + warehouse schema definition.
     - [NCT](docs/scraper/spiders/nct.md)
     - [Pfizer](docs/scraper/spiders/pfizer.md)
     - [Takeda](docs/scraper/spiders/takeda.md)
+    - [Pubmed](docs/scraper/spiders/pubmed.md)
 - [Warehouse](docs/warehouse/warehouse.md)
 
 ## Contributing

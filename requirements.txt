@@ -6,3 +6,4 @@ psycopg2
 xmltodict
 sqlalchemy
 python-dotenv
+requests

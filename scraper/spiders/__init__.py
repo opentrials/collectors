@@ -12,4 +12,5 @@ from .isrctn import IsrctnSpider as Isrctn
 from .jprn import JprnSpider as Jprn
 from .nct import NctSpider as Nct
 from .pfizer import PfizerSpider as Pfizer
+from .pubmed import PubmedSpider as Pubmed
 from .takeda import TakedaSpider as Takeda
