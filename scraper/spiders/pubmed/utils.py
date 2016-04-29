@@ -43,7 +43,7 @@ def make_start_urls(prefix, template, date_from=None, date_to=None):
     urls = []
     for pmid in pmids:
         urls.append(template.format(pmid=pmid))
-    logger.debug('Populated Pubmed start urls: %s', len(urls))
+    logger.info('Populated Pubmed start urls: %s', len(urls))
     return urls
 
 
