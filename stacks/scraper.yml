@@ -75,6 +75,15 @@ pfizer:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
+pubmed:
+  image: okibot/collectors
+  command: scrapy crawl pubmed -L DEBUG
+  restart: always
+  environment:
+    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_WAREHOUSE_URL:
+    OPENTRIALS_LOGGING_URL:
+
 takeda:
   image: okibot/collectors
   command: scrapy crawl takeda -L DEBUG
