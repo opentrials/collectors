@@ -12,10 +12,9 @@ services:
 
 install:
   - make install
+  - make build
 
 script:
-  - make build
-  - make lint
   - make test
 
 deploy:
