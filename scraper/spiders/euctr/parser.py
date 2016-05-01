@@ -42,11 +42,11 @@ class EuctrParser(base.Parser):
         kpath = '.cellGrey'
         vpath = '.cellGrey+.cellLighterGrey'
         subdata = utils.extract_dict(res, kpath, vpath)
-        subdata['eudract_number_with_country'] = res.url.split('/')[-1]
+        eudract_number = 'EUCTR%s' % subdata['eudract_number']
         data.update(subdata)
 
         key = 'eudract_number_with_country'
-        value = '-'.join([data['eudract_number'], res.url.split('/')[-1]])
+        value = '-'.join([eudract_number, res.url.split('/')[-1]])
         data.update({key: value})
 
         # A. Protocol Information
@@ -153,6 +153,9 @@ class EuctrParser(base.Parser):
         table = utils.select_table(res, ident)
         subdata = utils.extract_dict(table, kpath, vpath)
         data.update(subdata)
+
+        # Update data
+        data['eudract_number'] = eudract_number
 
         # Remove data
         for key in self.remove:
