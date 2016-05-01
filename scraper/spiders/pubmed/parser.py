@@ -30,7 +30,7 @@ class PubmedParser(base.Parser):
 
         # Medline
 
-        data['pmid'] = medline['PMID']['#text']
+        data['pmid'] = 'PMID%s' % medline['PMID']['#text']
         if 'DateCreated' in medline:
             data['date_created'] = '{year}-{month}-{day}'.format(
                 year=medline['DateCreated']['Year']['#text'],
