@@ -29,6 +29,9 @@ class TakedaParser(base.Parser):
 
             # General
 
+            if key == 'takeda_trial_id':
+                value = 'TAKEDA%s' % value
+
             if key == 'compound':
                 value = value.split(',')
 
