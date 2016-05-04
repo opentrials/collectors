@@ -1,53 +1,63 @@
 # Overview
 
-> **This document is no up-to-date!**
-
-Terminology:
-- scraper - Scrapy project (the core python package)
-- spider - object with rules and extractors to scrape concrete register
-- item - dictionary based on data model with scraped data for register
-- pipeline - item processor (like store item in database)
-- utils - collection of utils for register
-- stack - collection of scrapy process containers to run on Docker Cloud
-- warehouse - database to store collected data
-
-## Scraper
-
-Scraper is a valid `Scrapy` project so it uses all well-known
-design patterns and follows the framework architecture.
-
-To scrape a register it need:
-- spider
-- item (data model)
-- utils (optionally)
-
-While scraping `pipelines.Database` will store item data to the warehouse.
+This system is responsible for data collecting to `warehouse`.
 
 ## Stacks
 
-Stacks provide different scraping strategies and tasks.
-For example to implement initial scraping and then only
-update warehouse to stay up to date could be used:
-- entire stack (processes like `scrapy crawl <register> -a date_from=2001-01-01`)
-- recent stack (processes like `scrapy crawl <register>` - last 2 days be default)
+The system provides the following stacks:
+- `make-initial-collecting` - collect anything initially
+- `collectors` - continuous collecting of updated sources
+
+About Docker Cloud deployment see -
+https://github.com/respect31/docker-cloud-example.
 
 ## Warehouse
 
-Warehouse is a database to store scraped data:
-- table per register
-- fields are typed when possible
-- as primary keys trial identifiers is used
-- meta data: created(timestamp), updated(timestam), source (url)
+See more about `warehouse` - [warehouse](warehouse.md).
 
-## Deployment
+## Collectors
 
-Deployment process:
-- CI/CD server builds Docker image from scraper package and push
-it to opentrials account on Docker hub.
-- CI/CD server updates stacks on Docker Cloud.
+The system's processors are independent python modules
+compatible to the following signature:
 
-## Management
+```python
+def collect(conf, conn, *args):
+    pass
+```
 
-To start/stop an actual scraping Docker Cloud dashboard is used:
+Where arguments are:
+- `conf` - config dict
+- `conn` - connections dict
+- `args` - processor arguments
 
-![Dashboard Storage](https://raw.githubusercontent.com/opentrials/scraper/master/files/dashboard.png)
+To run one of collectors from command line:
+```
+make start <name> [<args>]
+```
+
+This code will trigger `collectors.<name>.collect(conf, conn, *args)` call.
+
+### Scraping Collectors
+
+Many of `collectors` are scrapers. Scraping is based on
+Scrapy framework. In a `collect` call those `collectors` use
+this framrwork programmaticly:
+
+```python
+from scrapy.crawler import CrawlerProcess
+from .spider import <name>Spider
+
+def collect(conf, conn, <args>):
+    process = CrawlerProcess(conf)
+    process.crawl(<name>Spider, conn=conn, <args>)
+    process.start()
+```
+
+More about Scrapy - https://scrapy.readthedocs.io/en/latest/
+
+## Base library
+
+For developers convenient in a `collectors.base` module
+there are shared library of reusable components to write collectors.
+
+See documentation in source code to use it.
