@@ -78,10 +78,10 @@ class Datetime(Base):
 
     # Public
 
+    type = sa.DateTime(timezone=True)
+
     def __init__(self, format=None):
         self.__format = format
-
-    type = sa.DateTime(timezone=True)
 
     def parse(self, value):
         if self.__format is not None:
@@ -100,4 +100,18 @@ class Array(Base):
 
     # Public
 
-    type = ARRAY(sa.Text)
+    def __init__(self, field=None):
+        if field is None:
+            field = Text()
+        self.__field = field
+        self.__type = ARRAY(field.type)
+
+    @property
+    def type(self):
+        return self.__type
+
+    def parse(self, value):
+        result = []
+        for item in value:
+            result.append(self.__field.parse(item))
+        return result
