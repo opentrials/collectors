@@ -1,25 +1,22 @@
-# How to Write a Spider Guide
+# How to Write a Scraping Collector
 
-> **This document is no up-to-date!**
+This document describes how to write a new scraping collector (scraper)
+for the OpenTrials scraper from scratch to a pull request.
 
-This document describes how to write a new spider for the OpenTrials scraper
-from scratch to a pull request.
-
-As example we will be writing spider for `Pfizer` clinical trials register:
+As example we will be writing scraper for `Pfizer` clinical trials register:
 
 http://www.pfizer.com/research/clinical_trials.
 
-
 ## Getting Started
 
-To get started fork https://github.com/opentrials/scraper repository.
-After it the work on a new spider could be started (replace <user> by
+To get started fork https://github.com/opentrials/collectors repository.
+After it the work on a new scraper could be started (replace <user> by
 your github username):
 
 ```
-$ git clone git@github.com:<user>/scraper.git opentrials-scraper
-$ cd opentrials-scraper
-$ git checkout -b feature/giude-spider
+$ git clone git@github.com:<user>/collectors.git opentrials-collectors
+$ cd opentrials-collectors
+$ git checkout -b feature/giude-scraper
 $ virtualenv .python -p python2
 $ source .python/bin/activate
 $ make install
@@ -30,39 +27,29 @@ On the last step you should set your development warehouse url
 as value of `WAREHOUSE_URL` in the `.env` file
 (it should be postgres url like `postgres://...`).
 
-Now you're ready to work on you own spider!
+Now you're ready to work on you own scraper!
 
-## Scraping Platform
+## Platforms to Use
 
 - framework - [Scrapy](http://scrapy.readthedocs.org/en/latest/)
 - warehouse - [PostgreSQL](http://www.postgresql.org/docs/9.4/static/index.html)
 
-Directory named `scraper` is a `scrapy` project - everything written in
-this framework documentation is applicable to the project.
+## Writing a Scraping Collector
 
-## Bootstrapping a Spider
-
-To bootstrap a new `guide` spider:
+To bootstrap a new `guide` scraping collector:
 
 ```
-$ mkdir scraper/spiders/guide
-$ touch scraper/spiders/guide/item.py
-$ touch scraper/spiders/guide/parser.py
-$ touch scraper/spiders/guide/spider.py
+$ mkdir collectors/guide
+$ touch collectors/guide/collector.py
+$ touch collectors/guide/extractors.py
+$ touch collectors/guide/record.py
+$ touch collectors/guide/spider.py
 ```
 
-Expose `GuideSpider` (as `Guide`) class in `spiders` module
-as the only one `scrapy` interface implemetation requirement:
+Expose `collect` function as the only one interface
+implemetation requirement:
 
-> `scraper/spiders/__inint__.py`
-
-```python
-...
-from .guide import GuideSpider as Guide
-...
-```
-
-> `scraper/spiders/guide/__init__.py`
+> `collectors/guide/__init__.py`
 
 ```python
 # -*- coding: utf-8 -*-
@@ -71,7 +58,28 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+from .collector import collect
+```
+
+Our collector will just deligate a work to  Scrapy framework:
+
+> `collectors/guide/collect.py`
+
+```python
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
+from scrapy.crawler import CrawlerProcess
 from .spider import GuideSpider
+
+
+def collect(conf, conn):
+    process = CrawlerProcess(conf)
+    process.crawl(GuideSpider, conn=conn)
+    process.start()
 ```
 
 ## Writing a Spider
@@ -98,25 +106,21 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from scrapy.spiders import Rule
+from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
-
-from .. import base
-from .parser import GuideParser
+from .extractors import extract_record
 
 
 # Module API
 
-class GuideSpider(base.Spider):
+class GuideSpider(CrawlSpider):
 
     # Public
 
     name = 'guide'
     allowed_domains = ['pfizer.com']
 
-    def __init__(self, *args, **kwargs):
-
-        # Make parser
-        self.parser = GuideParser()
+    def __init__(self):
 
         # Make urls
         self.start_urls = [
@@ -127,24 +131,24 @@ class GuideSpider(base.Spider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'find_a_trial/NCT\d+',
-            ), callback=self.parser.parse),
+            ), callback=extract_record),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),
         ]
 
         # Inherit parent
-        super(GuideSpider, self).__init__(*args, **kwargs)
+        super(GuideSpider, self).__init__()
 ```
 
-An instance of this class will call `parser.parse(response)` for
-every http response from trial pages. We'll write a parser a bit later.
+An instance of this class will call `extract_record(response)` for
+every http response from trial pages. We'll write an extractor a bit later.
 
-## Writing an Item
+## Writing an Record
 
 In this step we're working on `what's data our spider will get`.
 
-Item is a model (like `django` model) for our spider. We have to describe
+Record is a model (like `django` model) for our spider. We have to describe
 records we're going to scrape.
 
 We need to discover concrete trial page:
@@ -154,11 +158,11 @@ http://www.pfizer.com/research/clinical_trials/find_a_trial/NCT01968967 (as exam
 We see sections like `trial`, `study_type` etc. OpenTrials scraping platform
 provide some `Field` classes to work with common field types:
 
-https://github.com/opentrials/scraper/blob/master/scraper/spiders/base/fields.py
+https://github.com/opentrials/collectors/blob/master/collectors/base/fields.py
 
 Based on discovered data and available base fields an item could look like:
 
-> `scraper/spiders/guide/item.py`
+> `collectors/guide/record.py`
 
 
 ```python
@@ -174,7 +178,7 @@ from ..base.fields import Text, Date, Boolean
 
 # Module API
 
-class GuideItem(base.Item):
+class GuideItem(base.Record):
 
     # Config
 
@@ -204,21 +208,21 @@ class GuideItem(base.Item):
     healthy_volunteers_allowed = Boolean('Accepts Healthy Volunteers')
 ```
 
-Item is what `parser.parse(response)` has to return to `Spider`.
-Now we're ready to bring all together and write a parser.
+Record is what `ectract_record` has to return to `Spider`.
+Now we're ready to bring all together and write an extractor.
 
-## Writing a Parser
+## Writing Extractors
 
-In this step we're working on `mapping http response to data model (item)`.
+In this step we're working on `mapping http response to data model (record)`.
 
-Parser is a connecting link between `Spider` and `Item`. We get http response
-from `Spider` and return `Item` (or `None` to skip the data).
+Record extractor is a connecting link between `Spider` and `Record`. We get http response
+from `Spider` and return `Record` (or `None` to skip the data).
 
 Any html parsing technique could be used. We will use scrapy's built-in
 css selectors. Much more about other possibilities could be found at
 scrapy documentation - http://scrapy.readthedocs.org/en/latest/topics/selectors.html.
 
-> `scraper/spiders/guide/parser.py`
+> `collectors/guide/extractors.py`
 
 ```python
 # -*- coding: utf-8 -*-
@@ -227,105 +231,92 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from .. import base
-from .item import GuideItem
+from .item import GuideRecord
 
 
-# Module API
+def extract_record(res):
 
-class GuideParser(base.Parser):
+    # Init data
+    data = {}
 
-    # Public
+    # Description
 
-    def map(self, res):
+    key = 'study_type'
+    path = '.field-name-field-study-type .field-item::text'
+    value = res.css(path).extract_first()
+    data[key] = value
 
-        # Init data
-        data = {}
+    key = 'organization_id'
+    path = '.field-name-field-organization-id .field-item::text'
+    value = res.css(path).extract_first()
+    data[key] = value
 
-        # Description
+    key = 'nct_id'
+    path = '.field-name-field-clinical-trial-id .field-item::text'
+    value = res.css(path).extract_first()
+    data[key] = value
 
-        key = 'study_type'
-        path = '.field-name-field-study-type .field-item::text'
-        value = res.css(path).extract_first()
-        data[key] = value
+    key = 'status'
+    path = '//label[text() = "Status"]/../text()'
+    value = ''.join(res.xpath(path).extract()).strip()
+    data[key] = value
 
-        key = 'organization_id'
-        path = '.field-name-field-organization-id .field-item::text'
-        value = res.css(path).extract_first()
-        data[key] = value
+    key = 'study_start_date'
+    path = '.field-name-field-study-start-date .field-item span::text'
+    value = res.css(path).extract_first()
+    data[key] = value
 
-        key = 'nct_id'
-        path = '.field-name-field-clinical-trial-id .field-item::text'
-        value = res.css(path).extract_first()
-        data[key] = value
+    key = 'study_end_date'
+    path = '.field-name-field-study-end-date .field-item span::text'
+    value = res.css(path).extract_first()
+    data[key] = value
 
-        key = 'status'
-        path = '//label[text() = "Status"]/../text()'
-        value = ''.join(res.xpath(path).extract()).strip()
-        data[key] = value
+    # Eligibility
 
-        key = 'study_start_date'
-        path = '.field-name-field-study-start-date .field-item span::text'
-        value = res.css(path).extract_first()
-        data[key] = value
+    key = 'eligibility_criteria'
+    path = '.field-name-field-criteria .field-item *::text'
+    value = ''.join(res.css(path).extract())
+    data[key] = value
 
-        key = 'study_end_date'
-        path = '.field-name-field-study-end-date .field-item span::text'
-        value = res.css(path).extract_first()
-        data[key] = value
+    key = 'gender'
+    path = '.field-name-field-gender .field-item::text'
+    value = res.css(path).extract_first()
+    data[key] = value
 
-        # Eligibility
+    key = 'age_range'
+    path = '//label[text() = "Age Range:"]/../text()'
+    value = ''.join(res.xpath(path).extract()).strip()
+    data[key] = value
 
-        key = 'eligibility_criteria'
-        path = '.field-name-field-criteria .field-item *::text'
-        value = ''.join(res.css(path).extract())
-        data[key] = value
+    key = 'healthy_volunteers_allowed'
+    path = '.field-name-field-healthy-volunteers-allowed .field-item::text'
+    value = res.css(path).extract_first()
+    data[key] = value
 
-        key = 'gender'
-        path = '.field-name-field-gender .field-item::text'
-        value = res.css(path).extract_first()
-        data[key] = value
+    # Create record
+    record = GuideRecord.create(res.url, data)
 
-        key = 'age_range'
-        path = '//label[text() = "Age Range:"]/../text()'
-        value = ''.join(res.xpath(path).extract()).strip()
-        data[key] = value
-
-        key = 'healthy_volunteers_allowed'
-        path = '.field-name-field-healthy-volunteers-allowed .field-item::text'
-        value = res.css(path).extract_first()
-        data[key] = value
-
-        # Create item
-        item = GuideItem.create(res.url, data)
-
-        return item
+    return record
 ```
 
 ## Start Scraping
 
-We're ready to see our spider in scrapy list:
+We're ready to start an actual scraping:
 
 ```
-$ scrapy list
+$ make start guide
 ...
-guide
-...
-```
-
-And start an actual scraping:
-
-```
-$ scrapy crawl guide -L DEBUG
-...
-2016-03-01 17:38:25 [scraper.pipelines] DEBUG: Created item: <GUIDE: NCT00440492 [None]> - 14 fields
-2016-03-01 17:38:36 [scraper.pipelines] DEBUG: Created item: <GUIDE: NCT00195234 [None]> - 14 fields
-2016-03-01 17:38:44 [scraper.pipelines] DEBUG: Created item: <GUIDE: NCT00195221 [None]> - 14 fields
-2016-03-01 17:38:48 [scraper.pipelines] DEBUG: Created item: <GUIDE: NCT00366249 [None]> - 14 fields
+2016-03-01 17:38:25 [scraper.pipelines] DEBUG: Record - created: <GUIDE: NCT00440492 [None]> - 14 fields
+2016-03-01 17:38:36 [scraper.pipelines] DEBUG: Record - created: <GUIDE: NCT00195234 [None]> - 14 fields
+2016-03-01 17:38:44 [scraper.pipelines] DEBUG: Record - created: <GUIDE: NCT00195221 [None]> - 14 fields
+2016-03-01 17:38:48 [scraper.pipelines] DEBUG: Record - created: <GUIDE: NCT00366249 [None]> - 14 fields
 ...
 ```
 
 Scraped data will be in the warehouse's `guide` table.
+
+> To use `scrapy` CLI tool add `collectors.guide.spider`
+to `collectors.base.config.SPIDER_MODULES`.
 
 ## Sharing the Work
 
