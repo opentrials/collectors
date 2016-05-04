@@ -30,6 +30,10 @@ class Record(scrapy.Item):
         # Init dict
         self = cls()
 
+        # TODO: review
+        # we could sync naming here with database
+        # created_at/updated_at etc
+
         # Add metadata
         ident = uuid.uuid4().hex
         timestamp = datetime.utcnow()
@@ -87,6 +91,10 @@ class Record(scrapy.Item):
         """Source name.
         """
         pass  # pragma: no cover
+
+    # TODO: review
+    # we could move responsibility of defining
+    # primary/updated key to Field object like in sa
 
     @property
     @abstractmethod
