@@ -19,7 +19,6 @@ class Record(scrapy.Item):
 
     # Public
 
-    ensure_fields = False
     skip_on_update = [
         'meta_id',
         'meta_created',
