@@ -17,7 +17,7 @@ This database uses table per source approach.
 
 ### ER Diagram
 
-![diagram](warehouse.png)
+![diagram](../files/warehouse.png)
 
 ### Technology
 
