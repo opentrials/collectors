@@ -6,89 +6,89 @@ actrn:
   command: make start actrn
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
 
 euctr:
   image: okibot/collectors
   command: make start euctr
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
 
 gsk:
   image: okibot/collectors
   command: make start gsk
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
 
 ictrp:
   image: okibot/collectors
   command: make start ictrp
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
-    OPENTRIALS_ICTRP_USER:
-    OPENTRIALS_ICTRP_PASS:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
+    ICTRP_USER:
+    ICTRP_PASS:
 
 isrctn:
   image: okibot/collectors
   command: make start isrctn
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
 
 jprn:
   image: okibot/collectors
   command: make start jprn
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
 
 nct:
   image: okibot/collectors
   command: make start nct
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
 
 pfizer:
   image: okibot/collectors
   command: make start pfizer
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
 
 pubmed:
   image: okibot/collectors
   command: make start pubmed
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
 
 takeda:
   image: okibot/collectors
   command: make start takeda
   restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:

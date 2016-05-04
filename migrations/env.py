@@ -8,14 +8,6 @@ import os
 import sys
 import sqlalchemy as sa
 from alembic import context
-import settings
-sys.path.append(os.path.dirname(__file__))
-
-
-# Alembis stuff
-config = context.config
-# fileConfig(config.config_file_name)
-target_metadata = None
 
 
 def run_migrations_offline():
@@ -30,10 +22,8 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
-    context.configure(
-        url=url, target_metadata=target_metadata, literal_binds=True)
-
+    url = context.config.get_main_option("sqlalchemy.url")
+    context.configure(url=url, target_metadata=None, literal_binds=True)
     with context.begin_transaction():
         context.run_migrations()
 
@@ -45,14 +35,11 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = sa.create_engine(settings.WAREHOUSE_URL)
-
+    sys.path.append(os.path.dirname(__file__))
+    import config
+    connectable = sa.create_engine(config.WAREHOUSE_URL)
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection,
-            target_metadata=target_metadata
-        )
-
+        context.configure(connection=connection, target_metadata=None)
         with context.begin_transaction():
             context.run_migrations()
 

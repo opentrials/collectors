@@ -13,11 +13,11 @@ load_dotenv('.env')
 
 # Storage
 
-WAREHOUSE_URL = os.environ['OPENTRIALS_WAREHOUSE_URL']
+WAREHOUSE_URL = os.environ['WAREHOUSE_URL']
 
 # Logging
 
-LOGGING_URL = os.environ['OPENTRIALS_LOGGING_URL']
+LOGGING_URL = os.environ['LOGGING_URL']
 logging.basicConfig(level=logging.DEBUG)
 root_logger = logging.getLogger()
 host, port = LOGGING_URL.split(':')

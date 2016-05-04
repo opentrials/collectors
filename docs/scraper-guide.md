@@ -27,7 +27,7 @@ $ cp .env.example .env && editor .env
 ```
 
 On the last step you should set your development warehouse url
-as value of `OPENTRIALS_WAREHOUSE_URL` in the `.env` file
+as value of `WAREHOUSE_URL` in the `.env` file
 (it should be postgres url like `postgres://...`).
 
 Now you're ready to work on you own spider!

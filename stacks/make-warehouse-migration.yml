@@ -5,5 +5,5 @@ main:
   image: okibot/collectors
   command: make migrate
   environment:
-    OPENTRIALS_WAREHOUSE_URL:
-    OPENTRIALS_LOGGING_URL:
+    WAREHOUSE_URL:
+    LOGGING_URL:
