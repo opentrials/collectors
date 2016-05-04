@@ -1,4 +1,4 @@
-.PHONY: all build install list migrate push test
+.PHONY: all build install list migrate push start test
 
 
 all: list
@@ -24,6 +24,13 @@ push:
 	docker push okibot/collectors
 	python scripts/push-stacks.py
 
+start:
+	python -m collectors.base.cli $(filter-out $@,$(MAKECMDGOALS))
+
 test:
-	pylama scraper
+	pylama collectors
+	pylama migrations
 	py.test
+
+%:
+	@:

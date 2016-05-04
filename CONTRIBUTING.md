@@ -28,3 +28,11 @@ To run tests:
 ```
 $ make test
 ```
+
+## Running
+
+To run a processor:
+
+```
+$ make start <name>
+```

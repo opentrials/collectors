@@ -1,39 +1,35 @@
-# Update
-# scrape only recently updated trials
+# Prepare
+# scrape all data from register
 
 actrn:
   image: okibot/collectors
-  command: make start actrn
-  restart: always
+  command: make start actrn 2001-01-01
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
 euctr:
   image: okibot/collectors
-  command: make start euctr
-  restart: always
+  command: make start euctr 2001-01-01
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
 gsk:
   image: okibot/collectors
-  command: make start gsk
-  restart: always
+  command: make start gsk 2001-01-01
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
 ictrp:
   image: okibot/collectors
   command: make start ictrp
-  restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
     OPENTRIALS_ICTRP_USER:
@@ -41,54 +37,48 @@ ictrp:
 
 isrctn:
   image: okibot/collectors
-  command: make start isrctn
-  restart: always
+  command: make start isrctn 2001-01-01
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
 jprn:
   image: okibot/collectors
-  command: make start jprn
-  restart: always
+  command: make start jprn 1 100000
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
 nct:
   image: okibot/collectors
-  command: make start nct
-  restart: always
+  command: make start nct 2001-01-01
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
 pfizer:
   image: okibot/collectors
   command: make start pfizer
-  restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
 pubmed:
   image: okibot/collectors
-  command: make start pubmed
-  restart: always
+  command: make start pubmed 1900-01-01 2100-01-01
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
 
 takeda:
   image: okibot/collectors
   command: make start takeda
-  restart: always
   environment:
-    OPENTRIALS_DOWNLOAD_DELAY: 10
+    OPENTRIALS_DOWNLOAD_DELAY: 1
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:

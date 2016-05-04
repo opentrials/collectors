@@ -9,25 +9,25 @@ The OpenTrials data collectors + warehouse schema definition.
 
 ## Documentation
 
-- [Scraper](docs/scraper/scraper.md)
-  - [Spiders](docs/scraper/spiders/)
-    - [ACTRN](docs/scraper/spiders/actrn.md)
-    - [EUCTR](docs/scraper/spiders/euctr.md)
-    - [GSK](docs/scraper/spiders/gsk.md)
-    - [ICTRP](docs/scraper/spiders/ictrp.md)
-    - [ISRCTN](docs/scraper/spiders/isrctn.md)
-    - [JPRN](docs/scraper/spiders/jprn.md)
-    - [NCT](docs/scraper/spiders/nct.md)
-    - [Pfizer](docs/scraper/spiders/pfizer.md)
-    - [Takeda](docs/scraper/spiders/takeda.md)
-    - [Pubmed](docs/scraper/spiders/pubmed.md)
-- [Warehouse](docs/warehouse/warehouse.md)
+- [Overview](docs/overview.md)
+- [Warehouse](docs/warehouse.md)
+- [Collectors](docs/collectors/)
+  - [ACTRN](docs/collectors/actrn.md)
+  - [EUCTR](docs/collectors/euctr.md)
+  - [GSK](docs/collectors/gsk.md)
+  - [ICTRP](docs/collectors/ictrp.md)
+  - [ISRCTN](docs/collectors/isrctn.md)
+  - [JPRN](docs/collectors/jprn.md)
+  - [NCT](docs/collectors/nct.md)
+  - [Pfizer](docs/collectors/pfizer.md)
+  - [Takeda](docs/collectors/takeda.md)
+  - [Pubmed](docs/collectors/pubmed.md)
 
 ## Contributing
 
 Please read the contribution guideline:
 
 - [How to Contribute](CONTRIBUTING.md)
-- [How to Write a Spider](docs/scraper/spider-guide.md)
+- [How to Write a Scraper](docs/scraper-guide.md)
 
 Thanks!

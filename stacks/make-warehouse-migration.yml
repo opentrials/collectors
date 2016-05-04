@@ -3,7 +3,7 @@
 
 main:
   image: okibot/collectors
-  command: alembic upgrade head
+  command: make migrate
   environment:
     OPENTRIALS_WAREHOUSE_URL:
     OPENTRIALS_LOGGING_URL:
