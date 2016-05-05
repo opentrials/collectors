@@ -56,16 +56,8 @@ docs/_build/
 # PyBuilder
 target/
 
-# Virtualenv
-venv/
-venv2/
-venv3/
+# pyenv
+.python-version
 
-# Tmux
-.tmuxp.yml
-
-# Project
-tmp/
-
-# Evironment
+# dotenv
 .env
