@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 from collections import OrderedDict
 from .. import base
-from .record import JprnRecord
+from .record import Record
 
 
 # Module API
@@ -62,7 +62,7 @@ def parse_record(res):
             del data[key]
 
     # Create record
-    record = JprnRecord.create(res.url, data)
+    record = Record.create(res.url, data)
 
     return record
 

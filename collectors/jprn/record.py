@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Boolean, Integer, Array, Datetime
 
 # Module API
 
-class JprnRecord(base.Record):
+class Record(base.Record):
 
     # Config
 

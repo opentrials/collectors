@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from .. import base
-from .record import IsrctnRecord
+from .record import Record
 
 
 # Module API
@@ -133,7 +133,7 @@ def parse_record(res):
     data.update(subdata)
 
     # Create record
-    record = IsrctnRecord.create(res.url, data)
+    record = Record.create(res.url, data)
 
     return record
 

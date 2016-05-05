@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Integer, Array
 
 # Module API
 
-class TakedaRecord(base.Record):
+class Record(base.Record):
 
     # Config
 

@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Integer, Json, Array
 
 # Module API
 
-class IctrpRecord(base.Record):
+class Record(base.Record):
 
     # Config
 

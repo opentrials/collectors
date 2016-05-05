@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Integer, Json, Array, Boolean
 
 # Module API
 
-class NctRecord(base.Record):
+class Record(base.Record):
 
     # Config
 

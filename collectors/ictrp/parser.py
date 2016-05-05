@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import logging
-from .record import IctrpRecord
+from .record import Record
 logger = logging.getLogger(__name__)
 
 
@@ -156,6 +156,6 @@ def parse_record(res):
         return None
 
     # Create record
-    record = IctrpRecord.create(res.url, data)
+    record = Record.create(res.url, data)
 
     return record

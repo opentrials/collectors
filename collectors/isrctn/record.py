@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Json
 
 # Module API
 
-class IsrctnRecord(base.Record):
+class Record(base.Record):
 
     # Config
 

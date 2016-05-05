@@ -12,7 +12,7 @@ from ..base.fields import Text, Date, Json, Array
 
 # TODO: consider adding mesh terms and keywords fields
 # TODO: add full text link when available (not in xml, html needed)
-class PubmedRecord(base.Record):
+class Record(base.Record):
 
     # Config
 

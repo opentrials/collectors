@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Boolean
 
 # Module API
 
-class PfizerRecord(base.Record):
+class Record(base.Record):
 
     # Config
 

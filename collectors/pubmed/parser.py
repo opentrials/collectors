@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import xmltodict
-from .record import PubmedRecord
+from .record import Record
 
 
 # Module API
@@ -102,7 +102,7 @@ def parse_record(res):
             data['identifiers_list'][item['@IdType']] = item['#text']
 
     # Create record
-    record = PubmedRecord.create(res.url, data)
+    record = Record(res.url, data)
 
     return record
 

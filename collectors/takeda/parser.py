@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from .. import base
-from .record import TakedaRecord
+from .record import Record
 
 
 # Module API
@@ -39,7 +39,7 @@ def parse_record(res):
         data[key] = value
 
     # Create record
-    record = TakedaRecord.create(res.url, data)
+    record = Record.create(res.url, data)
 
     return record
 

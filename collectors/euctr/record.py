@@ -10,7 +10,7 @@ from ..base.fields import Text, Date, Boolean, Integer, Json
 
 # Module API
 
-class EuctrRecord(base.Record):
+class Record(base.Record):
 
     # Config
 

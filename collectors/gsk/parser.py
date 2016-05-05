@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import re
 from .. import base
-from .record import GskRecord
+from .record import Record
 
 
 # Module API
@@ -112,7 +112,7 @@ def parse_record(res):
             del data[key]
 
     # Create record
-    record = GskRecord.create(res.url, data)
+    record = Record.create(res.url, data)
 
     return record
 

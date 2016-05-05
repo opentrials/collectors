@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import logging
 import xmltodict
-from .record import NctRecord
+from .record import Record
 logger = logging.getLogger(__name__)
 
 
@@ -320,7 +320,7 @@ def parse_record(res):
     data[key] = value
 
     # Create record
-    record = NctRecord.create(res.url, data)
+    record = Record.create(res.url, data)
 
     return record
 
