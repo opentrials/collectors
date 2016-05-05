@@ -10,7 +10,7 @@ from collections import OrderedDict
 from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
-from .parser import parse
+from .parser import parse_record
 
 
 # Module API
@@ -37,7 +37,7 @@ class NctSpider(CrawlSpider):
             Rule(LinkExtractor(
                 allow=r'ct2/show/NCT\d+',
                 process_value=lambda value: value+'&resultsxml=true',
-            ), callback=parse),
+            ), callback=parse_record),
             Rule(LinkExtractor(
                 allow=r'pg=\d+$',
             )),

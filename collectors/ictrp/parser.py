@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-def parse(res):
+def parse_record(res):
 
     # Init data
     data = {}

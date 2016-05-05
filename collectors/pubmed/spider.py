@@ -10,7 +10,7 @@ from urllib import urlencode
 from datetime import datetime, date, timedelta
 from collections import OrderedDict
 from scrapy.spiders import CrawlSpider
-from .parser import parse
+from .parser import parse_record
 logger = logging.getLogger(__name__)
 
 
@@ -35,7 +35,7 @@ class PubmedSpider(CrawlSpider):
             date_from=date_from, date_to=date_to)
 
         # Set parser
-        self.parse = parse
+        self.parse = parse_record
 
         # Inherit parent
         super(PubmedSpider, self).__init__()

@@ -5,14 +5,13 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import re
-
 from .. import base
 from .record import ActrnRecord
 
 
 # Module API
 
-def parse(res):
+def parse_record(res):
     fields_to_remove = [
         'country',
         'stateprovince',

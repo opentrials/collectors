@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
-from .parser import parse
+from .parser import parse_record
 
 
 # Module API
@@ -37,7 +37,7 @@ class IctrpSpider(CrawlSpider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'trialsearch/Trial\d+\.aspx\?trialid=.+',
-            ), callback=parse),
+            ), callback=parse_record),
             Rule(LinkExtractor(
                 allow=r'trialsearch/crawl/crawl\d+\.aspx',
             )),

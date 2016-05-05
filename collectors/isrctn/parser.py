@@ -10,7 +10,7 @@ from .record import IsrctnRecord
 
 # Module API
 
-def parse(res):
+def parse_record(res):
 
     # Init data
     data = {}

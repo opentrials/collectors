@@ -10,7 +10,7 @@ from .record import EuctrRecord
 
 # Module API
 
-def parse(res):
+def parse_record(res):
     fields_to_remove = [
         'trial_other',
         'trial_will_this_trial_be_conducted_at_a_single',

@@ -10,7 +10,7 @@ from .record import TakedaRecord
 
 # Module API
 
-def parse(res):
+def parse_record(res):
 
     # Init data
     data = {}

@@ -11,7 +11,7 @@ from .record import JprnRecord
 
 # Module API
 
-def parse(res):
+def parse_record(res):
     fields_to_remove = [
         'item',
     ]

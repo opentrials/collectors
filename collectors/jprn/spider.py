@@ -11,7 +11,7 @@ from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
 from six.moves.urllib.parse import urlparse, parse_qs
-from .parser import parse
+from .parser import parse_record
 
 
 # Module API
@@ -44,7 +44,7 @@ class JprnSpider(CrawlSpider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',
-            ), callback=parse),
+            ), callback=parse_record),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
                 process_value=partial(_process_url, page_from, page_to),

@@ -9,7 +9,7 @@ from .record import PfizerRecord
 
 # Module API
 
-def parse(res):
+def parse_record(res):
 
     # Init data
     data = {}
