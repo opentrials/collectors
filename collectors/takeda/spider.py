@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
-from .extractors import extract_record
+from .parser import parse
 
 
 # Module API
@@ -33,7 +33,7 @@ class TakedaSpider(CrawlSpider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'browse/summary/',
-            ), callback=extract_record),
+            ), callback=parse),
             Rule(LinkExtractor(
                 allow=r'browse',
             )),

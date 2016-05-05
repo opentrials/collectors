@@ -10,7 +10,7 @@ from .record import IsrctnRecord
 
 # Module API
 
-def extract_record(res):
+def parse(res):
 
     # Init data
     data = {}
@@ -34,7 +34,7 @@ def extract_record(res):
 
     kpath = '.Meta_name'
     vpath = '.Meta_name+.Meta_value'
-    subdata = _extract_dict(res, kpath, vpath)
+    subdata = _parse_dict(res, kpath, vpath)
     data.update(subdata)
 
     tag = 'h3'
@@ -42,7 +42,7 @@ def extract_record(res):
     kpath = '.Info_section_title'
     vpath = '.Info_section_title+p'
     section = _select_parent(res, tag, text)
-    subdata = _extract_dict(section, kpath, vpath)
+    subdata = _parse_dict(section, kpath, vpath)
     data.update(subdata)
 
     # Contact information
@@ -54,7 +54,7 @@ def extract_record(res):
     vpath = '.Info_section_title+p'
     first = 'type'
     section = _select_parent(res, tag, text)
-    value = _extract_list(section, kpath, vpath, first)
+    value = _parse_list(section, kpath, vpath, first)
     data.update({key: value})
 
     # Additional identifiers
@@ -64,7 +64,7 @@ def extract_record(res):
     kpath = '.Info_section_title'
     vpath = '.Info_section_title+p'
     section = _select_parent(res, tag, text)
-    subdata = _extract_dict(section, kpath, vpath)
+    subdata = _parse_dict(section, kpath, vpath)
     data.update(subdata)
 
     # Study information
@@ -74,7 +74,7 @@ def extract_record(res):
     kpath = '.Info_section_title'
     vpath = '.Info_section_title+p'
     section = _select_parent(res, tag, text)
-    subdata = _extract_dict(section, kpath, vpath)
+    subdata = _parse_dict(section, kpath, vpath)
     data.update(subdata)
 
     # Eligibility
@@ -84,7 +84,7 @@ def extract_record(res):
     kpath = '.Info_section_title'
     vpath = '.Info_section_title+p'
     section = _select_parent(res, tag, text)
-    subdata = _extract_dict(section, kpath, vpath)
+    subdata = _parse_dict(section, kpath, vpath)
     data.update(subdata)
 
     # Locations
@@ -94,7 +94,7 @@ def extract_record(res):
     kpath = '.Info_section_title'
     vpath = '.Info_section_title+p'
     section = _select_parent(res, tag, text)
-    subdata = _extract_dict(section, kpath, vpath)
+    subdata = _parse_dict(section, kpath, vpath)
     data.update(subdata)
 
     # Sponsor information
@@ -106,7 +106,7 @@ def extract_record(res):
     vpath = '.Info_section_title+p'
     first = 'organisation'
     section = _select_parent(res, tag, text)
-    value = _extract_list(section, kpath, vpath, first)
+    value = _parse_list(section, kpath, vpath, first)
     data.update({key: value})
 
     # Funders
@@ -119,7 +119,7 @@ def extract_record(res):
     vpath = '.Info_section_title+p'
     first = 'funder_type'
     section = _select_parent(res, tag, text)
-    value = _extract_list(section, kpath, vpath, first)
+    value = _parse_list(section, kpath, vpath, first)
     data.update({key: value})
 
     # Results and publications
@@ -129,7 +129,7 @@ def extract_record(res):
     kpath = '.Info_section_title'
     vpath = '.Info_section_title+p'
     section = _select_parent(res, tag, text)
-    subdata = _extract_dict(section, kpath, vpath)
+    subdata = _parse_dict(section, kpath, vpath)
     data.update(subdata)
 
     # Create record
@@ -144,8 +144,8 @@ def _select_parent(sel, tag, text):
     return sel.xpath('//%s[contains(.,"%s")]/..' % (tag, text))
 
 
-def _extract_dict(sel, kpath, vpath):
-    """Extract data from title-paragraph like html.
+def _parse_dict(sel, kpath, vpath):
+    """parse data from title-paragraph like html.
     """
     data = {}
     key = None
@@ -168,8 +168,8 @@ def _extract_dict(sel, kpath, vpath):
     return data
 
 
-def _extract_list(sel, kpath, vpath, first):
-    """Extract data from title-paragraph like html.
+def _parse_list(sel, kpath, vpath, first):
+    """parse data from title-paragraph like html.
     """
     data = []
     item = {}

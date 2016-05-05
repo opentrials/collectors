@@ -10,7 +10,7 @@ from .record import PubmedRecord
 
 # Module API
 
-def extract_record(res):
+def parse(res):
 
     # Init data
     data = {}
@@ -109,5 +109,5 @@ def extract_record(res):
 
 # Internal
 
-def _extract_first(res, path, element='text()'):
+def _parse_first(res, path, element='text()'):
     return res.xpath('%s/%s' % (path, element)).extract_first()

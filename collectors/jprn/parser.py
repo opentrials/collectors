@@ -11,20 +11,20 @@ from .record import JprnRecord
 
 # Module API
 
-def extract_record(res):
+def parse(res):
     fields_to_remove = [
         'item',
     ]
 
-    # Extract rawdata
+    # Parse rawdata
     data = {}
 
     # Get meta
-    subdata = _extract_table(res, key_index=0, value_index=2)
+    subdata = _parse_table(res, key_index=0, value_index=2)
     data.update(subdata)
 
     # Process rawdata
-    rawdata = _extract_table(res, key_index=0, value_index=1)
+    rawdata = _parse_table(res, key_index=0, value_index=1)
     prefix = ''
     for key, value in rawdata.items():
 
@@ -69,8 +69,8 @@ def extract_record(res):
 
 # Internal
 
-def _extract_table(res, key_index, value_index):
-    """Extract data from tabular structure.
+def _parse_table(res, key_index, value_index):
+    """parse data from tabular structure.
     """
     data = OrderedDict()
     for sel in res.xpath('//tr'):

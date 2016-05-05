@@ -10,16 +10,16 @@ from .record import TakedaRecord
 
 # Module API
 
-def extract_record(res):
+def parse(res):
 
     # Init data
     data = {}
 
-    # Extract rawdata
+    # Parse rawdata
     gpath = 'h1'
     kpath = 'p.eyebrowbold'
     vpath = 'p.eyebrowbold+*'
-    rawdata = _extract_data(res, gpath, kpath, vpath)
+    rawdata = _parse_data(res, gpath, kpath, vpath)
     for group, key, value in rawdata:
 
         # General
@@ -46,17 +46,17 @@ def extract_record(res):
 
 # Internal
 
-def _extract_data(sel, gpath, kpath, vpath):
+def _parse_data(sel, gpath, kpath, vpath):
     data = []
     group = None
     name = None
     value = None
     for sel in sel.css('%s, %s, %s' % (gpath, kpath, vpath)):
-        text = _extract_text(sel)
+        text = _parse_text(sel)
         if sel.css(gpath):
             group = text
         elif sel.css(kpath):
-            name = base._slugify(text)
+            name = base.helpers.slugify(text)
         else:
             value = text
             if name and value:
@@ -66,7 +66,7 @@ def _extract_data(sel, gpath, kpath, vpath):
     return data
 
 
-def _extract_text(sel):
+def _parse_text(sel):
     text = ''
     texts = sel.xpath('.//text()').extract()
     if texts:

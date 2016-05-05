@@ -12,7 +12,7 @@ from .record import ActrnRecord
 
 # Module API
 
-def extract_record(res):
+def parse(res):
     fields_to_remove = [
         'country',
         'stateprovince',
@@ -27,7 +27,7 @@ def extract_record(res):
     gpath = '.review-element-header, .health-header'
     kpath = '.review-element-name'
     vpath = '.review-element-content'
-    rawdata = _extract_data(res, gpath, kpath, vpath)
+    rawdata = _parse_data(res, gpath, kpath, vpath)
     for group, key, value in rawdata:
 
         # Parse key
@@ -183,13 +183,13 @@ def extract_record(res):
 
 # Internal
 
-def _extract_data(sel, gpath, kpath, vpath):
+def _parse_data(sel, gpath, kpath, vpath):
     data = []
     group = None
     name = None
     value = None
     for sel in sel.css('%s, %s, %s' % (gpath, kpath, vpath)):
-        text = _extract_text(sel)
+        text = _parse_text(sel)
         if sel.css(gpath):
             group = text
         if sel.css(kpath):
@@ -203,7 +203,7 @@ def _extract_data(sel, gpath, kpath, vpath):
     return data
 
 
-def _extract_text(sel):
+def _parse_text(sel):
     text = ''
     texts = sel.xpath('.//text()').extract()
     if texts:

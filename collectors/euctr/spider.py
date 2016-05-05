@@ -10,7 +10,7 @@ from datetime import date, timedelta
 from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
-from .extractors import extract_record
+from .parser import parse
 
 
 # Module API
@@ -36,10 +36,10 @@ class EuctrSpider(CrawlSpider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'ctr-search/trial/[\d-]+/[\w]+'
-            ), callback=extract_record),
+            ), callback=parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
-            ), process_links=self.process_links),
+            ), process_links=_process_links),
         ]
 
         # Inherit parent

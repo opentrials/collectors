@@ -11,7 +11,7 @@ from .record import GskRecord
 
 # Module API
 
-def extract_record(res):
+def parse(res):
     fields_to_remove = [
         'explanation',
     ]
@@ -19,10 +19,10 @@ def extract_record(res):
     # Init data
     data = {}
 
-    # Extract rawdata
+    # Parse rawdata
     kpath = 'td.rowlabel'
     vpath = 'td.rowlabel+td'
-    rawdata = _extract_data(res, kpath, vpath)
+    rawdata = _parse_data(res, kpath, vpath)
     for key, value in rawdata:
 
         # Protocol summary
@@ -119,12 +119,12 @@ def extract_record(res):
 
 # Internal
 
-def _extract_data(sel, kpath, vpath):
+def _parse_data(sel, kpath, vpath):
     data = []
     name = None
     value = None
     for sel in sel.css('%s, %s' % (kpath, vpath)):
-        text = _extract_text(sel)
+        text = _parse_text(sel)
         if sel.css(kpath):
             name = base.helpers.slugify(text)
         else:
@@ -136,7 +136,7 @@ def _extract_data(sel, kpath, vpath):
     return data
 
 
-def _extract_text(sel):
+def _parse_text(sel):
     text = ''
     texts = sel.xpath('.//text()').extract()
     if texts:

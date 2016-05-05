@@ -41,7 +41,7 @@ To bootstrap a new `guide` scraping collector:
 ```
 $ mkdir collectors/guide
 $ touch collectors/guide/collector.py
-$ touch collectors/guide/extractors.py
+$ touch collectors/guide/parser.py
 $ touch collectors/guide/record.py
 $ touch collectors/guide/spider.py
 ```
@@ -108,7 +108,7 @@ from __future__ import unicode_literals
 from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
-from .extractors import extract_record
+from .parser import parse
 
 
 # Module API
@@ -131,7 +131,7 @@ class GuideSpider(CrawlSpider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'find_a_trial/NCT\d+',
-            ), callback=extract_record),
+            ), callback=parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),
@@ -141,8 +141,8 @@ class GuideSpider(CrawlSpider):
         super(GuideSpider, self).__init__()
 ```
 
-An instance of this class will call `extract_record(response)` for
-every http response from trial pages. We'll write an extractor a bit later.
+An instance of this class will call `parse(response)` for
+every http response from trial pages. We'll write an parser a bit later.
 
 ## Writing an Record
 
@@ -209,20 +209,20 @@ class GuideItem(base.Record):
 ```
 
 Record is what `ectract_record` has to return to `Spider`.
-Now we're ready to bring all together and write an extractor.
+Now we're ready to bring all together and write a parser.
 
-## Writing Extractors
+## Writing Parser
 
 In this step we're working on `mapping http response to data model (record)`.
 
-Record extractor is a connecting link between `Spider` and `Record`. We get http response
+Parser is a connecting link between `Spider` and `Record`. We get http response
 from `Spider` and return `Record` (or `None` to skip the data).
 
 Any html parsing technique could be used. We will use scrapy's built-in
 css selectors. Much more about other possibilities could be found at
 scrapy documentation - http://scrapy.readthedocs.org/en/latest/topics/selectors.html.
 
-> `collectors/guide/extractors.py`
+> `collectors/guide/parser.py`
 
 ```python
 # -*- coding: utf-8 -*-
@@ -234,7 +234,7 @@ from __future__ import unicode_literals
 from .item import GuideRecord
 
 
-def extract_record(res):
+def parse(res):
 
     # Init data
     data = {}

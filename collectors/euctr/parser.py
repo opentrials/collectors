@@ -10,7 +10,7 @@ from .record import EuctrRecord
 
 # Module API
 
-def extract_record(res):
+def parse(res):
     fields_to_remove = [
         'trial_other',
         'trial_will_this_trial_be_conducted_at_a_single',
@@ -35,7 +35,7 @@ def extract_record(res):
 
     kpath = '.cellGrey'
     vpath = '.cellGrey+.cellLighterGrey'
-    subdata = _extract_dict(res, kpath, vpath)
+    subdata = _parse_dict(res, kpath, vpath)
     eudract_number = 'EUCTR%s' % subdata['eudract_number']
     data.update(subdata)
 
@@ -49,7 +49,7 @@ def extract_record(res):
     kpath = '.second'
     vpath = '.second+.third'
     table = _select_table(res, ident)
-    subdata = _extract_dict(table, kpath, vpath)
+    subdata = _parse_dict(table, kpath, vpath)
     data.update(subdata)
 
     # B. Sponsor information
@@ -60,7 +60,7 @@ def extract_record(res):
     vpath = '.second+.third'
     first = 'name_of_sponsor'
     table = _select_table(res, ident)
-    value = _extract_list(table, kpath, vpath, first)
+    value = _parse_list(table, kpath, vpath, first)
     data.update({key: value})
 
     # C. Applicant Identification
@@ -75,7 +75,7 @@ def extract_record(res):
     vpath = '.second+.third'
     first = 'imp_role'
     table = _select_table(res, ident)
-    value = _extract_list(table, kpath, vpath, first)
+    value = _parse_list(table, kpath, vpath, first)
     data.update({key: value})
 
     # D8. Information on Placebo
@@ -86,7 +86,7 @@ def extract_record(res):
     vpath = '.second+.third'
     first = 'is_a_placebo_used_in_this_trial'
     table = _select_table(res, ident)
-    value = _extract_list(table, kpath, vpath, first)
+    value = _parse_list(table, kpath, vpath, first)
     data.update({key: value})
 
     # E. General Information on the Trial
@@ -96,7 +96,7 @@ def extract_record(res):
     vpath = '.second+.third'
     prefix = 'trial_'
     table = _select_table(res, ident)
-    subdata = _extract_dict(table, kpath, vpath, prefix)
+    subdata = _parse_dict(table, kpath, vpath, prefix)
     data.update(subdata)
 
     # F. Population of Trial Subjects
@@ -106,22 +106,22 @@ def extract_record(res):
     vpath = '.second+.third'
     prefix = 'subject_'
     table = _select_table(res, ident)
-    subdata = _extract_dict(table, kpath, vpath, prefix)
+    subdata = _parse_dict(table, kpath, vpath, prefix)
     data.update(subdata)
 
     code = 'F.1.1'
     key = 'subject_childs'
-    value = _extract_value(table, code, index=1)
+    value = _parse_value(table, code, index=1)
     subdata[key] = value
 
     code = 'F.1.2.1'
     key = 'subject_adults'
-    value = _extract_value(table, code)
+    value = _parse_value(table, code)
     subdata[key] = value
 
     code = 'F.1.3.1'
     key = 'subject_elderly'
-    value = _extract_value(table, code)
+    value = _parse_value(table, code)
     subdata[key] = value
 
     data.update(subdata)
@@ -136,7 +136,7 @@ def extract_record(res):
     kpath = '.second'
     vpath = '.second+.third'
     table = _select_table(res, ident)
-    subdata = _extract_dict(table, kpath, vpath)
+    subdata = _parse_dict(table, kpath, vpath)
     data.update(subdata)
 
     # P. End of Trial
@@ -145,7 +145,7 @@ def extract_record(res):
     kpath = '.second'
     vpath = '.second+.third'
     table = _select_table(res, ident)
-    subdata = _extract_dict(table, kpath, vpath)
+    subdata = _parse_dict(table, kpath, vpath)
     data.update(subdata)
 
     # Update data
@@ -168,8 +168,8 @@ def _select_table(sel, ident):
     return sel.xpath('//table[@id="%s"]' % ident)
 
 
-def _extract_dict(sel, kpath, vpath, prefix=None):
-    """Extract data from title-paragraph like html.
+def _parse_dict(sel, kpath, vpath, prefix=None):
+    """parse data from title-paragraph like html.
     """
     data = {}
     key = None
@@ -194,8 +194,8 @@ def _extract_dict(sel, kpath, vpath, prefix=None):
     return data
 
 
-def _extract_list(sel, kpath, vpath, first):
-    """Extract data from title-paragraph like html.
+def _parse_list(sel, kpath, vpath, first):
+    """parse data from title-paragraph like html.
     """
     data = []
     item = {}
@@ -224,7 +224,7 @@ def _extract_list(sel, kpath, vpath, first):
     return data
 
 
-def _extract_value(sel, code, index=0, default=None):
+def _parse_value(sel, code, index=0, default=None):
     try:
         tr = sel.xpath('//td[text() = "%s"]/..' % code)[index]
         td = tr.xpath('td')[2]

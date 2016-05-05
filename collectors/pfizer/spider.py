@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
-from .extractors import extract_record
+from .parser import parse
 
 
 # Module API
@@ -33,7 +33,7 @@ class PfizerSpider(CrawlSpider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'find_a_trial/NCT\d+',
-            ), callback=extract_record),
+            ), callback=parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),

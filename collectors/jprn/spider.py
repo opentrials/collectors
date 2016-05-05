@@ -11,11 +11,12 @@ from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
 from six.moves.urllib.parse import urlparse, parse_qs
-from .extractors import extract_record
+from .parser import parse
 
 
 # Module API
 
+# TODO: ensure spider works
 class JprnSpider(CrawlSpider):
 
     # Public
@@ -43,15 +44,15 @@ class JprnSpider(CrawlSpider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',
-            ), callback=extract_record),
+            ), callback=parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
-                process_value=partial(_process_url(page_from, page_to)),
+                process_value=partial(_process_url, page_from, page_to),
             )),
         ]
 
         # Inherit parent
-        super(JprnSpider, self).__init_()
+        super(JprnSpider, self).__init__()
 
 
 # Internal

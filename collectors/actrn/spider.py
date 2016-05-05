@@ -10,7 +10,7 @@ from datetime import datetime, date, timedelta
 from scrapy.spiders import Rule
 from scrapy.spiders import CrawlSpider
 from scrapy.linkextractors import LinkExtractor
-from .extractors import extract_record
+from .parser import parse
 
 
 # Module API
@@ -37,7 +37,7 @@ class ActrnSpider(CrawlSpider):
             Rule(LinkExtractor(
                 allow=r'Trial/Registration/TrialReview.aspx',
                 process_value=lambda value: value.replace('http', 'https', 1),
-            ), callback=extract_record),
+            ), callback=parse),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
             )),
