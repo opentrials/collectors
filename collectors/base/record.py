@@ -24,6 +24,38 @@ class Record(scrapy.Item):
         'meta_created',
     ]
 
+    @property
+    @abstractmethod
+    def table(self):
+        """Source name.
+        """
+        pass  # pragma: no cover
+
+    # TODO: review
+    # we could move responsibility of defining
+    # primary/updated key to Field object like in sa
+
+    @property
+    @abstractmethod
+    def primary_key(self):
+        """Item primary key.
+        """
+        pass  # pragma: no cover
+
+    @property
+    @abstractmethod
+    def updated_key(self):
+        """Item updated key.
+        """
+        pass  # pragma: no cover
+
+    @property
+    @abstractmethod
+    def ensure_fields(self):
+        """Item updated key.
+        """
+        pass  # pragma: no cover
+
     @classmethod
     def create(cls, source, data):
 
@@ -84,35 +116,3 @@ class Record(scrapy.Item):
         for key, field in self.fields.items():
             types[key] = field.type
         return types
-
-    @property
-    @abstractmethod
-    def table(self):
-        """Source name.
-        """
-        pass  # pragma: no cover
-
-    # TODO: review
-    # we could move responsibility of defining
-    # primary/updated key to Field object like in sa
-
-    @property
-    @abstractmethod
-    def primary_key(self):
-        """Item primary key.
-        """
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def updated_key(self):
-        """Item updated key.
-        """
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def ensure_fields(self):
-        """Item updated key.
-        """
-        pass  # pragma: no cover
