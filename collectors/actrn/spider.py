@@ -15,7 +15,7 @@ from .parser import parse_record
 
 # Module API
 
-class ActrnSpider(CrawlSpider):
+class Spider(CrawlSpider):
 
     # Public
 
@@ -44,7 +44,7 @@ class ActrnSpider(CrawlSpider):
         ]
 
         # Inherit parent
-        super(ActrnSpider, self).__init__()
+        super(Spider, self).__init__()
 
 
 # Internal

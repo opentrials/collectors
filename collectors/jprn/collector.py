@@ -5,11 +5,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from scrapy.crawler import CrawlerProcess
-from .spider import JprnSpider
+from .spider import Spider
 
 
 def collect(conf, conn, page_from=None, page_to=None):
     process = CrawlerProcess(conf)
-    process.crawl(JprnSpider,
-        conn=conn, page_from=page_from, page_to=page_to)
+    process.crawl(Spider, conn=conn, page_from=page_from, page_to=page_to)
     process.start()

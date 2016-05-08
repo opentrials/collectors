@@ -15,7 +15,7 @@ from .parser import parse_record
 
 # Module API
 
-class GskSpider(CrawlSpider):
+class Spider(CrawlSpider):
 
     # Public
 
@@ -40,7 +40,7 @@ class GskSpider(CrawlSpider):
         ]
 
         # Inherit parent
-        super(GskSpider, self).__init__()
+        super(Spider, self).__init__()
 
 
 # Internal

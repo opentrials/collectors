@@ -12,7 +12,7 @@ from .parser import parse_record
 
 # Module API
 
-class PfizerSpider(CrawlSpider):
+class Spider(CrawlSpider):
 
     # Public
 
@@ -40,4 +40,4 @@ class PfizerSpider(CrawlSpider):
         ]
 
         # Inherit parent
-        super(PfizerSpider, self).__init__()
+        super(Spider, self).__init__()

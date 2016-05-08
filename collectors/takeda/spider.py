@@ -12,7 +12,7 @@ from .parser import parse_record
 
 # Module API
 
-class TakedaSpider(CrawlSpider):
+class Spider(CrawlSpider):
 
     # Public
 
@@ -40,4 +40,4 @@ class TakedaSpider(CrawlSpider):
         ]
 
         # Inherit parent
-        super(TakedaSpider, self).__init__()
+        super(Spider, self).__init__()

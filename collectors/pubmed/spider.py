@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-class PubmedSpider(CrawlSpider):
+class Spider(CrawlSpider):
 
     # Public
 
@@ -38,7 +38,7 @@ class PubmedSpider(CrawlSpider):
         self.parse = parse_record
 
         # Inherit parent
-        super(PubmedSpider, self).__init__()
+        super(Spider, self).__init__()
 
 
 # Internal

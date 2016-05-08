@@ -5,10 +5,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from scrapy.crawler import CrawlerProcess
-from .spider import PfizerSpider
+from .spider import Spider
 
 
 def collect(conf, conn):
     process = CrawlerProcess(conf)
-    process.crawl(PfizerSpider, conn=conn)
+    process.crawl(Spider, conn=conn)
     process.start()

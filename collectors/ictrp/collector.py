@@ -5,11 +5,11 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from scrapy.crawler import CrawlerProcess
-from .spider import IctrpSpider
+from .spider import Spider
 
 
 def collect(conf, conn):
     process = CrawlerProcess(conf)
-    process.crawl(IctrpSpider,
+    process.crawl(Spider,
         conn=conn, http_user=conf['ICTRP_USER'], http_pass=conf['ICTRP_PASS'])
     process.start()
