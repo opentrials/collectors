@@ -4,7 +4,4 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from . import fields
-from . import helpers
-from . import pipelines
-from .record import Record
+from .collector import collect
