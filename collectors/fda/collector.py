@@ -41,9 +41,10 @@ def collect(conf, conn):
     for file in FILES:
 
         # Get response
+        res = None
         url = URL.format(file=file)
-        zip = requests.get(url).content
-        res = json.load(zipfile.ZipFile(io.BytesIO(zip)).open(file))
+        res = json.load(zipfile.ZipFile(io.BytesIO(
+            requests.get(url).content)).open(file))
 
         for item in res['results']:
 
