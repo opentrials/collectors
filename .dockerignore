@@ -2,5 +2,6 @@
 !collectors/
 !migrations/
 !alembic.ini
+!Makefile
 !requirements.txt
 !scrapy.cfg

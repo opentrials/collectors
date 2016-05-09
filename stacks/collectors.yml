@@ -19,12 +19,36 @@ euctr:
     WAREHOUSE_URL:
     LOGGING_URL:
 
+fda:
+  image: okibot/collectors
+  command: make start fda
+  restart: always
+  environment:
+    WAREHOUSE_URL:
+    LOGGING_URL:
+
 gsk:
   image: okibot/collectors
   command: make start gsk
   restart: always
   environment:
     DOWNLOAD_DELAY: 10
+    WAREHOUSE_URL:
+    LOGGING_URL:
+
+icdcm:
+  image: okibot/collectors
+  command: make start icdcm
+  restart: always
+  environment:
+    WAREHOUSE_URL:
+    LOGGING_URL:
+
+icdpcs:
+  image: okibot/collectors
+  command: make start icdpcs
+  restart: always
+  environment:
     WAREHOUSE_URL:
     LOGGING_URL:
 
