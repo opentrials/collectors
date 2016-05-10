@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from .. import base
-from ..base.fields import Text, Date, Array, Boolean
+from ..base.fields import Text, Date, Boolean
 
 
 # Module API
