@@ -4,11 +4,12 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import gc
 import io
 import json
+import shutil
 import logging
 import zipfile
+import tempfile
 import requests
 from .. import base
 from .record import Record
@@ -33,6 +34,9 @@ def collect(conf, conn):
     """Collect FDA Drug Labels.
     """
 
+    # Create temp directory
+    dirpath = tempfile.mkdtemp()
+
     # Prepare pipiline
     # TODO: refactor pipelines to use without hacks
     spider = type(b'Spider', (object,), {'conn': conn})
@@ -44,11 +48,10 @@ def collect(conf, conn):
     for file in FILES:
 
         # Get response
-        res = None
-        gc.collect()
         url = URL.format(file=file)
-        res = json.load(zipfile.ZipFile(io.BytesIO(
-            requests.get(url).content)).open(file))
+        arch = zipfile.ZipFile(io.BytesIO(requests.get(url).content))
+        path = arch.extract(file, dirpath)
+        res = json.load(io.open(path, encoding='utf-8'))
 
         for item in res['results']:
 
@@ -83,3 +86,6 @@ def collect(conf, conn):
                 # Log warning
                 errors += 1
                 logger.warning('Collecting error: %s', repr(exception))
+
+    # Remove temp directory
+    shutil.rmtree(dirpath)
