@@ -19,9 +19,9 @@ euctr:
     WAREHOUSE_URL:
     LOGGING_URL:
 
-fda:
+fdadl:
   image: okibot/collectors
-  command: make start fda
+  command: make start fdadl
   restart: always
   environment:
     WAREHOUSE_URL:

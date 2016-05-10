@@ -14,7 +14,7 @@ class Record(base.Record):
 
     # Config
 
-    table = 'fda'
+    table = 'fdadl'
     primary_key = 'product_ndc'
     updated_key = 'last_updated'
     ensure_fields = False

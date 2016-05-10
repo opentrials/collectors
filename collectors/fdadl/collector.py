@@ -30,6 +30,8 @@ FILES = [
 
 
 def collect(conf, conn):
+    """Collect FDA Drug Labels.
+    """
 
     # Prepare pipiline
     # TODO: refactor pipelines to use without hacks
