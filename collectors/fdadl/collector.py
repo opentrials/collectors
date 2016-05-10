@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import io
-import json
+import ijson
 import shutil
 import logging
 import zipfile
@@ -47,13 +47,20 @@ def collect(conf, conn):
     success = 0
     for file in FILES:
 
-        # Get response
+        # Download json
         url = URL.format(file=file)
         arch = zipfile.ZipFile(io.BytesIO(requests.get(url).content))
         path = arch.extract(file, dirpath)
-        res = json.load(io.open(path, encoding='utf-8'))
+        file = io.open(path, encoding='utf-8')
 
-        for item in res['results']:
+        # Get last updated
+        last_updated = list(ijson.items(file, 'meta.last_updated'))[0]
+
+        # Get items iterator
+        file.seek(0)
+        items = ijson.items(file, 'results.item')
+
+        for item in items:
 
             try:
 
@@ -67,7 +74,7 @@ def collect(conf, conn):
                 data['product_type'] = item['openfda']['product_type'][0]
                 data['generic_name'] = item['openfda']['generic_name'][0]
                 data['brand_name'] = item['openfda']['brand_name'][0]
-                data['last_updated'] = res['meta']['last_updated']
+                data['last_updated'] = last_updated
 
                 # Create record
                 record = Record.create(url, data)
