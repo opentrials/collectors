@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import gc
 import io
 import json
 import logging
@@ -42,6 +43,7 @@ def collect(conf, conn):
 
         # Get response
         res = None
+        gc.collect()
         url = URL.format(file=file)
         res = json.load(zipfile.ZipFile(io.BytesIO(
             requests.get(url).content)).open(file))
