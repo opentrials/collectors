@@ -18,21 +18,20 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-# For more information see:
-# https://open.fda.gov/api/reference/
-URL = 'http://download.open.fda.gov/drug/label/{file}.zip'
-FILES = [
-    'drug-label-0001-of-0005.json',
-    'drug-label-0002-of-0005.json',
-    'drug-label-0003-of-0005.json',
-    'drug-label-0004-of-0005.json',
-    'drug-label-0005-of-0005.json',
-]
-
-
 def collect(conf, conn):
     """Collect FDA Drug Labels.
     """
+
+    # For more information see:
+    # https://open.fda.gov/api/reference/
+    URL = 'http://download.open.fda.gov/drug/label/{file}.zip'
+    FILES = [
+        'drug-label-0001-of-0005.json',
+        'drug-label-0002-of-0005.json',
+        'drug-label-0003-of-0005.json',
+        'drug-label-0004-of-0005.json',
+        'drug-label-0005-of-0005.json',
+    ]
 
     # Create temp directory
     dirpath = tempfile.mkdtemp()

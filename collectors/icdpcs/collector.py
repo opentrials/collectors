@@ -15,15 +15,16 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-# For more information see:
-# https://www.cms.gov/Medicare/Coding/ICD10/2016-ICD-10-PCS-and-GEMs.html
-URL = 'https://www.cms.gov/Medicare/Coding/ICD10/Downloads/2016-PCS-Long-Abbrev-Titles.zip'
-FILE = 'icd10pcs_order_2016.txt'
-VERSION = 'ICD-10-PCS'
-LAST_UPDATED = '2015-10-01'
-
-
 def collect(conf, conn):
+    """Collect ICD-XX-PCS procedures.
+    """
+
+    # For more information see:
+    # https://www.cms.gov/Medicare/Coding/ICD10/2016-ICD-10-PCS-and-GEMs.html
+    URL = 'https://www.cms.gov/Medicare/Coding/ICD10/Downloads/2016-PCS-Long-Abbrev-Titles.zip'
+    FILE = 'icd10pcs_order_2016.txt'
+    VERSION = 'ICD-10-PCS'
+    LAST_UPDATED = '2015-10-01'
 
     # Prepare file
     zip = requests.get(URL).content

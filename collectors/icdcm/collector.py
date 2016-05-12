@@ -16,15 +16,16 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-# For more information see:
-# https://www.cms.gov/Medicare/Coding/ICD10/2016-ICD-10-CM-and-GEMs.html
-URL = 'https://www.cms.gov/Medicare/Coding/ICD10/Downloads/2016-CM-Code-Tables-and-Index.zip'
-FILE = 'Tabular.xml'
-VERSION = 'ICD-10-CM'
-LAST_UPDATED = '2015-10-01'
-
-
 def collect(conf, conn):
+    """Collect ICD-XX-CM conditions.
+    """
+
+    # For more information see:
+    # https://www.cms.gov/Medicare/Coding/ICD10/2016-ICD-10-CM-and-GEMs.html
+    URL = 'https://www.cms.gov/Medicare/Coding/ICD10/Downloads/2016-CM-Code-Tables-and-Index.zip'
+    FILE = 'Tabular.xml'
+    VERSION = 'ICD-10-CM'
+    LAST_UPDATED = '2015-10-01'
 
     # Prepare xml
     zip = requests.get(URL).content
