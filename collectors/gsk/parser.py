@@ -25,6 +25,11 @@ def parse_record(res):
     rawdata = _parse_data(res, kpath, vpath)
     for key, value in rawdata:
 
+        # General
+
+        if key == 'study_id':
+            value = 'GSK%s' % value
+
         # Protocol summary
 
         if key == 'secondary_ids':
