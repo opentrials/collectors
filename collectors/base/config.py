@@ -40,10 +40,10 @@ ITEM_PIPELINES = {
 
 # Logging
 
-LOGGING_URL = os.environ['LOGGING_URL']
 logging.basicConfig(level=logging.DEBUG)
-root_logger = logging.getLogger()
-host, port = LOGGING_URL.split(':')
-syslog_handler = SysLogHandler(address=(host, int(port)))
-syslog_handler.setLevel(logging.INFO)
-root_logger.addHandler(syslog_handler)
+if 'LOGGING_URL' in os.environ:
+    root_logger = logging.getLogger()
+    host, port = os.environ['LOGGING_URL'].split(':')
+    syslog_handler = SysLogHandler(address=(host, int(port)))
+    syslog_handler.setLevel(logging.INFO)
+    root_logger.addHandler(syslog_handler)
