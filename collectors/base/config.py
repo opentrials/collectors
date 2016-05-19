@@ -47,8 +47,3 @@ host, port = LOGGING_URL.split(':')
 syslog_handler = SysLogHandler(address=(host, int(port)))
 syslog_handler.setLevel(logging.INFO)
 root_logger.addHandler(syslog_handler)
-
-# Credentials
-
-ICTRP_USER = os.environ.get('ICTRP_USER', '')
-ICTRP_PASS = os.environ.get('ICTRP_PASS', '')
