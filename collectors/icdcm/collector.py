@@ -32,12 +32,6 @@ def collect(conf, conn):
     xml = zipfile.ZipFile(io.BytesIO(zip)).open(FILE).read()
     res = TextResponse(url=URL, body=xml, encoding='utf-8')
 
-    # Prepare pipiline
-    # TODO: refactor pipelines to use without hacks
-    spider = type(b'Spider', (object,), {'conn': conn})
-    pipeline = base.pipelines.Warehouse()
-    pipeline.open_spider(spider)
-
     count = 0
     for diag in res.xpath('//diag'):
 
@@ -58,7 +52,7 @@ def collect(conf, conn):
         record = Record.create(URL, data)
 
         # Write record
-        pipeline.process_item(record, spider)
+        base.writers.write_record(conn, record)
 
         # Log info
         count += 1

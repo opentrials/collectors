@@ -30,12 +30,6 @@ def collect(conf, conn):
     zip = requests.get(URL).content
     file = zipfile.ZipFile(io.BytesIO(zip)).open(FILE)
 
-    # Prepare pipiline
-    # TODO: refactor pipelines to use without hacks
-    spider = type(b'Spider', (object,), {'conn': conn})
-    pipeline = base.pipelines.Warehouse()
-    pipeline.open_spider(spider)
-
     count = 0
     for line in file:
 
@@ -54,7 +48,7 @@ def collect(conf, conn):
         record = Record.create(URL, data)
 
         # Write record
-        pipeline.process_item(record, spider)
+        base.writers.write_record(conn, record)
 
         # Log info
         count += 1

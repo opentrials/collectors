@@ -36,12 +36,6 @@ def collect(conf, conn):
     # Create temp directory
     dirpath = tempfile.mkdtemp()
 
-    # Prepare pipiline
-    # TODO: refactor pipelines to use without hacks
-    spider = type(b'Spider', (object,), {'conn': conn})
-    pipeline = base.pipelines.Warehouse()
-    pipeline.open_spider(spider)
-
     errors = 0
     success = 0
     for file in FILES:
@@ -79,7 +73,7 @@ def collect(conf, conn):
                 record = Record.create(url, data)
 
                 # Write record
-                pipeline.process_item(record, spider)
+                base.writers.write_record(conn, record)
 
                 # Log info
                 success += 1
