@@ -13,14 +13,6 @@ editor .env # set your values
 set -a; source .env
 ```
 
-## Building
-
-To build a docker image:
-
-```
-$ make build
-```
-
 ## Testing
 
 To run tests:
