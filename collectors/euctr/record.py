@@ -187,7 +187,7 @@ class Record(base.Record):
     competent_authority_decision = Text()
     date_of_competent_authority_decision = Date('%Y-%m-%d')
     ethics_committee_opinion_of_the_trial_application = Text()
-    ethics_committee_opinion_reasons_for_unfavourable_opinion = Text()
+    ethics_committee_opinion_reason_s_for_unfavourable_opinion = Text()
     date_of_ethics_committee_opinion = Date('%Y-%m-%d')
 
     # P. End of Trial
