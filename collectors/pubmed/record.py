@@ -10,8 +10,6 @@ from ..base.fields import Text, Date, Json, Array
 
 # Module API
 
-# TODO: consider adding mesh terms and keywords fields
-# TODO: add full text link when available (not in xml, html needed)
 class Record(base.Record):
 
     # Config

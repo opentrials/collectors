@@ -56,15 +56,11 @@ def _make_start_urls(prefix, template, date_from=None, date_to=None):
     date_to = datetime.strptime(date_to, '%Y-%m-%d').strftime('%Y/%m/%d')
 
     # Prepare query
-    # TODO: here we could use more smart method -
-    # search for wildcarded nct10[0-9]*, isrctn1[0-9]* etc
-    # we need cycle here because max 600 identifiers could be used
-    # in one Pubmed search
     query = OrderedDict()
     query['db'] = 'pubmed'
-    query['term'] = 'trial registration'  # TODO: review
+    query['term'] = 'trial registration'
     query['retmode'] = 'json'
-    query['datetype'] = 'pdat'  # TODO: review
+    query['datetype'] = 'pdat'
     query['mindate'] = date_from
     query['maxdate'] = date_to
     query['retmax'] = '100000'
