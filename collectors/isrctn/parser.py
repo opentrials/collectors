@@ -111,7 +111,6 @@ def parse_record(res):
 
     # Funders
 
-    # TODO: fix logic
     key = 'funders'
     tag = 'h2'
     text = 'Funders'
