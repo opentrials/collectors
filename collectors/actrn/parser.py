@@ -14,8 +14,8 @@ from .record import Record
 def parse_record(res):
     fields_to_remove = [
         'country',
-        'stateprovince',
-        'recruitment_postcodes',
+        'state_province',
+        'recruitment_postcode_s',
         'recruitment_hospital',
     ]
 

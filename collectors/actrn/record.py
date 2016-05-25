@@ -45,11 +45,11 @@ class Record(base.Record):
 
     study_type = Text()
     patient_registry = Boolean('Yes')
-    target_followup_duration = Integer()
-    target_followup_type = Text()
-    description_of_interventions__exposure = Text()
+    target_follow_up_duration = Integer()
+    target_follow_up_type = Text()
+    description_of_intervention_s_exposure = Text()
     intervention_codes = Array()
-    comparator__control_treatment = Text()
+    comparator_control_treatment = Text()
     control_group = Text()
 
     # Outcomes
@@ -70,19 +70,19 @@ class Record(base.Record):
 
     purpose_of_the_study = Text()
     allocation_to_intervention = Text()
-    procedure_for_enrolling_a_subject_and_allocating_the = Text()
-    methods_used_to_generate_the_sequence_in_which = Text()
-    masking__blinding = Text()
-    who_is__are_masked__blinded = Text()
+    procedure_for_enrolling_a_subject_and_allocating_the_treatment_ = Text()
+    methods_used_to_generate_the_sequence_in_which_subjects_will_be = Text()
+    masking_blinding = Text()
+    who_is_are_masked_blinded = Text()
     intervention_assignment = Text()
     other_design_features = Text()
     phase = Text()
-    type_of_endpoints = Text()
+    type_of_endpoint_s = Text()
     purpose = Text()
     duration = Text()
     selection = Text()
     timing = Text()
-    statistical_methods__analysis = Text()
+    statistical_methods_analysis = Text()
 
     # Recruitment
 
@@ -93,7 +93,7 @@ class Record(base.Record):
     target_sample_size = Integer()
     actual_sample_size = Integer()
     recruitment_status = Text()
-    recruitment_states = Text()
+    recruitment_state_s = Text()
 
     # Funding & Sponsors
 
@@ -109,7 +109,7 @@ class Record(base.Record):
 
     brief_summary = Text()
     trial_website = Text()
-    trial_related_presentations__publications = Text()
+    trial_related_presentations_publications = Text()
     public_notes = Text()
     attachments = Array()
 
