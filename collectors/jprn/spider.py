@@ -16,7 +16,6 @@ from .parser import parse_record
 
 # Module API
 
-# TODO: ensure spider works
 class Spider(CrawlSpider):
 
     # Public
@@ -37,13 +36,13 @@ class Spider(CrawlSpider):
 
         # Make start urls
         self.start_urls = _make_start_urls(
-                prefix='https://upload.umin.ac.jp/cgi-open-bin/ctr/ctr.cgi',
+                prefix='https://upload.umin.ac.jp/cgi-open-bin/ctr_e/index.cgi',
                 page_from=page_from)
 
         # Make rules
         self.rules = [
             Rule(LinkExtractor(
-                allow=r'cgi-open-bin/ctr/ctr.cgi\?function=brows',
+                allow=r'cgi-open-bin/ctr_e/ctr_view.cgi',
             ), callback=parse_record),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
@@ -63,11 +62,8 @@ def _make_start_urls(prefix, page_from=None):
     if page_from is None:
         page_from = '1'
     query = OrderedDict()
-    query['_page'] = page_from
+    query['page'] = page_from
     query['sort'] = '05'
-    query['function'] = 'search'
-    query['action'] = 'list'
-    query['language'] = 'E'
     return [prefix + '?' + urlencode(query)]
 
 
@@ -76,7 +72,7 @@ def _process_url(page_from, page_to, url):
     # Get url page
     query = urlparse(url).query
     query = parse_qs(query)
-    page = query.get('_page')
+    page = query.get('page')
 
     # Preserve if match
     if page:
