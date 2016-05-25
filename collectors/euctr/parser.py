@@ -36,6 +36,10 @@ def parse_record(res):
     kpath = '.cellGrey'
     vpath = '.cellGrey+.cellLighterGrey'
     subdata = _parse_dict(res, kpath, vpath)
+    # Some trials are badly formed:
+    # https://www.clinicaltrialsregister.eu/ctr-search/trial/2012-001258-25/results
+    if 'eudract_number' not in subdata:
+        return None
     eudract_number = 'EUCTR%s' % subdata['eudract_number']
     data.update(subdata)
 
