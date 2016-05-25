@@ -46,7 +46,8 @@ def upgrade():
         sa.Column('sponsors_protocol_code_number', sa.Text),
         sa.Column('us_nct_clinicaltrialsgov_registry_number', sa.Text),
         sa.Column('who_universal_trial_reference_number_utrn', sa.Text),
-        sa.Column('isrctn_international_standard_randomised_controlled_trial_number', sa.Text),
+        # Postgres has shortened this field automatically (migration updated)
+        sa.Column('isrctn_international_standard_randomised_controlled_trial_numbe', sa.Text),
         sa.Column('trial_is_part_of_a_paediatric_investigation_plan', sa.Boolean),
         sa.Column('ema_decision_number_of_paediatric_investigation_plan', sa.Text),
 

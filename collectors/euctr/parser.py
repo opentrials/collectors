@@ -13,19 +13,19 @@ from .record import Record
 def parse_record(res):
     fields_to_remove = [
         'trial_other',
-        'trial_will_this_trial_be_conducted_at_a_single',
-        'trial_will_this_trial_be_conducted_at_multiple_sites',
+        'trial_will_this_trial_be_conducted_at_a_single_site_globally',
+        'trial_will_this_trial_be_conducted_at_multiple_sites_globally',
         'subject_number_of_subjects_for_this_age_range',
         'subject_trial_has_subjects_under_18',
         'subject_in_utero',
-        'subject_preterm_newborn_infants_up_to_gestational_age_',
-        'subject_newborns_027_days',
-        'subject_infants_and_toddlers_28_days23_months',
-        'subject_children_211years',
-        'subject_adolescents_1217_years',
-        'subject_adults_1864_years',
+        'subject_preterm_newborn_infants_up_to_gestational_age_37_weeks',
+        'subject_newborns_0_27_days',
+        'subject_infants_and_toddlers_28_days_23_months',
+        'subject_children_2_11years',
+        'subject_adolescents_12_17_years',
+        'subject_adults_18_64_years',
         'subject_elderly_65_years',
-        'subject_women_of_childbearing_potential_not_using_contraception_for',
+        'subject_women_of_child_bearing_potential_using_contraception',
     ]
 
     # Init data item
@@ -189,7 +189,7 @@ def _parse_dict(sel, kpath, vpath, prefix=None):
                     value = ' '.join(texts).strip()
         if key and value:
             if prefix:
-                key = prefix + key
+                key = base.helpers.slugify(prefix + key)
             data[key] = value
     return data
 

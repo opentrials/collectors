@@ -5,6 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from urllib import urlencode
+from functools import partial
 from collections import OrderedDict
 from datetime import date, timedelta
 from scrapy.spiders import Rule
@@ -39,7 +40,7 @@ class Spider(CrawlSpider):
             ), callback=parse_record),
             Rule(LinkExtractor(
                 allow=r'page=\d+',
-            ), process_links=_process_links),
+            ), process_links=partial(_process_links, self.start_urls)),
         ]
 
         # Inherit parent
@@ -62,10 +63,9 @@ def _make_start_urls(prefix, date_from=None, date_to=None):
     return [prefix + '?' + urlencode(query)]
 
 
-def _process_links(self, links):
+def _process_links(start_urls, links):
     result = []
     for link in links:
-        link.url = '&page='.join(
-                [self.start_urls[0], link.url.split('=')[-1]])
+        link.url = '&page='.join([start_urls[0], link.url.split('=')[-1]])
         result.append(link)
     return result

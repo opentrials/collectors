@@ -10,14 +10,14 @@ from datetime import datetime
 
 # Module API
 
-def slugify(name):
-    """Replace unwanted chars.
+def slugify(value):
+    """Slugify string value.
     """
-    name = name.lower()
-    name = re.sub(r'\s+', '_', name)
-    name = re.sub(r'[^\w]+', '', name)
-    name = '_'.join(name.split('_')[:8])
-    return name
+    value = re.sub(r'[\W_]+', '_', value)
+    value = value.strip('_')
+    value = value.lower()
+    value = value[:63]  # Postgres limitation is 63
+    return value
 
 
 def parse_date(value, format):
