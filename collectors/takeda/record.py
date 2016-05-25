@@ -39,13 +39,13 @@ class Record(base.Record):
     trial_design = Text()
     primary_outcome_measures = Text()
     secondary_outcome_measures = Text()
-    trial_armsgroups_or_cohorts = Text()
+    trial_arms_groups_or_cohorts = Text()
 
     # Recruitment
 
     gender = Text()
     ages = Text()
-    enrollmentnumber_of_participants = Integer()
+    enrollment_number_of_participants = Integer()
     locations = Array()
     responsible_party = Text()
     trial_sponsor = Text()
