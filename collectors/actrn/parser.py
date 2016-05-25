@@ -74,7 +74,6 @@ def parse_record(res):
             outcome_data = {'outcome': value}
             continue
 
-        # TODO: review
         oldkey = 'timepoint'
         if key == oldkey:
             outcome_data['timepoint'] = value
@@ -118,7 +117,6 @@ def parse_record(res):
 
         # Summary
 
-        # TODO: fix work
         newkey = 'attachments'
         oldkey = 'attachments'
         data.setdefault(newkey, [])
