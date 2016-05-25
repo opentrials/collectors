@@ -24,7 +24,7 @@ class Record(base.Record):
     study_id = Text()
     study_title = Text()
     patient_level_data = Text()
-    clinicaltrialsgov_identifier = Text()
+    clinicaltrials_gov_identifier = Text()
     sponsor = Text()
     collaborators = Text()
     study_recruitment_status = Text()
@@ -43,10 +43,10 @@ class Record(base.Record):
     fda_regulated_intervention = Boolean('yes')
     section_801_clinical_trial = Boolean('yes')
     delayed_posting = Boolean('yes')
-    indide_protocol = Text()
-    indide_grantor = Text()
-    indide_number = Text()
-    indide_serial_number = Text()
+    ind_ide_protocol = Text()
+    ind_ide_grantor = Text()
+    ind_ide_number = Text()
+    ind_ide_serial_number = Text()
     has_expanded_access = Boolean('yes')
     study_type = Text()
     oversight_authority = Array()
@@ -96,7 +96,7 @@ class Record(base.Record):
     overall_study_official = Text()
     overall_study_official_affiliation = Text()
     overall_study_official_role = Text()
-    responsible_party_nameofficial_title = Text()
+    responsible_party_name_official_title = Text()
     responsible_party_organization = Text()
 
     # Locations
@@ -114,7 +114,7 @@ class Record(base.Record):
     study_indication_or_diseases = Text()
     generic_name = Text()
     trade_name = Text()
-    trade_name__product_name = Text()
+    trade_name_product_name = Text()
     study_indications = Text()
 
     # Publication
