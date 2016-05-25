@@ -28,7 +28,7 @@ class Record(base.Record):
     date_applied = Date('%d/%m/%Y')
     date_assigned = Date('%d/%m/%Y')
     last_edited = Date('%d/%m/%Y')
-    prospectiveretrospective = Text()
+    prospective_retrospective = Text()
     overall_trial_status = Text()
     recruitment_status = Text()
     plain_english_summary = Text()
@@ -41,8 +41,8 @@ class Record(base.Record):
     # Additional identifiers
 
     eudract_number = Text()
-    clinicaltrialsgov_number = Text()
-    protocolserial_number = Text()
+    clinicaltrials_gov_number = Text()
+    protocol_serial_number = Text()
 
     # Study information
 
