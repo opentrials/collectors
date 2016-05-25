@@ -31,9 +31,8 @@ class Record(scrapy.Item):
         """
         pass  # pragma: no cover
 
-    # TODO: review
-    # we could move responsibility of defining
-    # primary/updated key to Field object like in sa
+    # We could move responsibility of defining
+    # primary/updated key to Field object like in sqlalchemy
 
     @property
     @abstractmethod
@@ -62,8 +61,7 @@ class Record(scrapy.Item):
         # Init dict
         self = cls()
 
-        # TODO: review
-        # we could sync naming here with database
+        # We could sync naming here with database
         # created_at/updated_at etc
 
         # Add metadata
