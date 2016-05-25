@@ -1,4 +1,4 @@
-# How to Write a Scraping Collector
+# How to Write a Collector (using scrapy)
 
 This document describes how to write a new scraping collector (scraper)
 for the OpenTrials scraper from scratch to a pull request.
