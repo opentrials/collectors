@@ -339,7 +339,7 @@ def _parse_text(res, path):
     except Exception as exception:
         message = 'Parsing error: %s: %s'
         message = message % (path, repr(exception))
-        logger.warning(message)
+        logger.exception(message)
     return value
 
 
@@ -358,7 +358,7 @@ def _parse_dict(res, path, expand=None):
     except Exception as exception:
         message = 'Parsing error: %s: %s'
         message = message % (path, repr(exception))
-        logger.warning(message)
+        logger.exception(message)
     return value
 
 
@@ -380,5 +380,5 @@ def _parse_list(res, path, expand=None):
     except Exception as exception:
         message = 'Parsing error: %s: %s'
         message = message % (path, repr(exception))
-        logger.warning(message)
+        logger.exception(message)
     return value

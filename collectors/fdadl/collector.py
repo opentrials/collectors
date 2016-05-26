@@ -83,9 +83,9 @@ def collect(conf, conn):
 
             except Exception as exception:
 
-                # Log warning
+                # Log exception
                 errors += 1
-                logger.warning('Collecting error: %s', repr(exception))
+                logger.exception('Collecting error: %s', repr(exception))
 
     # Remove temp directory
     shutil.rmtree(dirpath)

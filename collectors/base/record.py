@@ -90,7 +90,7 @@ class Record(scrapy.Item):
             except Exception as exception:
                 message = 'Parsing error: %s=%s: %s'
                 message = message % (key, value, exception)
-                logger.warning(message)
+                logger.exception(message)
                 continue
             self[key] = value
         for key in undefined:

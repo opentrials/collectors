@@ -32,6 +32,6 @@ def write_record(conn, record):
             record, [record.primary_key],
             ensure=record.ensure_fields, types=record.types)
     except Exception as exception:
-        logger.warning('Saving error: %s: %s' % (record, repr(exception)))
+        logger.exception('Saving error: %s: %s' % (record, repr(exception)))
     else:
         logger.debug('Record - %s: %s - %s fields', action, record, len(record))
