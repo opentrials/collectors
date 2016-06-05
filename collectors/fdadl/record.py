@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'fdadl'
     primary_key = 'product_ndc'
-    updated_key = 'last_updated'
     ensure_fields = False
 
     # General

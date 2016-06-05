@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'pubmed'
     primary_key = 'pmid'
-    updated_key = 'date_revised'
     ensure_fields = False
 
     # Medline

@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'jprn'
     primary_key = 'unique_trial_number'
-    updated_key = 'date_and_time_of_last_update'
     ensure_fields = False
 
     # General

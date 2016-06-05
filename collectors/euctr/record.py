@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'euctr'
     primary_key = 'eudract_number_with_country'
-    updated_key = None
     ensure_fields = False
 
     # Summary

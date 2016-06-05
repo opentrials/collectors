@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'takeda'
     primary_key = 'takeda_trial_id'
-    updated_key = None
     ensure_fields = False
 
     # General

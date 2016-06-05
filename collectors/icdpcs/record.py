@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'icdpcs'
     primary_key = 'code'
-    updated_key = 'last_updated'
     ensure_fields = False
 
     # General

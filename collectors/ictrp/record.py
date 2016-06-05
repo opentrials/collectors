@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'ictrp'
     primary_key = 'main_id'
-    updated_key = 'last_refreshed_on'
     ensure_fields = False
 
     # Main

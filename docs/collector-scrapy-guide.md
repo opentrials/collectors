@@ -184,7 +184,6 @@ class GuideItem(base.Record):
 
     table = 'guide'  # table name for warehouse
     primary_key = 'nct_id'  # primary key for warehouse
-    updated_key = None  # key showing last updated date
     ensure_fields = True  # auto create tables/fields (debug mode)
 
     # General

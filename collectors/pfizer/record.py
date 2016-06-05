@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'pfizer'
     primary_key = 'nct_id'
-    updated_key = None
     ensure_fields = False
 
     # General

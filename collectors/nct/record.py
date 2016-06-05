@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'nct'
     primary_key = 'nct_id'
-    updated_key = 'lastchanged_date'
     ensure_fields = False
 
     # General

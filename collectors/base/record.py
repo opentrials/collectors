@@ -20,11 +20,8 @@ class Record(scrapy.Item):
     # Public
 
     def __repr__(self):
-        template = '<%s: %s [%s]>'
-        text = template % (
-                self.table.upper(),
-                self.get(self.primary_key),
-                self.get(self.updated_key))
+        template = '<%s: %s>'
+        text = template % (self.table.upper(), self.get(self.primary_key))
         return text
 
     @classmethod
@@ -84,13 +81,6 @@ class Record(scrapy.Item):
     @abstractmethod
     def primary_key(self):
         """Item primary key.
-        """
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def updated_key(self):
-        """Item updated key.
         """
         pass  # pragma: no cover
 

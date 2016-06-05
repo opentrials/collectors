@@ -16,7 +16,6 @@ class Record(base.Record):
 
     table = 'gsk'
     primary_key = 'study_id'
-    updated_key = 'last_updated'
     ensure_fields = False
 
     # General
