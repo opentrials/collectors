@@ -50,7 +50,7 @@ def collect(conf, conn, environ=None):
         for item in response.json():
             try:
                 record = parse_record(response.url, item)
-                base.writers.write_record(conn, record)
+                record.write(conn)
                 count += 1
                 if not count % 100:
                     logger.info('Collected "%s" hra records', count)

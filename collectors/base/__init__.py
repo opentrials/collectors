@@ -6,5 +6,4 @@ from __future__ import unicode_literals
 
 from . import fields
 from . import helpers
-from . import writers
 from .record import Record

@@ -6,7 +6,6 @@ from __future__ import unicode_literals
 
 import dataset
 from . import config
-from . import writers
 
 
 # Module API
@@ -23,5 +22,5 @@ class Warehouse(object):
             self.__conn = {'warehouse': dataset.connect(config.WAREHOUSE_URL)}
 
     def process_item(self, record, spider):
-        writers.write_record(self.__conn, record)
+        record.write(self.__conn)
         return record

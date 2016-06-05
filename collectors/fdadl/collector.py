@@ -11,7 +11,6 @@ import logging
 import zipfile
 import tempfile
 import requests
-from .. import base
 from .record import Record
 logger = logging.getLogger(__name__)
 
@@ -73,7 +72,7 @@ def collect(conf, conn):
                 record = Record.create(url, data)
 
                 # Write record
-                base.writers.write_record(conn, record)
+                record.write(conn)
 
                 # Log info
                 success += 1

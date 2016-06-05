@@ -9,7 +9,6 @@ import logging
 import zipfile
 import requests
 from scrapy.http import TextResponse
-from .. import base
 from .record import Record
 logger = logging.getLogger(__name__)
 
@@ -52,7 +51,7 @@ def collect(conf, conn):
         record = Record.create(URL, data)
 
         # Write record
-        base.writers.write_record(conn, record)
+        record.write(conn)
 
         # Log info
         count += 1
