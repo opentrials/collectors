@@ -1,7 +1,7 @@
 # How to Write a Collector (using scrapy)
 
 This document describes how to write a new scraping collector (scraper)
-for the OpenTrials scraper from scratch to a pull request.
+for the OpenTrials platform from scratch to a pull request.
 
 As example we will be writing scraper for `Pfizer` clinical trials register:
 
@@ -23,20 +23,19 @@ $ make install
 $ cp .env.example .env && editor .env
 ```
 
-On the last step you should set your development warehouse url
-as value of `WAREHOUSE_URL` in the `.env` file
-(it should be postgres url like `postgres://...`).
+On the last step you should setup you develpment environment. Follow
+`.evn.example` file instructions and comments.
 
 Now you're ready to work on you own scraper!
 
-## Platforms to Use
+## Used Technologies
 
 - framework - [Scrapy](http://scrapy.readthedocs.org/en/latest/)
 - warehouse - [PostgreSQL](http://www.postgresql.org/docs/9.4/static/index.html)
 
-## Writing a Scraping Collector
+## Writing a Collector
 
-To bootstrap a new `guide` scraping collector:
+To bootstrap a new `guide` Scrapy collector:
 
 ```
 $ mkdir collectors/guide
@@ -73,12 +72,12 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from scrapy.crawler import CrawlerProcess
-from .spider import GuideSpider
+from .spider import Spider
 
 
 def collect(conf, conn):
     process = CrawlerProcess(conf)
-    process.crawl(GuideSpider, conn=conn)
+    process.crawl(Spider, conn=conn)
     process.start()
 ```
 
@@ -113,7 +112,7 @@ from .parser import parse_record
 
 # Module API
 
-class GuideSpider(CrawlSpider):
+class Spider(CrawlSpider):
 
     # Public
 
@@ -178,7 +177,7 @@ from ..base.fields import Text, Date, Boolean
 
 # Module API
 
-class GuideItem(base.Record):
+class Record(base.Record):
 
     # Config
 
@@ -228,7 +227,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from .item import GuideRecord
+from .record import Record
 
 
 def parse_record(res):
@@ -291,7 +290,7 @@ def parse_record(res):
     data[key] = value
 
     # Create record
-    record = GuideRecord.create(res.url, data)
+    record = Record.create(res.url, data)
 
     return record
 ```
