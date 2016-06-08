@@ -27,10 +27,6 @@ On the last step you should setup you develpment environment. Follow
 
 Now you're ready to work on you own collector!
 
-## Used Technologies
-
-- warehouse - [PostgreSQL](http://www.postgresql.org/docs/9.4/static/index.html)
-
 ## Writing a Collector
 
 To bootstrap a new `guide` collector:

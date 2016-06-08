@@ -29,6 +29,6 @@ Please read the contribution guideline:
 
 - [How to Contribute](CONTRIBUTING.md)
 - [How to Write a Collector](docs/collector-guide.md)
-- [How to Write a Collector (using scrapy)](docs/collector-scrapy-guide.md)
+- [How to Write a Collector (using Scrapy)](docs/collector-scrapy-guide.md)
 
 Thanks!

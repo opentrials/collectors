@@ -1,6 +1,7 @@
 # How to Write a Collector (using scrapy)
 
-This document describes how to write a new scraping collector (scraper)
+This document describes how to write new collector using
+[Scrapy](http://scrapy.readthedocs.org/en/latest/)
 for the OpenTrials platform from scratch to a pull request.
 
 As example we will be writing scraper for `Pfizer` clinical trials register:
@@ -28,14 +29,9 @@ On the last step you should setup you develpment environment. Follow
 
 Now you're ready to work on you own scraper!
 
-## Used Technologies
-
-- framework - [Scrapy](http://scrapy.readthedocs.org/en/latest/)
-- warehouse - [PostgreSQL](http://www.postgresql.org/docs/9.4/static/index.html)
-
 ## Writing a Collector
 
-To bootstrap a new `guide` Scrapy collector:
+To bootstrap a new `guide` collector:
 
 ```
 $ mkdir collectors/guide
