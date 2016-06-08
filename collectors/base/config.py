@@ -47,3 +47,15 @@ if os.environ.get('LOGGING_URL', None):
     syslog_handler = SysLogHandler(address=(host, int(port)))
     syslog_handler.setLevel(logging.INFO)
     root_logger.addHandler(syslog_handler)
+
+# ICTRP
+
+ICTRP_USER=os.environ.get('ICTRP_USER', None)
+ICTRP_PASS=os.environ.get('ICTRP_PASS', None)
+
+# HRA
+
+HRA_ENV=os.environ.get('HRA_ENV', None)
+HRA_URL=os.environ.get('HRA_URL', None)
+HRA_USER=os.environ.get('HRA_USER', None)
+HRA_PASS=os.environ.get('HRA_PASS', None)

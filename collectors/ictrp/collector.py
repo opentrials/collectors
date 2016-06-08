@@ -12,6 +12,6 @@ from .spider import Spider
 def collect(conf, conn):
     process = CrawlerProcess(conf)
     process.crawl(Spider, conn=conn,
-        http_user=os.environ['ICTRP_USER'],
-        http_pass=os.environ['ICTRP_PASS'])
+        http_user=conf['ICTRP_USER'],
+        http_pass=conf['ICTRP_PASS'])
     process.start()

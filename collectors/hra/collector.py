@@ -18,19 +18,17 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-def collect(conf, conn, environ=None):
+def collect(conf, conn):
 
     # Start collector
     date_from = _get_date_from(conn)
     base.helpers.start('hra', {'date_from': date_from})
 
     # Get parameters
-    if environ is None:
-        environ = os.environ
-    ENV = environ['HRA_ENV']
-    URL = environ['HRA_URL']
-    USER = environ['HRA_USER']
-    PASS = environ['HRA_PASS']
+    ENV = conf['HRA_ENV']
+    URL = conf['HRA_URL']
+    USER = conf['HRA_USER']
+    PASS = conf['HRA_PASS']
 
     # Check availability
     utc_datetime = datetime.datetime.utcnow()
