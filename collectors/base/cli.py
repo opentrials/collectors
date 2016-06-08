@@ -8,6 +8,7 @@ import sys
 import dataset
 from importlib import import_module
 from . import config
+from . import helpers
 
 
 # Module API
@@ -15,10 +16,7 @@ from . import config
 def cli(argv):
 
     # Prepare conf dict
-    conf = {}
-    for name, value in vars(config).items():
-        if name.isupper():
-            conf[name] = value
+    conf = helpers.get_variables(config, str.isupper)
 
     # Prepare conn dict
     conn = {}

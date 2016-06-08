@@ -15,7 +15,6 @@ class Record(base.Record):
     # Config
 
     table = 'pfizer'
-    ensure_fields = False
 
     # General
 

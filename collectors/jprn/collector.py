@@ -8,6 +8,8 @@ from scrapy.crawler import CrawlerProcess
 from .spider import Spider
 
 
+# Module API
+
 def collect(conf, conn, page_from=None, page_to=None):
     process = CrawlerProcess(conf)
     process.crawl(Spider, conn=conn, page_from=page_from, page_to=page_to)

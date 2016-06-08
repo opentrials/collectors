@@ -72,7 +72,7 @@ def collect(conf, conn):
                 record = Record.create(url, data)
 
                 # Write record
-                record.write(conn)
+                record.write(conf, conn)
 
                 # Log info
                 success += 1

@@ -183,7 +183,6 @@ class GuideItem(base.Record):
     # Config
 
     table = 'guide'  # table name for warehouse
-    ensure_fields = True  # auto create tables/fields (debug mode)
 
     # General
 

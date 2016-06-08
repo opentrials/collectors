@@ -19,9 +19,10 @@ class Spider(CrawlSpider):
     name = 'takeda'
     allowed_domains = ['takedaclinicaltrials.com']
 
-    def __init__(self, conn=None):
+    def __init__(self, conf=None, conn=None):
 
-        # Save conn dict
+        # Save conf/conn
+        self.conf = conf
         self.conn = conn
 
         # Make urls

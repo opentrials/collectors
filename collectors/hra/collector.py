@@ -4,7 +4,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import os
 import time
 import logging
 import requests
@@ -48,7 +47,7 @@ def collect(conf, conn):
         for item in response.json():
             try:
                 record = parse_record(response.url, item)
-                record.write(conn)
+                record.write(conf, conn)
                 count += 1
                 if not count % 100:
                     logger.info('Collected "%s" hra records', count)

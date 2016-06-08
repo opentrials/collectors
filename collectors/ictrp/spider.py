@@ -19,9 +19,10 @@ class Spider(CrawlSpider):
     name = 'ictrp'
     allowed_domains = ['who.int']
 
-    def __init__(self, conn=None, http_user=None, http_pass=None):
+    def __init__(self, conf=None, conn=None, http_user=None, http_pass=None):
 
-        # Save conn dict
+        # Save conf/conn
+        self.conf = conf
         self.conn = conn
 
         # Save creadentials

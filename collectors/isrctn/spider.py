@@ -22,9 +22,10 @@ class Spider(CrawlSpider):
     name = 'isrctn'
     allowed_domains = ['isrctn.com']
 
-    def __init__(self, conn=None, date_from=None, date_to=None):
+    def __init__(self, conf=None, conn=None, date_from=None, date_to=None):
 
-        # Save conn dict
+        # Save conf/conn
+        self.conf = conf
         self.conn = conn
 
         # Make start urls

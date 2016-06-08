@@ -51,7 +51,7 @@ def collect(conf, conn):
         record = Record.create(URL, data)
 
         # Write record
-        record.write(conn)
+        record.write(conf, conn)
 
         # Log info
         count += 1

@@ -23,9 +23,10 @@ class Spider(CrawlSpider):
     name = 'jprn'
     allowed_domains = ['upload.umin.ac.jp']
 
-    def __init__(self, conn=None, page_from=None, page_to=None):
+    def __init__(self, conf=None, conn=None, page_from=None, page_to=None):
 
-        # Save conn dict
+        # Save conf/conn
+        self.conf = conf
         self.conn = conn
 
         # Default values

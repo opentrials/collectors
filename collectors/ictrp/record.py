@@ -15,7 +15,6 @@ class Record(base.Record):
     # Config
 
     table = 'ictrp'
-    ensure_fields = False
 
     # Main
 

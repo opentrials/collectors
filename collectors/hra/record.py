@@ -15,7 +15,6 @@ class Record(base.Record):
     # Config
 
     table = 'hra'
-    ensure_fields = False
 
     # General
 

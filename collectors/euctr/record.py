@@ -15,7 +15,6 @@ class Record(base.Record):
     # Config
 
     table = 'euctr'
-    ensure_fields = False
 
     # Summary
 

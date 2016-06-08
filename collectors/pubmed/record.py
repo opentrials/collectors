@@ -15,7 +15,6 @@ class Record(base.Record):
     # Config
 
     table = 'pubmed'
-    ensure_fields = False
 
     # Medline
 

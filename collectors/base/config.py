@@ -11,6 +11,10 @@ from dotenv import load_dotenv
 load_dotenv('.env')
 
 
+# Environment
+
+ENV = os.environ['PYTHON_ENV']
+
 # Spiders
 
 SPIDER_MODULES = [
@@ -50,12 +54,12 @@ if os.environ.get('LOGGING_URL', None):
 
 # ICTRP
 
-ICTRP_USER=os.environ.get('ICTRP_USER', None)
-ICTRP_PASS=os.environ.get('ICTRP_PASS', None)
+ICTRP_USER = os.environ.get('ICTRP_USER', None)
+ICTRP_PASS = os.environ.get('ICTRP_PASS', None)
 
 # HRA
 
-HRA_ENV=os.environ.get('HRA_ENV', None)
-HRA_URL=os.environ.get('HRA_URL', None)
-HRA_USER=os.environ.get('HRA_USER', None)
-HRA_PASS=os.environ.get('HRA_PASS', None)
+HRA_ENV = os.environ.get('HRA_ENV', None)
+HRA_URL = os.environ.get('HRA_URL', None)
+HRA_USER = os.environ.get('HRA_USER', None)
+HRA_PASS = os.environ.get('HRA_PASS', None)

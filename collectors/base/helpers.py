@@ -48,3 +48,15 @@ def stop(name, message, sleep_hours=1):
     logger.info(template, name, message, sleep_hours)
     time.sleep(sleep_hours*60*60)
     exit()
+
+
+def get_variables(object, filter=None):
+    """Exract variables from object to dict using name filter.
+    """
+    variables = {}
+    for name, value in vars(object).items():
+        if filter is not None:
+            if not filter(name):
+                continue
+        variables[name] = value
+    return variables

@@ -31,13 +31,6 @@ class Record(scrapy.Item):
         """
         pass  # pragma: no cover
 
-    @property
-    @abstractmethod
-    def ensure_fields(self):
-        """Item updated key.
-        """
-        pass  # pragma: no cover
-
     @classmethod
     def create(cls, source, data):
 
@@ -94,26 +87,33 @@ class Record(scrapy.Item):
 
         return self
 
-    def write(self, conn):
+    def write(self, conf, conn):
         """Write record to warehouse.
 
         Args:
+            conf (dict): config dictionary
             conn (dict): connections dictionary
 
         """
-        table = conn['warehouse'].get_table(
-                self.table,
-                primary_id=self.__primary_key,
-                primary_type='String')
+        if self.table not in conn['warehouse'].tables:
+            if conf['ENV'] == 'development':
+                table = conn['warehouse'].create_table(
+                        self.table,
+                        primary_id=self.__primary_key,
+                        primary_type='String')
+        table = conn['warehouse'][self.table]
         action = 'created'
         if table.find_one(**{self.__primary_key: self[self.__primary_key]}):
             action = 'updated'
             for key in ['meta_id', 'meta_updated']:
                 del self[key]
         try:
+            ensure_fields = False
+            if conf['ENV'] == 'development':
+                ensure_fields = True
             table.upsert(
                 self, [self.__primary_key],
-                ensure=self.ensure_fields, types=self.__column_types)
+                ensure=ensure_fields, types=self.__column_types)
         except Exception as exception:
             logger.exception('Saving error: %s: %s' % (self, repr(exception)))
         else:
