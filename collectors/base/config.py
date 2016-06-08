@@ -32,7 +32,7 @@ SPIDER_MODULES = [
 
 # Network
 
-DOWNLOAD_DELAY = float(os.getenv('DOWNLOAD_DELAY', 1))
+DOWNLOAD_DELAY = float(os.getenv('DOWNLOAD_DELAY', 1) or 1)
 AUTOTHROTTLE_ENABLED = True
 
 # Pipelines

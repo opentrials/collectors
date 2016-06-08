@@ -12,13 +12,14 @@ services:
 
 install:
   - make install
-  - make build
 
 script:
+  - make build
   - make test
+  - make push
 
 deploy:
   - provider: script
-    script: make push
+    script: make deploy
     on:
       branch: master

@@ -1,9 +1,0 @@
-# Migrate
-# run warehouse migrations
-
-main:
-  image: okibot/collectors
-  command: make migrate
-  environment:
-    WAREHOUSE_URL:
-    LOGGING_URL:
