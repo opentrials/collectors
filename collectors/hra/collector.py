@@ -62,8 +62,8 @@ def collect(conf, conn):
 
 # Internal
 
-def _check_availability(utc_datetime, env='PRODUCTION'):
-    if env == 'PRODUCTION':
+def _check_availability(utc_datetime, env='production'):
+    if env == 'production':
         if utc_datetime.weekday() not in [0, 2, 3]:
             return False
         if utc_datetime.time() < datetime.time(6, 0):
