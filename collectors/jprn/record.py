@@ -15,13 +15,12 @@ class Record(base.Record):
     # Config
 
     table = 'jprn'
-    primary_key = 'unique_trial_number'
     ensure_fields = False
 
     # General
 
+    unique_trial_number = Text(primary_key=True)
     recruitment_status = Text()
-    unique_trial_number = Text()
     title_of_the_study = Text()
     date_of_formal_registrationdate_of_icmje_and_who = Date('%Y/%m/%d')
     date_and_time_of_last_update = Datetime('%Y/%m/%d %H:%M:%S')

@@ -17,13 +17,20 @@ class Base(Field):
 
     # Public
 
+    def __init__(self, primary_key=False):
+        self.__primary_key = primary_key
+
     def __repr__(self):
         return type(self).__name__
 
     @property
     @abstractmethod
-    def type(self):
+    def column_type(self):
         pass  # pragma: no cover
+
+    @property
+    def primary_key(self):
+        return self.__primary_key
 
     def parse(self, value):
         return value
@@ -33,14 +40,14 @@ class Text(Base):
 
     # Public
 
-    type = sa.Text
+    column_type = sa.Text
 
 
 class Integer(Base):
 
     # Public
 
-    type = sa.Integer
+    column_type = sa.Integer
 
     def parse(self, value):
         return int(value)
@@ -50,9 +57,10 @@ class Boolean(Base):
 
     # Public
 
-    type = sa.Boolean
+    column_type = sa.Boolean
 
-    def __init__(self, true_value=None):
+    def __init__(self, true_value=None, **params):
+        super(Boolean, self).__init__(**params)
         self.__true_value = true_value
 
     def parse(self, value):
@@ -65,9 +73,10 @@ class Date(Base):
 
     # Public
 
-    type = sa.Date
+    column_type = sa.Date
 
-    def __init__(self, format):
+    def __init__(self, format, **params):
+        super(Date, self).__init__(**params)
         self.__format = format
 
     def parse(self, value):
@@ -78,9 +87,10 @@ class Datetime(Base):
 
     # Public
 
-    type = sa.DateTime(timezone=True)
+    column_type = sa.DateTime(timezone=True)
 
-    def __init__(self, format=None):
+    def __init__(self, format=None, **params):
+        super(Datetime, self).__init__(**params)
         self.__format = format
 
     def parse(self, value):
@@ -93,22 +103,23 @@ class Json(Base):
 
     # Public
 
-    type = JSONB
+    column_type = JSONB
 
 
 class Array(Base):
 
     # Public
 
-    def __init__(self, field=None):
+    def __init__(self, field=None, **params):
+        super(Array, self).__init__(**params)
         if field is None:
             field = Text()
         self.__field = field
-        self.__type = ARRAY(field.type)
+        self.__column_type = ARRAY(field.column_type)
 
     @property
-    def type(self):
-        return self.__type
+    def column_type(self):
+        return self.__column_type
 
     def parse(self, value):
         result = []

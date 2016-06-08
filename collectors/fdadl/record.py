@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'fdadl'
-    primary_key = 'product_ndc'
     ensure_fields = False
 
     # General
 
-    product_ndc = Text()
+    product_ndc = Text(primary_key=True)
     product_type = Text()
     generic_name = Text()
     brand_name = Text()

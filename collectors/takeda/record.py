@@ -15,13 +15,12 @@ class Record(base.Record):
     # Config
 
     table = 'takeda'
-    primary_key = 'takeda_trial_id'
     ensure_fields = False
 
     # General
 
+    takeda_trial_id = Text(primary_key=True)
     official_title = Text()
-    takeda_trial_id = Text()
     trial_phase = Text()
     condition = Text()
     compound = Array()

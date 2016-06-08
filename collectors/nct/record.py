@@ -15,16 +15,15 @@ class Record(base.Record):
     # Config
 
     table = 'nct'
-    primary_key = 'nct_id'
     ensure_fields = False
 
     # General
 
+    nct_id = Text(primary_key=True)
     download_date = Text()
     link_text = Text()
     url = Text()
     org_study_id = Text()
-    nct_id = Text()
     secondary_ids = Array()
     nct_aliases = Array()
     brief_title = Text()

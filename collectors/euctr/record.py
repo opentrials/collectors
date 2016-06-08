@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'euctr'
-    primary_key = 'eudract_number_with_country'
     ensure_fields = False
 
     # Summary
 
-    eudract_number_with_country = Text()
+    eudract_number_with_country = Text(primary_key=True)
     other_identifiers = Text()
     national_competent_authority = Text()
     clinical_trial_type = Text()

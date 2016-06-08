@@ -183,18 +183,17 @@ class GuideItem(base.Record):
     # Config
 
     table = 'guide'  # table name for warehouse
-    primary_key = 'nct_id'  # primary key for warehouse
     ensure_fields = True  # auto create tables/fields (debug mode)
 
     # General
 
+    nct_id = Text(primary_key=True) # set primary key
     title = Text()
 
     # Description
 
     study_type = Text()
     organization_id = Text()
-    nct_id = Text()
     status = Text()
     study_start_date = Date('%B, %Y')
     study_end_date = Date('%B, %Y')

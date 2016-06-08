@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'actrn'
-    primary_key = 'trial_id'
     ensure_fields = False
 
     # General
 
-    trial_id = Text()
+    trial_id = Text(primary_key=True)
     ethics_application_status = Text()
     date_submitted = Date('%d/%m/%Y')
     date_registered = Date('%d/%m/%Y')

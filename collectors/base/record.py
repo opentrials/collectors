@@ -21,8 +21,22 @@ class Record(scrapy.Item):
 
     def __repr__(self):
         template = '<%s: %s>'
-        text = template % (self.table.upper(), self.get(self.primary_key))
+        text = template % (self.table.upper(), self.get(self.__primary_key))
         return text
+
+    @property
+    @abstractmethod
+    def table(self):
+        """Source name.
+        """
+        pass  # pragma: no cover
+
+    @property
+    @abstractmethod
+    def ensure_fields(self):
+        """Item updated key.
+        """
+        pass  # pragma: no cover
 
     @classmethod
     def create(cls, source, data):
@@ -30,8 +44,21 @@ class Record(scrapy.Item):
         # Init dict
         self = cls()
 
-        # We could sync naming here with database
-        # created_at/updated_at etc
+        # Get primary_key
+        self.__primary_key = None
+        for key, field in self.fields.items():
+            if field.primary_key:
+                self.__primary_key = key
+                break
+        if self.__primary_key is None:
+            raise TypeError('Record %s requires primary key' % cls)
+        if not isinstance(self.fields[self.__primary_key], fields.Text):
+            raise TypeError('Record %s requires text primary key' % cls)
+
+        # Get column types
+        self.__column_types = {}
+        for key, field in self.fields.items():
+            self.__column_types[key] = field.column_type
 
         # Add metadata
         ident = uuid.uuid4().hex
@@ -67,39 +94,6 @@ class Record(scrapy.Item):
 
         return self
 
-    @property
-    @abstractmethod
-    def table(self):
-        """Source name.
-        """
-        pass  # pragma: no cover
-
-    # We could move responsibility of defining
-    # primary/updated key to Field object like in sqlalchemy
-
-    @property
-    @abstractmethod
-    def primary_key(self):
-        """Item primary key.
-        """
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def ensure_fields(self):
-        """Item updated key.
-        """
-        pass  # pragma: no cover
-
-    @property
-    def types(self):
-        """Item types.
-        """
-        types = {}
-        for key, field in self.fields.items():
-            types[key] = field.type
-        return types
-
     def write(self, conn):
         """Write record to warehouse.
 
@@ -109,17 +103,17 @@ class Record(scrapy.Item):
         """
         table = conn['warehouse'].get_table(
                 self.table,
-                primary_id=self.primary_key,
+                primary_id=self.__primary_key,
                 primary_type='String')
         action = 'created'
-        if table.find_one(**{self.primary_key: self[self.primary_key]}):
+        if table.find_one(**{self.__primary_key: self[self.__primary_key]}):
             action = 'updated'
             for key in ['meta_id', 'meta_updated']:
                 del self[key]
         try:
             table.upsert(
-                self, [self.primary_key],
-                ensure=self.ensure_fields, types=self.types)
+                self, [self.__primary_key],
+                ensure=self.ensure_fields, types=self.__column_types)
         except Exception as exception:
             logger.exception('Saving error: %s: %s' % (self, repr(exception)))
         else:

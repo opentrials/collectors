@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'icdcm'
-    primary_key = 'name'
     ensure_fields = False
 
     # General
 
-    name = Text()
+    name = Text(primary_key=True)
     desc = Text()
     terms = Array()
     version = Text()

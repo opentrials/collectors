@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'gsk'
-    primary_key = 'study_id'
     ensure_fields = False
 
     # General
 
-    study_id = Text()
+    study_id = Text(primary_key=True)
     study_title = Text()
     patient_level_data = Text()
     clinicaltrials_gov_identifier = Text()

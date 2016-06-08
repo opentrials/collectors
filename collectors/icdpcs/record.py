@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'icdpcs'
-    primary_key = 'code'
     ensure_fields = False
 
     # General
 
-    code = Text()
+    code = Text(primary_key=True)
     is_header = Boolean('0')
     short_description = Text()
     long_description = Text()

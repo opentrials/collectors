@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'isrctn'
-    primary_key = 'isrctn_id'
     ensure_fields = False
 
     # General
 
-    isrctn_id = Text()
+    isrctn_id = Text(primary_key=True)
     doi_isrctn_id = Text()
     title = Text()
     condition_category = Text()

@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'pubmed'
-    primary_key = 'pmid'
     ensure_fields = False
 
     # Medline
 
-    pmid = Text()
+    pmid = Text(primary_key=True)
     date_created = Date('%Y-%m-%d')
     date_completed = Date('%Y-%m-%d')
     date_revised = Date('%Y-%m-%d')

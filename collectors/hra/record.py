@@ -15,12 +15,11 @@ class Record(base.Record):
     # Config
 
     table = 'hra'
-    primary_key = 'hra_id'
     ensure_fields = False
 
     # General
 
-    hra_id = Text()
+    hra_id = Text(primary_key=True)
     publication_date = Date('%Y-%m-%dT%H:%M:%S')
     updated_date = Date('%Y-%m-%dT%H:%M:%S.%f')
     comittee_name = Text()

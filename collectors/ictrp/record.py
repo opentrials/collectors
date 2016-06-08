@@ -15,14 +15,13 @@ class Record(base.Record):
     # Config
 
     table = 'ictrp'
-    primary_key = 'main_id'
     ensure_fields = False
 
     # Main
 
+    main_id = Text(primary_key=True)
     register = Text()
     last_refreshed_on = Date('%d %B %Y')
-    main_id = Text()
     date_of_registration = Text()  # non regular format
     primary_sponsor = Text()
     public_title = Text()

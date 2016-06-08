@@ -15,18 +15,17 @@ class Record(base.Record):
     # Config
 
     table = 'pfizer'
-    primary_key = 'nct_id'
     ensure_fields = False
 
     # General
 
+    nct_id = Text(primary_key=True)
     title = Text()
 
     # Description
 
     study_type = Text()
     organization_id = Text()
-    nct_id = Text()
     status = Text()
     study_start_date = Date('%B, %Y')
     study_end_date = Date('%B, %Y')
