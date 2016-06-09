@@ -80,7 +80,7 @@ def collect(conf, conn):
 
     # Start collector
     date_from = <write a function to find a date to start collection>
-    base.helpers.start('guide', {'date_from': date_from})
+    base.helpers.start(conf, 'guide', {'date_from': date_from})
 
     # Collect records
     count = 0
@@ -105,7 +105,7 @@ def collect(conf, conn):
         time.sleep(1)
 
     # Stop collector
-    base.helpers.stop('guide', {'collected': count})
+    base.helpers.stop(conf, 'guide', {'collected': count})
 ```
 
 ## Writing an Record

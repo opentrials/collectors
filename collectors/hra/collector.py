@@ -21,7 +21,7 @@ def collect(conf, conn):
 
     # Start collector
     date_from = _get_date_from(conn)
-    base.helpers.start('hra', {'date_from': date_from})
+    base.helpers.start(conf, 'hra', {'date_from': date_from})
 
     # Get parameters
     ENV = conf['HRA_ENV']
@@ -33,7 +33,7 @@ def collect(conf, conn):
     utc_datetime = datetime.datetime.utcnow()
     available = _check_availability(utc_datetime, env=ENV)
     if not available:
-        base.helpers.stop('hra', {'reason': 'API is not available'})
+        base.helpers.stop(conf, 'hra', {'reason': 'API is not available'})
 
     count = 0
     chunk_days = 100
@@ -57,7 +57,7 @@ def collect(conf, conn):
         time.sleep(1)
 
     # Stop collector
-    base.helpers.stop('hra', {'collected': count})
+    base.helpers.stop(conf, 'hra', {'collected': count})
 
 
 # Internal

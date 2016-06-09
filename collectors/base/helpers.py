@@ -35,21 +35,6 @@ def parse_datetime(value, format):
     return datetime.datetime.strptime(value, format)
 
 
-def start(name, message):
-    """Start collector.
-    """
-    logger.info('Collector %s has been started(%s)', name, message)
-
-
-def stop(name, message, sleep_hours=1):
-    """Stop collector after sleep.
-    """
-    template = 'Collector %s has been stopped (%s) (will sleep %s hour(s) and exit)'
-    logger.info(template, name, message, sleep_hours)
-    time.sleep(sleep_hours*60*60)
-    exit()
-
-
 def get_variables(object, filter=None):
     """Exract variables from object to dict using name filter.
     """
@@ -60,3 +45,20 @@ def get_variables(object, filter=None):
                 continue
         variables[name] = value
     return variables
+
+
+def start(conf, name, message):
+    """Start collector.
+    """
+    logger.info('Collector %s has been started(%s)', name, message)
+
+
+def stop(conf, name, message, sleep_hours=1):
+    """Stop collector after sleep.
+    """
+    if conf['ENV'] == 'development':
+        sleep_house=0
+    template = 'Collector %s has been stopped (%s) (will sleep %s hour(s) and exit)'
+    logger.info(template, name, message, sleep_hours)
+    time.sleep(sleep_hours*60*60)
+    exit()
