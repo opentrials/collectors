@@ -8,10 +8,19 @@ python:
   - 2.7
 
 services:
+  - postgresql
   - docker
+
+addons:
+  postgresql: '9.4'
+
+env:
+  global:
+    - TEST_WAREHOUSE_URL=postgres://postgres@localhost:5432/opentrials-warehouse-test
 
 install:
   - make install
+  - psql -c 'create database opentrials-warehouse-test;' -U postgres
 
 script:
   - make build
