@@ -17,11 +17,12 @@ logger = logging.getLogger(__name__)
 
 # Module API
 
-def collect(conf, conn):
+def collect(conf, conn, date_from=None, date_to=None):
 
     # Start collector
-    date_from = _get_date_from(conn)
-    base.helpers.start(conf, 'hra', {'date_from': date_from})
+    date_from = _get_date_from(conn, date_from)
+    date_to = _get_date_to(conn, date_to)
+    base.helpers.start(conf, 'hra', {'date_from': date_from, 'date_to': date_to})
 
     # Get parameters
     ENV = conf['HRA_ENV']
@@ -38,11 +39,12 @@ def collect(conf, conn):
     count = 0
     chunk_days = 100
     session = requests.Session()
+    loop_date_from = date_from
     while True:
-        if date_from > datetime.date.today():
+        if loop_date_from > date_to:
             break
-        date_to = date_from + datetime.timedelta(days=chunk_days)
-        url = _make_request_url(URL, date_from, date_to)
+        loop_date_to = min(loop_date_from + datetime.timedelta(days=chunk_days), date_to)
+        url = _make_request_url(URL, loop_date_from, loop_date_to)
         response = session.get(url, auth=(USER, PASS))
         for item in response.json():
             try:
@@ -53,7 +55,7 @@ def collect(conf, conn):
                     logger.info('Collected "%s" hra records', count)
             except Exception as exception:
                 logger.exception('Collecting error: %s', repr(exception))
-        date_from = date_to + datetime.timedelta(days=1)
+        loop_date_from = loop_date_to + datetime.timedelta(days=1)
         time.sleep(1)
 
     # Stop collector
@@ -73,7 +75,9 @@ def _check_availability(utc_datetime, env='production'):
     return True
 
 
-def _get_date_from(conn):
+def _get_date_from(conn, date_from):
+    if date_from is not None:
+        return datetime.datetime.strptime(date_from, '%Y-%m-%d')
     date_from = datetime.date(2008, 1, 1)
     if 'hra' in conn['warehouse'].tables:
         rows = conn['warehouse'].query("""
@@ -84,6 +88,12 @@ def _get_date_from(conn):
         if latest:
             date_from = latest
     return date_from
+
+
+def _get_date_to(conn, date_to):
+    if date_to is not None:
+        return datetime.datetime.strptime(date_to, '%Y-%m-%d')
+    return datetime.datetime.date.today()
 
 
 def _make_request_url(prefix, date_from, date_to):

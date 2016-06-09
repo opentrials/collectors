@@ -57,7 +57,7 @@ def stop(conf, name, message, sleep_hours=1):
     """Stop collector after sleep.
     """
     if conf['ENV'] == 'development':
-        sleep_house=0
+        sleep_hours = 0
     template = 'Collector %s has been stopped (%s) (will sleep %s hour(s) and exit)'
     logger.info(template, name, message, sleep_hours)
     time.sleep(sleep_hours*60*60)
