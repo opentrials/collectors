@@ -96,7 +96,7 @@ class Record(scrapy.Item):
 
         """
         if self.table not in conn['warehouse'].tables:
-            if conf['ENV'] == 'development':
+            if conf['ENV'] in ['development', 'testing']:
                 table = conn['warehouse'].create_table(
                         self.table,
                         primary_id=self.__primary_key,
@@ -109,7 +109,7 @@ class Record(scrapy.Item):
                 del self[key]
         try:
             ensure_fields = False
-            if conf['ENV'] == 'development':
+            if conf['ENV'] in ['development', 'testing']:
                 ensure_fields = True
             table.upsert(
                 self, [self.__primary_key],

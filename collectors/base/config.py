@@ -14,6 +14,8 @@ load_dotenv('.env')
 # Environment
 
 ENV = os.environ['PYTHON_ENV']
+if os.environ.get('CI', None):
+    ENV = 'testing'
 
 # Spiders
 
