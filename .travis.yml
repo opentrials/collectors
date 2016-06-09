@@ -16,11 +16,11 @@ addons:
 
 env:
   global:
-    - TEST_WAREHOUSE_URL=postgres://postgres@localhost:5432/opentrials-warehouse-test
+    - TEST_WAREHOUSE_URL=postgres://postgres@localhost:5432/opentrials_warehouse_test
 
 install:
   - make install
-  - psql -c 'create database opentrials-warehouse-test;' -U postgres
+  - psql -c 'create database opentrials_warehouse_test;' -U postgres
 
 script:
   - make build
