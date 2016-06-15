@@ -93,7 +93,7 @@ def _get_date_from(conn, date_from):
 def _get_date_to(conn, date_to):
     if date_to is not None:
         return datetime.datetime.strptime(date_to, '%Y-%m-%d')
-    return datetime.datetime.date.today()
+    return datetime.date.today()
 
 
 def _make_request_url(prefix, date_from, date_to):
