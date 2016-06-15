@@ -15,9 +15,10 @@ from collectors.hra.collector import collect, _check_availability, _make_request
 # Tests
 
 def test_collect(conf, conn):
-    with pytest.raises(SystemExit):
-        collect(conf, conn, '2015-01-01', '2015-01-01')
-    assert conn['warehouse']['hra'].count() > 10
+    if conf['HRA_ENV'] == 'staging':
+        with pytest.raises(SystemExit):
+            collect(conf, conn, '2015-01-01', '2015-01-01')
+        assert conn['warehouse']['hra'].count() > 10
 
 
 @pytest.mark.parametrize('utc_datetime, expected', [
