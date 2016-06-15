@@ -40,7 +40,7 @@ AUTOTHROTTLE_ENABLED = True
 # Pipelines
 
 WAREHOUSE_URL = os.environ['WAREHOUSE_URL']
-TEST_WAREHOUSE_URL = os.environ['TEST_WAREHOUSE_URL']
+TEST_WAREHOUSE_URL = os.environ.get('TEST_WAREHOUSE_URL', None)
 ITEM_PIPELINES = {
     'collectors.base.pipelines.Warehouse': 100,
 }
