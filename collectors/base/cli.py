@@ -24,7 +24,7 @@ def cli(argv):
 
         # Prepare conn dict
         conn = {}
-        conn['warehouse'] = dataset.connect(config.WAREHOUSE_URL2)
+        conn['warehouse'] = dataset.connect(config.WAREHOUSE_URL)
 
         # Get and call collector
         collect = import_module('collectors.%s' % argv[1]).collect
