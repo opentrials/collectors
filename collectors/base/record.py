@@ -115,6 +115,6 @@ class Record(scrapy.Item):
                 self, [self.__primary_key],
                 ensure=ensure_fields, types=self.__column_types)
         except Exception as exception:
-            logger.exception('Saving error: %s: %s' % (self, repr(exception)))
+            logger.exception('Saving error: %s: %s', self, repr(exception))
         else:
             logger.debug('Record - %s: %s - %s fields', action, self, len(self))
