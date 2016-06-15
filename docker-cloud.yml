@@ -1,7 +1,7 @@
 actrn:
   image: okibot/collectors
   command: make start actrn 2001-01-01
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -11,7 +11,7 @@ actrn:
 euctr:
   image: okibot/collectors
   command: make start euctr 2001-01-01
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -21,7 +21,7 @@ euctr:
 fdadl:
   image: okibot/collectors
   command: make start fdadl
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -30,7 +30,7 @@ fdadl:
 gsk:
   image: okibot/collectors
   command: make start gsk 2001-01-01
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -53,7 +53,7 @@ hra:
 icdcm:
   image: okibot/collectors
   command: make start icdcm
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -62,7 +62,7 @@ icdcm:
 icdpcs:
   image: okibot/collectors
   command: make start icdpcs
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -71,7 +71,7 @@ icdpcs:
 ictrp:
   image: okibot/collectors
   command: make start ictrp
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -83,7 +83,7 @@ ictrp:
 isrctn:
   image: okibot/collectors
   command: make start isrctn 2001-01-01
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -93,7 +93,7 @@ isrctn:
 jprn:
   image: okibot/collectors
   command: make start jprn 1 100000
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -103,7 +103,7 @@ jprn:
 nct:
   image: okibot/collectors
   command: make start nct 2001-01-01
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -113,7 +113,7 @@ nct:
 pfizer:
   image: okibot/collectors
   command: make start pfizer
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
@@ -123,17 +123,17 @@ pfizer:
 pubmed:
   image: okibot/collectors
   command: make start pubmed 1900-01-01 2100-01-01
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
     LOGGING_URL:
-    DOWNLOAD_DELAY:
+    DOWNLOAD_DELAY: 0.5
 
 takeda:
   image: okibot/collectors
   command: make start takeda
-  restart: always
+  # restart: always
   environment:
     PYTHON_ENV:
     WAREHOUSE_URL:
