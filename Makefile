@@ -8,7 +8,7 @@ build:
 
 deploy:
 	$${CI?"Deploy is avaiable only on CI/CD server"}
-	docker-cloud stack stop --sync collectors || echo 'not running'
+	# docker-cloud stack stop --sync collectors || echo 'not running'
 	make migrate
 	# docker-cloud stack start --sync collectors
 
