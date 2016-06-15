@@ -128,7 +128,7 @@ pubmed:
     PYTHON_ENV:
     WAREHOUSE_URL:
     LOGGING_URL:
-    DOWNLOAD_DELAY: 0.5
+    DOWNLOAD_DELAY:
 
 takeda:
   image: okibot/collectors
