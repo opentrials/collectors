@@ -17,6 +17,8 @@ def parse_record(res):
 
     # Parse xml
     parsed_data = xmltodict.parse(res.body, force_cdata=True, dict_constructor=dict)
+    if 'PubmedArticle' not in parsed_data['PubmedArticleSet']:
+        return None
     medline = parsed_data['PubmedArticleSet']['PubmedArticle']['MedlineCitation']
     pubmed = parsed_data['PubmedArticleSet']['PubmedArticle']['PubmedData']
     article = medline['Article']
@@ -48,6 +50,8 @@ def parse_record(res):
         data['nlm_unique_id'] = medline['MedlineJournalInfo']['NlmUniqueID']['#text']
     if 'ISSNLinking' in medline['MedlineJournalInfo']:
         data['issn_linking'] = medline['MedlineJournalInfo']['ISSNLinking']['#text']
+    if 'MeshHeadingList' in medline:
+        data['mesh_headings'] = medline['MeshHeadingList']
 
     # Journal
 
@@ -73,8 +77,9 @@ def parse_record(res):
     if 'AuthorList' in article:
         data['article_authors'] = []
         for item in article['AuthorList']['Author']:
-            data['article_authors'].append('%s %s' % (
-                item['ForeName']['#text'], item['LastName']['#text']))
+            if 'ForeName' in item and 'LastName' in item:
+                data['article_authors'].append('%s %s' % (
+                    item['ForeName']['#text'], item['LastName']['#text']))
     if 'Language' in article:
         data['article_language'] = article['Language']['#text']
     if 'PublicationTypeList' in article:
@@ -85,7 +90,7 @@ def parse_record(res):
         for sumelem in elem:
             data['article_publication_type_list'].append(sumelem['#text'])
     if 'VernacularTitle' in article:
-        data['vernacular_title'] = article['VernacularTitle']['#text']
+        data['article_vernacular_title'] = article['VernacularTitle']['#text']
     if 'ArticleDate' in article:
         data['article_date'] = '{year}-{month}-{day}'.format(
             year=article['ArticleDate']['Year']['#text'],
@@ -98,11 +103,15 @@ def parse_record(res):
         data['publication_status'] = pubmed['PublicationStatus']['#text']
     if 'ArticleIdList' in pubmed:
         data['identifiers_list'] = {}
-        for item in pubmed['ArticleIdList']['ArticleId']:
+        items = pubmed['ArticleIdList']['ArticleId']
+        if not isinstance(items, list):
+            items = [items]
+        for item in items:
             data['identifiers_list'][item['@IdType']] = item['#text']
 
     # Create record
-    record = Record(res.url, data)
+    url = 'http://www.ncbi.nlm.nih.gov/pubmed/%s' % data['pmid']
+    record = Record.create(url, data)
 
     return record
 

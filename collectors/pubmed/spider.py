@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import time
 import logging
 import requests
 from urllib import urlencode
@@ -48,6 +49,10 @@ def _make_start_urls(prefix, template, date_from=None, date_to=None):
     """ Return start_urls.
     """
 
+    # Init urls and session
+    urls = set()
+    session = requests.Session()
+
     # Prepare dates
     if date_from is None:
         date_from = str(date.today() - timedelta(days=1))
@@ -59,18 +64,39 @@ def _make_start_urls(prefix, template, date_from=None, date_to=None):
     # Prepare query
     query = OrderedDict()
     query['db'] = 'pubmed'
-    query['term'] = 'trial registration'
     query['retmode'] = 'json'
-    query['datetype'] = 'pdat'
     query['mindate'] = date_from
     query['maxdate'] = date_to
-    query['retmax'] = '100000'
 
-    # Make request
-    res = requests.get(prefix + '?' + urlencode(query))
-    pmids = res.json()['esearchresult']['idlist']
-    urls = []
-    for pmid in pmids:
-        urls.append(template.format(pmid=pmid))
+    # Terms to search
+    terms = [
+        'trial registration',
+        '"controlled clinical trial"[Publication Type]',
+    ]
+
+    # For all terms
+    for term in terms:
+        query['term'] = term
+
+        # For both publication/modifiction
+        for date_type in ['pdat', 'mdat']:
+            retstart = 0
+            retmax = 50000
+            while True:
+                query['datetype'] = date_type
+                query['retstart'] = retstart
+                query['retmax'] = retmax
+                url = '%s?%s' % (prefix, urlencode(query))
+                response = session.get(url)
+                pmids = response.json()['esearchresult']['idlist']
+                if not pmids:
+                    break
+                for pmid in pmids:
+                    urls.add(template.format(pmid=pmid))
+                retstart += retmax
+                time.sleep(1)
+
+    # Log urls count
     logger.info('Populated Pubmed start urls: %s', len(urls))
-    return urls
+
+    return list(urls)

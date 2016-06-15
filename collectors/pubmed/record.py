@@ -26,6 +26,7 @@ class Record(base.Record):
     medline_ta = Text()
     nlm_unique_id = Text()
     issn_linking = Text()
+    mesh_headings = Json()
 
     # Journal
 
