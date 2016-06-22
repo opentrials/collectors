@@ -48,7 +48,7 @@ def collect(conf, conn):
         data['last_updated'] = LAST_UPDATED
 
         # Create record
-        record = Record.create(URL, data)
+        record = Record.create(None, data)
 
         # Write record
         record.write(conf, conn)
