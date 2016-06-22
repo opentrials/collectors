@@ -58,6 +58,6 @@ def parse_record(url, item):
     data['research_summary_suitability'] = item['ResearchSummarySuitability']
 
     # Create record
-    record = Record.create(None, data)
+    record = Record.create(url, data)
 
     return record
