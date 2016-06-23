@@ -320,7 +320,8 @@ def parse_record(res):
     data[key] = value
 
     # Create record
-    record = Record.create(res.url, data)
+    url = 'https://clinicaltrials.gov/ct2/show/%s' % data['nct_id']
+    record = Record.create(url, data)
 
     return record
 
