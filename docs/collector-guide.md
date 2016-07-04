@@ -33,6 +33,7 @@ To bootstrap a new `guide` collector:
 
 ```
 $ mkdir collectors/guide
+$ touch collectors/guide/__init__.py
 $ touch collectors/guide/collector.py
 $ touch collectors/guide/parser.py
 $ touch collectors/guide/record.py

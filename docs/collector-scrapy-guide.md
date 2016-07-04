@@ -35,6 +35,7 @@ To bootstrap a new `guide` collector:
 
 ```
 $ mkdir collectors/guide
+$ touch collectors/guide/__init__.py
 $ touch collectors/guide/collector.py
 $ touch collectors/guide/parser.py
 $ touch collectors/guide/record.py
@@ -115,7 +116,11 @@ class Spider(CrawlSpider):
     name = 'guide'
     allowed_domains = ['pfizer.com']
 
-    def __init__(self):
+    def __init__(self, conf=None, conn=None):
+
+        # Save conf/conn
+        self.conf = conf
+        self.conn = conn
 
         # Make urls
         self.start_urls = [
@@ -133,7 +138,7 @@ class Spider(CrawlSpider):
         ]
 
         # Inherit parent
-        super(GuideSpider, self).__init__()
+        super(Spider, self).__init__()
 ```
 
 An instance of this class will call `parse_record(response)` for
