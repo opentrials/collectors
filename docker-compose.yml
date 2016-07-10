@@ -2,63 +2,76 @@ actrn:
   extends:
     service: actrn
     file: docker-cloud.yml
+  restart: 'no'
 
 euctr:
   extends:
     service: euctr
     file: docker-cloud.yml
+  restart: 'no'
 
 fdadl:
   extends:
     service: fdadl
     file: docker-cloud.yml
+  restart: 'no'
 
 gsk:
   extends:
     service: gsk
     file: docker-cloud.yml
+  restart: 'no'
 
 icdcm:
   extends:
     service: icdcm
     file: docker-cloud.yml
+  restart: 'no'
 
 icdpcs:
   extends:
     service: icdpcs
     file: docker-cloud.yml
+  restart: 'no'
 
 ictrp:
   extends:
     service: ictrp
     file: docker-cloud.yml
+  restart: 'no'
 
 isrctn:
   extends:
     service: isrctn
     file: docker-cloud.yml
+  restart: 'no'
 
 jprn:
   extends:
     service: jprn
     file: docker-cloud.yml
+  restart: 'no'
 
 nct:
   extends:
     service: nct
     file: docker-cloud.yml
+  restart: 'no'
 
 pfizer:
   extends:
     service: pfizer
     file: docker-cloud.yml
+  restart: 'no'
 
 pubmed:
   extends:
     service: pubmed
     file: docker-cloud.yml
+  restart: 'no'
 
 takeda:
   extends:
     service: takeda
     file: docker-cloud.yml
+  restart: 'no'
