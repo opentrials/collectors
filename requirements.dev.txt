@@ -6,6 +6,7 @@ tox
 mock
 pytest
 pytest-cov
+betamax
 coverage
 coveralls
 ipython
