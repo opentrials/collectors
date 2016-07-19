@@ -66,3 +66,7 @@ HRA_ENV = os.environ.get('HRA_ENV', None)
 HRA_URL = os.environ.get('HRA_URL', None)
 HRA_USER = os.environ.get('HRA_USER', None)
 HRA_PASS = os.environ.get('HRA_PASS', None)
+
+# Epistemonikos
+
+EPISTEMONIKOS_TOKEN = os.environ.get('EPISTEMONIKOS_TOKEN')
