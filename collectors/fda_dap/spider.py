@@ -217,7 +217,7 @@ class Spider(CrawlSpider):
         '''
         for i, document in enumerate(item['documents']):
             for url in document['urls']:
-                if not url.endswith('.pdf'):
+                if not url.lower().endswith('.pdf'):
                     # This document is just a link to another page with more
                     # documents. As we'll parse this other page, we won't need it
                     # anymore.
