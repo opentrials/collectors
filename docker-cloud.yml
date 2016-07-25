@@ -27,7 +27,7 @@ fdadl:
     WAREHOUSE_URL:
     LOGGING_URL:
 
-fda_dap:
+fdadap:
   image: okibot/collectors
   command: make start fda_dap
   # restart: always
