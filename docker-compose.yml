@@ -16,6 +16,12 @@ fdadl:
     file: docker-cloud.yml
   restart: 'no'
 
+fda_dap:
+  extends:
+    service: fda_dap
+    file: docker-cloud.yml
+  restart: 'no'
+
 gsk:
   extends:
     service: gsk

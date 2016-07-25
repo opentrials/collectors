@@ -27,6 +27,15 @@ fdadl:
     WAREHOUSE_URL:
     LOGGING_URL:
 
+fda_dap:
+  image: okibot/collectors
+  command: make start fda_dap
+  # restart: always
+  environment:
+    PYTHON_ENV:
+    WAREHOUSE_URL:
+    LOGGING_URL:
+
 gsk:
   image: okibot/collectors
   command: make start gsk 2001-01-01
