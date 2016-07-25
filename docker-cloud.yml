@@ -7,6 +7,8 @@ actrn:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
 
 euctr:
   image: okibot/collectors
@@ -17,6 +19,8 @@ euctr:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
 
 fdadl:
   image: okibot/collectors
@@ -26,6 +30,8 @@ fdadl:
     PYTHON_ENV:
     WAREHOUSE_URL:
     LOGGING_URL:
+  tags:
+    - opentrials
 
 fdadap:
   image: okibot/collectors
@@ -35,6 +41,8 @@ fdadap:
     PYTHON_ENV:
     WAREHOUSE_URL:
     LOGGING_URL:
+  tags:
+    - opentrials
 
 gsk:
   image: okibot/collectors
@@ -45,6 +53,8 @@ gsk:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
 
 hra:
   image: okibot/collectors
@@ -58,6 +68,8 @@ hra:
     HRA_URL:
     HRA_USER:
     HRA_PASS:
+  tags:
+    - opentrials
 
 icdcm:
   image: okibot/collectors
@@ -67,6 +79,8 @@ icdcm:
     PYTHON_ENV:
     WAREHOUSE_URL:
     LOGGING_URL:
+  tags:
+    - opentrials
 
 icdpcs:
   image: okibot/collectors
@@ -76,6 +90,8 @@ icdpcs:
     PYTHON_ENV:
     WAREHOUSE_URL:
     LOGGING_URL:
+  tags:
+    - opentrials
 
 ictrp:
   image: okibot/collectors
@@ -88,6 +104,8 @@ ictrp:
     DOWNLOAD_DELAY:
     ICTRP_USER:
     ICTRP_PASS:
+  tags:
+    - opentrials
 
 isrctn:
   image: okibot/collectors
@@ -98,6 +116,8 @@ isrctn:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
 
 jprn:
   image: okibot/collectors
@@ -108,6 +128,8 @@ jprn:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
 
 nct:
   image: okibot/collectors
@@ -118,6 +140,8 @@ nct:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
 
 pfizer:
   image: okibot/collectors
@@ -128,6 +152,8 @@ pfizer:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
 
 pubmed:
   image: okibot/collectors
@@ -138,6 +164,8 @@ pubmed:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
 
 takeda:
   image: okibot/collectors
@@ -148,3 +176,5 @@ takeda:
     WAREHOUSE_URL:
     LOGGING_URL:
     DOWNLOAD_DELAY:
+  tags:
+    - opentrials
