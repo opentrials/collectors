@@ -127,7 +127,12 @@ class Spider(CrawlSpider):
         page. To avoid the requests messing up with each other, we need a clean
         set of cookies for each one.
         '''
-        urls = response.css('.product_table a::attr(href)').extract()
+        selector = (
+            'table[summary="Drugs by Application Number data table"]'
+            ' tr > td:first-child'
+            ' a::attr(href)'
+        )
+        urls = response.css(selector).extract()
         for url in urls:
             meta = {
                 'cookiejar': random.random(),

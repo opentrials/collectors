@@ -146,6 +146,22 @@ class TestFDADAP(object):
             assert request.dont_filter
             assert request.callback == spider.parse_drug_details_or_overview
 
+    def test_parse_drug_overview_only_follow_links_to_drug_details_page(self, get_url):
+        '''There might be tables with links in multiple columns. We're only
+        interested in links on the first column (Drug Name).
+        '''
+        search_url = 'http://www.accessdata.fda.gov/scripts/cder/drugsatfda/index.cfm?fuseaction=Search.SearchResults_Browse&DrugInitial=F'
+        url = 'http://www.accessdata.fda.gov/scripts/cder/drugsatfda/index.cfm?fuseaction=Search.Overview&DrugName=FYCOMPA'
+
+        get_url(search_url)  # Needed to set up the session
+        response = get_url(url)
+
+        requests = [request for request in Spider().parse_drug_overview(response)]
+
+        assert len(requests) == 2
+        for request in requests:
+            assert 'goto=Search.Label_ApprovalHistory' not in request.url
+
     def test_parse_approval_history(self, get_url):
         search_overview_url = 'http://www.accessdata.fda.gov/scripts/cder/drugsatfda/index.cfm?fuseaction=Search.Overview&DrugName=EFFEXOR%20XR'
         url = 'http://www.accessdata.fda.gov/scripts/cder/drugsatfda/index.cfm?fuseaction=Search.Label_ApprovalHistory#apphist'
