@@ -56,17 +56,22 @@ def collect(conf, conn):
 
             try:
 
+                meta = item['openfda']
+
                 # Skip if no NDC code
-                if 'product_ndc' not in item['openfda']:
+                if 'product_ndc' not in meta:
                     continue
 
                 # Get data
-                data = {}
-                data['product_ndc'] = item['openfda']['product_ndc'][0]
-                data['product_type'] = item['openfda']['product_type'][0]
-                data['generic_name'] = item['openfda']['generic_name'][0]
-                data['brand_name'] = item['openfda']['brand_name'][0]
-                data['last_updated'] = last_updated
+                data = {
+                    'product_ndc': meta['product_ndc'][0],
+                    'product_type': meta['product_type'][0],
+                    'generic_name': meta['generic_name'][0],
+                    'brand_name': meta['brand_name'][0],
+                    'last_updated': last_updated,
+                }
+                if meta.get('application_number'):
+                    data['fda_application_number'] = meta['application_number'][0]
 
                 # Create record
                 record = Record.create(url, data)

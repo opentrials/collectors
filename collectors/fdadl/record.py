@@ -19,6 +19,7 @@ class Record(base.Record):
     # General
 
     product_ndc = Text(primary_key=True)
+    fda_application_number = Text()
     product_type = Text()
     generic_name = Text()
     brand_name = Text()
