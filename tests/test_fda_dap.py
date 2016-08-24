@@ -208,9 +208,40 @@ class TestFDADAP(object):
         assert documents[0] == mock_item['documents'][0]
 
         assert documents[2] == {
-            'name': 'Medical Review(s)',
+            'name': 'Medical Review',
             'urls': [
                 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/97/020699ap_effexor_medrp1.pdf',
                 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/97/020699ap_effexor_medrp2.pdf',
             ],
         }
+
+    def test_parse_dap_page_with_page_with_paragraphs_inside_lis(self, get_url):
+        '''Test that we can extract the document names from DAPs which <li>
+        elements contain <p> elements.'''
+
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2003/21-385_Ertaczo.cfm'
+        mock_item = {
+            'documents': []
+        }
+
+        response = get_url(url)
+        response.meta['item'] = mock_item
+
+        spider = Spider()
+        item = spider.parse_dap_page(response)
+
+        documents = item['documents']
+        documents_names = [document['name'] for document in documents]
+
+        assert documents_names == [
+            'Approval Letter',
+            'Printed Labeling',
+            'Medical Review',
+            'Chemistry Review',
+            'Pharmacology Review',
+            'Statistical Review',
+            'Microbiology Review',
+            'Clinical Pharmacology Biopharmaceutics Review',
+            'Administrative Document',
+            'Correspondence',
+        ]
