@@ -238,13 +238,17 @@ class Spider(CrawlSpider):
         being added to the "urls" attribute in the order they appear on the
         page.
         '''
+        def _get_document_name(el):
+            selectors = ['::text', 'p::text', 'a::text']
+            for selector in selectors:
+                name = _clean_document_name(el.css(selector).extract_first())
+                if name:
+                    return name
+
         item = res.meta['item']
 
         for li in res.css('#user_provided > ul > li'):
-            name = li.css('::text').extract_first().strip()
-            if name == '':
-                name = li.css('a::text').extract_first().strip()
-            name = _clean_document_name(name)
+            name = _get_document_name(li)
             urls = [_join_and_canonicalize_urls(res.url, url)
                     for url in li.css('a::attr(href)').extract()]
             item['documents'].append({'name': name, 'urls': urls})
