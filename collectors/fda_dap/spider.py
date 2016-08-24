@@ -262,7 +262,8 @@ def _join_and_canonicalize_urls(url1, url2):
 
 
 def _clean_document_name(name):
-    result = name.replace('(PDF)', '')
+    result = name.replace('(PDF)', '') \
+                 .replace('(s)', '')
     result = re.sub(r'\s{2,}', ' ', result)
 
     return result.strip()
