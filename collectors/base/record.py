@@ -54,7 +54,7 @@ class Record(scrapy.Item):
             self.__column_types[key] = field.column_type
 
         # Add metadata
-        ident = uuid.uuid4().hex
+        ident = uuid.uuid1().hex
         timestamp = datetime.utcnow()
         self.fields['meta_id'] = fields.Text()
         self.fields['meta_source'] = fields.Text()
