@@ -40,7 +40,7 @@ def parse_record(res):
     # https://www.clinicaltrialsregister.eu/ctr-search/trial/2012-001258-25/results
     if 'eudract_number' not in subdata:
         return None
-    eudract_number = 'EUCTR%s' % subdata['eudract_number']
+    eudract_number = subdata['eudract_number']
     data.update(subdata)
 
     key = 'eudract_number_with_country'

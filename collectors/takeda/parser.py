@@ -24,9 +24,6 @@ def parse_record(res):
 
         # General
 
-        if key == 'takeda_trial_id':
-            value = 'TAKEDA%s' % value
-
         if key == 'compound':
             value = value.split(',')
 
