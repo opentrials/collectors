@@ -42,7 +42,7 @@ def parse_record(res):
             year=medline['DateRevised']['Year']['#text'],
             month=medline['DateRevised']['Month']['#text'],
             day=medline['DateRevised']['Day']['#text'])
-    if 'Country' in medline['MedlineJournalInfo']:
+    if medline['MedlineJournalInfo'].get('Country'):
         data['country'] = medline['MedlineJournalInfo']['Country']['#text']
     if 'MedlineTA' in medline['MedlineJournalInfo']:
         data['medline_ta'] = medline['MedlineJournalInfo']['MedlineTA']['#text']
@@ -70,9 +70,8 @@ def parse_record(res):
         elem = article['Abstract']['AbstractText']
         if not isinstance(elem, list):
             elem = [elem]
-        text = []
-        for subelem in elem:
-            text.append(subelem['#text'])
+        text = [subelem['#text'] for subelem in elem
+                if '#text' in subelem]
         data['article_abstract'] = ' '.join(text)
     if 'AuthorList' in article:
         data['article_authors'] = []
@@ -81,7 +80,11 @@ def parse_record(res):
                 data['article_authors'].append('%s %s' % (
                     item['ForeName']['#text'], item['LastName']['#text']))
     if 'Language' in article:
-        data['article_language'] = article['Language']['#text']
+        elem = article['Language']
+        if not isinstance(elem, list):
+            elem = [elem]
+        # FIXME: Properly handle multiple languages
+        data['article_language'] = elem[0]['#text']
     if 'PublicationTypeList' in article:
         data['article_publication_type_list'] = []
         elem = article['PublicationTypeList']['PublicationType']
@@ -89,7 +92,7 @@ def parse_record(res):
             elem = [elem]
         for sumelem in elem:
             data['article_publication_type_list'].append(sumelem['#text'])
-    if 'VernacularTitle' in article:
+    if article.get('VernacularTitle'):
         data['article_vernacular_title'] = article['VernacularTitle']['#text']
     if 'ArticleDate' in article:
         data['article_date'] = '{year}-{month}-{day}'.format(
