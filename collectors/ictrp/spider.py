@@ -38,6 +38,7 @@ class Spider(CrawlSpider):
         self.rules = [
             Rule(LinkExtractor(
                 allow=r'trialsearch/Trial\d+\.aspx\?trialid=.+',
+                process_value=lambda value: value.replace('Trial3', 'Trial2'),
             ), callback=parse_record),
             Rule(LinkExtractor(
                 allow=r'trialsearch/crawl/crawl\d+\.aspx',
