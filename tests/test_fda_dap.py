@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import datetime
 import mock
 import random
 import urlparse
@@ -173,14 +174,35 @@ class TestFDADAP(object):
         items = [item
                  for item in spider.parse_approval_history(response)]
 
+        expected_item = {
+            'id': 'NDA020699-001',
+            'drug_name': 'EFFEXOR XR',
+            'active_ingredients': 'VENLAFAXINE HYDROCHLORIDE',
+            'company': 'WYETH PHARMS INC',
+            'fda_application_num': 'NDA020699',
+            'action_date': datetime.date(1999, 3, 11),
+            'supplement_number': 1,
+            'approval_type': 'New or Modified Indication',
+            'documents': [
+                {
+                    'name': 'Label',
+                    'urls': [
+                        'http://www.accessdata.fda.gov/drugsatfda_docs/label/1999/20699s1lbl.pdf',
+                    ],
+                },
+                {
+                    'name': 'Letter',
+                    'urls': [
+                        'http://www.accessdata.fda.gov/drugsatfda_docs/appletter/1999/20699s1ltr.pdf',
+                    ],
+                },
+            ]
+        }
         complete_item = items[-3]
-        assert complete_item['id'] == 'NDA020699-001'
-        assert complete_item['fda_application_num'] == 'NDA020699'
-        assert complete_item['action_date'].isoformat() == '1999-03-11'
-        assert complete_item['supplement_number'] == 1
-        assert complete_item['approval_type'] == 'New or Modified Indication'
-        assert complete_item.get('notes') is None
-        assert len(complete_item['documents']) == 2
+        item_without_meta = dict([(key, value)
+                                  for key, value in complete_item.items()
+                                  if not key.startswith('meta_')])
+        assert item_without_meta == expected_item
 
         incomplete_item_request = items[-1]
         incomplete_item = incomplete_item_request.meta.get('item')

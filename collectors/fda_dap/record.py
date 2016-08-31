@@ -19,6 +19,9 @@ class Record(base.Record):
     # General
 
     id = Text(primary_key=True)
+    drug_name = Text()
+    active_ingredients = Text()
+    company = Text()
     fda_application_num = Text()
     supplement_number = Integer()
     action_date = Date('%m/%d/%Y')

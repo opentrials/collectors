@@ -172,32 +172,51 @@ class Spider(CrawlSpider):
             return [{'name': name, 'urls': [url]}
                     for name, url in zip(names, urls)]
 
-        def _parse_row(row, url, fda_application_num):
+        def _parse_row(row, url, drug_details):
             columns = row.css('td')
 
             data = {
-                'fda_application_num': fda_application_num,
                 'action_date': _extract_text(columns[0]),
                 'supplement_number': _extract_text(columns[1]),
                 'approval_type': _extract_text(columns[2]),
                 'documents': _parse_links(columns[3]),
                 'notes': _extract_text(columns[4]) or None,
             }
+
+            intersection = set(drug_details.keys()).intersection(data.keys())
+            assert not intersection, \
+                'Drug details and data contain equal keys: %s' % intersection
+
+            data.update(drug_details)
             data['id'] = '-'.join([data['fda_application_num'],
                                    data['supplement_number']])
 
             return Record.create(None, data)
 
-        def _parse_fda_application_num(res):
-            drug_details = res.css('.details_table strong::text')
+        def _parse_drug_details(res):
+            drug_details = res.css('.details_table:nth-child(2) strong::text')
             assert len(drug_details) >= 4, \
                 'We expected more drug details (%d < 4)' % len(drug_details)
-            return re.sub(r'[()\s]', '', drug_details[3].extract())
+            keys = [
+                'drug_name',
+                'fda_application_num',
+                'active_ingredients',
+                'company',
+            ]
+            values = [value.strip() for value in drug_details.extract()]
+            drug_details = dict(zip(keys, values))
 
-        fda_application_num = _parse_fda_application_num(response)
+            # Remove parenthesis and whitespaces from FDA Application Number
+            fda_appl_num = drug_details['fda_application_num']
+            fda_appl_num = re.sub(r'[()\s]', '', fda_appl_num)
+            drug_details['fda_application_num'] = fda_appl_num
+
+            return drug_details
+
+        drug_details = _parse_drug_details(response)
         selector = 'table[summary="Approval History for the selected Application"] tr'
         rows = response.css(selector)
-        items = [_parse_row(row, response.url, fda_application_num)
+        items = [_parse_row(row, response.url, drug_details)
                  for row in rows[1:-1]]  # Ignore table's header and footer
 
         for item in items:
