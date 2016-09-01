@@ -113,6 +113,7 @@ class Record(base.Record):
     trade_name = Text()
     trade_name_product_name = Text()
     study_indications = Text()
+    results_url = Text()
 
     # Publication
 
