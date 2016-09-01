@@ -61,6 +61,9 @@ def parse_record(res):
         if key in data:
             del data[key]
 
+    identifier = data.get('unique_id_issued_by_umin')
+    data['unique_trial_number'] = data.get('unique_trial_number', identifier)
+
     # Create record
     record = Record.create(res.url, data)
 
