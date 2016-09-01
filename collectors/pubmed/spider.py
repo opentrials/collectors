@@ -45,13 +45,14 @@ class Spider(CrawlSpider):
 
 # Internal
 
-def _make_start_urls(prefix, template, date_from=None, date_to=None):
+def _make_start_urls(prefix, template, date_from=None, date_to=None, session=None):
     """ Return start_urls.
     """
 
     # Init urls and session
     urls = set()
-    session = requests.Session()
+    if not session:
+        session = requests.Session()
 
     # Prepare dates
     if date_from is None:
