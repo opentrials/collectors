@@ -23,9 +23,8 @@ install:
   - psql -c 'create database opentrials_warehouse_test;' -U postgres
 
 script:
-  - make build
   - make test
-  - make push
+  - make build
 
 deploy:
   - provider: script

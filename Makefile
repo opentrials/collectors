@@ -6,7 +6,7 @@ all: list
 build:
 	docker build -t okibot/collectors .
 
-deploy:
+deploy: push
 	$${CI?"Deploy is avaiable only on CI/CD server"}
 	# docker-cloud stack stop --sync collectors || echo 'not running'
 	make migrate
