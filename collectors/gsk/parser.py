@@ -4,6 +4,10 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 import re
 from .. import base
 from .record import Record
@@ -110,6 +114,12 @@ def parse_record(res):
         data['last_updated'] = nodes[1].xpath('text()').extract_first()
     except Exception:
         pass
+
+    # Results URL
+    urls = res.css('#rs td a::attr(href)').extract()
+    if urls:
+        assert len(urls) == 1, 'Multiple URLs found on %s' % res.url
+        data['results_url'] = urlparse.urljoin(res.url, urls[0])
 
     # Remove data
     for key in fields_to_remove:

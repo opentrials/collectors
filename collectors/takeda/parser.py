@@ -4,6 +4,10 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 from .. import base
 from .record import Record
 
@@ -34,6 +38,18 @@ def parse_record(res):
 
         # Collect plain values
         data[key] = value
+
+    # Extract results URL
+    selector = '#results div a::attr(href)'
+    value = res.css(selector).extract_first()
+    if value:
+        url = urlparse.urljoin(res.url, value)
+        data['download_the_clinical_trial_summary'] = url
+    else:
+        try:
+            del data['download_the_clinical_trial_summary']
+        except KeyError:
+            pass
 
     # Create record
     record = Record.create(res.url, data)

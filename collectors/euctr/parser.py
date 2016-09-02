@@ -4,6 +4,10 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 from .. import base
 from .record import Record
 
@@ -46,6 +50,12 @@ def parse_record(res):
     key = 'eudract_number_with_country'
     value = '-'.join([eudract_number, res.url.split('/')[-1]])
     data.update({key: value})
+
+    # Trial results URL
+    key = '.summary a::attr(href)'
+    value = res.css(key).extract_first()
+    if value:
+        data['trial_results'] = urlparse.urljoin(res.url, value)
 
     # A. Protocol Information
 
