@@ -267,3 +267,187 @@ class TestFDADAP(object):
             'Administrative Document',
             'Correspondence',
         ]
+
+    def test_parse_dap_page_on_page_with_documents_sizes(self, get_url):
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/99/020500S005.cfm'
+        mock_item = {
+            'documents': [],
+        }
+        response = get_url(url)
+        response.meta['item'] = mock_item
+
+        item = Spider().parse_dap_page(response)
+
+        documents = item['documents']
+        documents_names = [document['name'] for document in documents]
+
+        assert documents_names == [
+            'Approval Letter & Printed Labeling',
+            'Medical/Statistical Review',
+            'Chemistry Review Microbiology Review Clinical Pharmacology Biopharmaceutics Review',
+            'Administrative Document/Correspondence',
+        ]
+
+    def test_parse_dap_page_on_page_with_empty_documents_sizes(self, get_url):
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/98/020634s04.cfm'
+        mock_item = {
+            'documents': [],
+        }
+        response = get_url(url)
+        response.meta['item'] = mock_item
+
+        item = Spider().parse_dap_page(response)
+
+        documents = item['documents']
+        documents_names = [document['name'] for document in documents]
+
+        assert documents_names == [
+            'Approval Letter',
+            'Printed Labeling',
+            'Medical Review',
+            'Chemistry Review, Environmental Assessment & Statistical Review',
+            'Microbiology Review & Clinical Pharmacology Biopharmaceutics Review',
+            'Administrative Document/Correspondence',
+        ]
+
+    def test_parse_dap_page_on_page_with_vision_impaired_notices(self, get_url):
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2006/021871TOC.cfm'
+        mock_item = {
+            'documents': [],
+        }
+        response = get_url(url)
+        response.meta['item'] = mock_item
+
+        item = Spider().parse_dap_page(response)
+
+        documents = item['documents']
+        documents_names = [document['name'] for document in documents]
+
+        assert documents_names == [
+            'Approval Letter',
+            'Printed Labeling',
+            'Medical Review',
+            'Chemistry Review',
+            'Pharmacology Review',
+            'Statistical Review',
+            'Clinical Pharmacology Biopharmaceutics Review',
+            'Administrative Document & Correspondence',
+        ]
+
+    def test_parse_dap_page_on_page_with_unnamed_multipart_document_only(self, get_url):
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2000/019901_s028_Altace.cfm'
+        mock_item = {
+            'documents': [],
+        }
+        response = get_url(url)
+        response.meta['item'] = mock_item
+        response.meta['document_name'] = 'document_name'
+
+        item = Spider().parse_dap_page(response)
+
+        documents = item['documents']
+
+        assert item['documents'] == [
+            {
+                'name': response.meta['document_name'],
+                'urls': [
+                    'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2000/019901_S028_Altace_p1.pdf',
+                    'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2000/019901_S028_Altace_p2.pdf',
+                    'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2000/019901_S028_Altace_p3.pdf',
+                    'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2000/019901_S028_Altace_p4.pdf',
+                ]
+            },
+        ]
+
+    def test_parse_dap_page_on_page_multipart_doc_with_suffix_part_number_only(self, get_url):
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/96/020430_toc.cfm'
+        mock_item = {
+            'documents': [],
+        }
+        response = get_url(url)
+        response.meta['item'] = mock_item
+
+        item = Spider().parse_dap_page(response)
+
+        documents = item['documents']
+
+        assert item['documents'] == [
+            {
+                'name': 'Review',
+                'urls': [
+                    'http://www.accessdata.fda.gov/drugsatfda_docs/nda/96/020430ap-1.pdf',
+                    'http://www.accessdata.fda.gov/drugsatfda_docs/nda/96/020430ap-2.pdf',
+                ]
+            },
+        ]
+
+    def test_parse_dap_page_on_page_multipart_doc_with_prefix_part_number_only(self, get_url):
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/98/20713.cfm'
+        mock_item = {
+            'documents': [],
+        }
+        response = get_url(url)
+        response.meta['item'] = mock_item
+
+        item = Spider().parse_dap_page(response)
+
+        documents = item['documents']
+
+        assert item['documents'] == [
+            {
+                'name': 'Drug Review',
+                'urls': [
+                    'http://www.accessdata.fda.gov/drugsatfda_docs/nda/98/20713-1.pdf',
+                    'http://www.accessdata.fda.gov/drugsatfda_docs/nda/98/20713-2.pdf',
+                ]
+            },
+        ]
+
+    def test_parse_dap_page_on_page_with_multipart_doc_among_normal_ones(self, get_url):
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2003/103628s5021TOC.cfm'
+        mock_item = {
+            'documents': [],
+        }
+        response = get_url(url)
+        response.meta['item'] = mock_item
+
+        item = Spider().parse_dap_page(response)
+
+        documents = item['documents']
+        documents_names = [document['name'] for document in documents]
+
+        assert documents_names == [
+            'Approval Letter',
+            'Summary Basis for Approval',
+            'Chemistry, Manufacture and Control Review',
+            'Printed Labeling',
+            'Medication Guide',
+            'Clinical Review',
+            'Licensing Action',
+            'Review of Assay Validation',
+            'Immunogenicity Review',
+            'Pharmacology Toxicology Review',
+            'Toxicologist Review',
+        ]
+        assert item['documents'][2]['urls'] == [
+            'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2003/103268s5021CMCreview1.pdf',
+            'http://www.accessdata.fda.gov/drugsatfda_docs/nda/2003/103628s5021CMCreview2.pdf',
+        ]
+
+    def test_parse_dap_page_on_page_with_pdf_in_brackets(self, get_url):
+        url = 'http://www.accessdata.fda.gov/drugsatfda_docs/nda/pre96/019002-S2_VASCOR%20TABLETS_toc.cfm'
+        mock_item = {
+            'documents': [],
+        }
+        response = get_url(url)
+        response.meta['item'] = mock_item
+
+        item = Spider().parse_dap_page(response)
+
+        documents = item['documents']
+        documents_names = [document['name'] for document in documents]
+
+        assert documents_names == [
+            'Approval Letter',
+            'Chemistry Review',
+        ]

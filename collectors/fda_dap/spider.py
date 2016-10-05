@@ -237,13 +237,19 @@ class Spider(CrawlSpider):
         for i, document in enumerate(item['documents']):
             for url in document['urls']:
                 if not url.lower().endswith('.pdf'):
+                    meta = {
+                        'item': item,
+                        'document_name': item['documents'][i]['name'],
+                    }
+
                     # This document is just a link to another page with more
                     # documents. As we'll parse this other page, we won't need it
                     # anymore.
                     del item['documents'][i]
+
                     return Request(
                         url,
-                        meta={'item': item},
+                        meta=meta,
                         callback=self.parse_dap_page
                     )
 
@@ -264,6 +270,38 @@ class Spider(CrawlSpider):
                 if name:
                     return name
 
+        def _fix_multipart_review_documents(item, default_document_name='Review'):
+            '''Fixes DAP pages with documents split in many parts.
+
+            If this is the case of the current page, this method will merge the
+            multipart documents in a single one with the name of the document
+            minus the "Part X", or the "default_document_name".
+            '''
+            partial_documents = [doc for doc in item['documents']
+                                 if re.search(r'Part \d+', doc['name'])]
+            keys = set([re.sub(r'Part \d+( of )?', '', doc['name']).strip()
+                        for doc in partial_documents])
+
+            for key in keys:
+                indexes_docs = [(i, doc) for i, doc in enumerate(item['documents'])
+                                if doc['name'].startswith(key) or doc['name'].endswith(key)]
+                indexes = [index_doc[0] for index_doc in indexes_docs]
+                docs = [index_doc[1] for index_doc in indexes_docs]
+
+                if not indexes_docs:
+                    continue  # Log error
+
+                # Flatten all documents' URLs arrays into a single one
+                urls = [url for doc in docs for url in doc['urls']]
+                document = {
+                    'name': _clean_document_name(key) or default_document_name,
+                    'urls': urls,
+                }
+                item['documents'][indexes[0]] = document
+
+                for i in sorted(indexes[1:], reverse=True):
+                    del item['documents'][i]
+
         item = res.meta['item']
 
         for li in res.css('#user_provided > ul > li'):
@@ -271,6 +309,9 @@ class Spider(CrawlSpider):
             urls = [_join_and_canonicalize_urls(res.url, url)
                     for url in li.css('a::attr(href)').extract()]
             item['documents'].append({'name': name, 'urls': urls})
+
+        default_document_name = res.meta.get('document_name', 'Review')
+        _fix_multipart_review_documents(item, default_document_name)
 
         return self.expand_approval_history_documents(item)
 
@@ -282,7 +323,19 @@ def _join_and_canonicalize_urls(url1, url2):
 
 def _clean_document_name(name):
     result = name.replace('(PDF)', '') \
+                 .replace('[PDF]', '') \
                  .replace('(s)', '')
+
+    # Remove document sizes (e.g. (3.2 MB))
+    result = re.sub(r'\([\d.]*\s+\w+\)', '', result)
+
+    # Remove punctuation at beginning or end of name
+    result = re.sub(r'^\s*[:;,.?!]+(.*)[:;,.?!]+\s*$', '\g<1>', result)
+
+    # Remove names starting with "Vision impaired people having"
+    result = re.sub(r'Vision impaired people having.*', '', result)
+
+    # Fix multiple whitespaces
     result = re.sub(r'\s{2,}', ' ', result)
 
     return result.strip()
