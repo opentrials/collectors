@@ -66,3 +66,7 @@ HRA_ENV = os.environ.get('HRA_ENV', None)
 HRA_URL = os.environ.get('HRA_URL', None)
 HRA_USER = os.environ.get('HRA_USER', None)
 HRA_PASS = os.environ.get('HRA_PASS', None)
+
+# Cochrane Reviews
+
+COCHRANE_ARCHIVE_URL = os.environ.get('COCHRANE_ARCHIVE_URL')

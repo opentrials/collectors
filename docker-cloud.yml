@@ -178,3 +178,16 @@ takeda:
     DOWNLOAD_DELAY:
   tags:
     - opentrials
+
+cochrane-reviews:
+  image: okibot/collectors
+  command: make start cochrane_reviews
+  # restart: always
+  environment:
+    PYTHON_ENV:
+    WAREHOUSE_URL:
+    LOGGING_URL:
+    DOWNLOAD_DELAY:
+    COCHRANE_ARCHIVE_URL:
+  tags:
+    - opentrials

@@ -81,3 +81,9 @@ takeda:
     service: takeda
     file: docker-cloud.yml
   restart: 'no'
+
+cochrane-reviews:
+  extends:
+    service: cochrane-reviews
+    file: docker-cloud.yml
+  restart: 'no'
