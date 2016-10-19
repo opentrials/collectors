@@ -15,7 +15,7 @@ from collectors.base import config, helpers
 with betamax.Betamax.configure() as cfg:
     cfg.cassette_library_dir = 'tests/cassettes/'
 
-    record_mode = 'never' if os.environ.get('CI') else 'once'
+    record_mode = 'none' if os.environ.get('CI') else 'once'
     cfg.default_cassette_options['record_mode'] = record_mode
     cfg.default_cassette_options['match_requests_on'] = [
         'uri',
