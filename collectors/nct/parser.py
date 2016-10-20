@@ -6,6 +6,10 @@ from __future__ import unicode_literals
 
 import logging
 import xmltodict
+try:
+    from lxml import etree
+except ImportError:
+    import xml.etree.ElementTree as etree
 from .record import Record
 logger = logging.getLogger(__name__)
 
@@ -16,7 +20,7 @@ def parse_record(res):
 
     # Init data
     data = {}
-
+    res = etree.parse(res)
     # General
 
     key = 'download_date'
@@ -70,7 +74,7 @@ def parse_record(res):
     data[key] = value
 
     key = 'sponsors'
-    path = 'sponsors/child::*'
+    path = 'sponsors/*'
     value = _parse_list(res, path)
     data[key] = value
 
@@ -235,12 +239,12 @@ def parse_record(res):
     data[key] = value
 
     key = 'location_countries'
-    path = 'location_countries/child::*'
+    path = 'location_countries/*'
     value = _parse_list(res, path, expand='country')
     data[key] = value
 
     key = 'removed_countries'
-    path = 'removed_countries/child::*'
+    path = 'removed_countries/*'
     value = _parse_list(res, path, expand='country')
     data[key] = value
 
@@ -333,9 +337,9 @@ def _parse_text(res, path):
     """
     value = None
     try:
-        nodes = res.xpath(path)
-        if nodes:
-            value = nodes.xpath('text()').extract_first()
+        node = res.find(path)
+        if node is not None:
+            value = node.text
             value = value.strip()
     except Exception as exception:
         message = 'Parsing error: %s: %s'
@@ -349,13 +353,13 @@ def _parse_dict(res, path, expand=None):
     """
     value = None
     try:
-        nodes = res.xpath(path)
-        if nodes:
-            text = nodes.extract_first()
-            hash = xmltodict.parse(text)
+        node = res.find(path)
+        if node is not None:
+            text = etree.tostring(node, encoding='utf-8', method='xml')
+            node_dict = xmltodict.parse(text)
             if expand:
-                hash = hash[expand]
-            value = hash
+                node_dict = node_dict[expand]
+            value = node_dict
     except Exception as exception:
         message = 'Parsing error: %s: %s'
         message = message % (path, repr(exception))
@@ -368,15 +372,15 @@ def _parse_list(res, path, expand=None):
     """
     value = None
     try:
-        nodes = res.xpath(path)
-        if nodes:
+        nodes = res.findall(path)
+        if len(nodes) > 0:
             hashs = []
-            texts = nodes.extract()
-            for text in texts:
-                hash = xmltodict.parse(text)
+            for node in nodes:
+                text = etree.tostring(node, encoding='utf-8', method='xml')
+                node_dict = xmltodict.parse(text)
                 if expand:
-                    hash = hash[expand]
-                hashs.append(hash)
+                    node_dict = node_dict[expand]
+                hashs.append(node_dict)
             value = hashs
     except Exception as exception:
         message = 'Parsing error: %s: %s'
