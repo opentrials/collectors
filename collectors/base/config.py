@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import os
 import logging
-from logging.handlers import SysLogHandler
+import logging.config
 from dotenv import load_dotenv
 load_dotenv('.env')
 
@@ -47,13 +47,43 @@ ITEM_PIPELINES = {
 
 # Logging
 
-logging.basicConfig(level=logging.DEBUG)
-if os.environ.get('LOGGING_URL', None):
-    root_logger = logging.getLogger()
-    host, port = os.environ['LOGGING_URL'].split(':')
-    syslog_handler = SysLogHandler(address=(host, int(port)))
-    syslog_handler.setLevel(logging.INFO)
-    root_logger.addHandler(syslog_handler)
+
+def setup_syslog_handler():
+    if os.environ.get('LOGGING_URL', None):
+        host, port = os.environ['LOGGING_URL'].split(':')
+        handler = logging.handlers.SysLogHandler(address=(host, int(port)))
+    else:
+        handler = logging.handlers.SysLogHandler()
+    return handler
+
+LOGGING_CONFIG = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '%(levelname)s %(name)s: %(message)s',
+        },
+    },
+    'handlers': {
+        'default_handler': {
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://sys.stdout',
+            'level': 'DEBUG',
+            'formatter': 'default'
+        },
+        'syslog_handler': {
+            '()': setup_syslog_handler,
+            'level': 'INFO',
+            'formatter': 'default',
+        },
+    },
+    'root': {
+        'handlers': ['default_handler', 'syslog_handler'],
+        'level': os.environ.get('LOGGING_LEVEL', 'DEBUG').upper(),
+    },
+}
+
+logging.config.dictConfig(LOGGING_CONFIG)
 
 # ICTRP
 
