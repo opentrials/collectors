@@ -4,7 +4,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import time
 import logging
 import requests
 from urllib import urlencode
@@ -53,6 +52,8 @@ def _make_start_urls(prefix, template, date_from=None, date_to=None, session=Non
     urls = set()
     if not session:
         session = requests.Session()
+    adapter_opts = {'max_retries': requests.packages.urllib3.util.Retry(total=5, status_forcelist=[503])}
+    session.mount('http://', requests.adapters.HTTPAdapter(**adapter_opts))
 
     # Prepare dates
     if date_from is None:
@@ -70,32 +71,29 @@ def _make_start_urls(prefix, template, date_from=None, date_to=None, session=Non
     query['maxdate'] = date_to
 
     # Terms to search
-    terms = [
-        'trial registration',
-        '"controlled clinical trial"[Publication Type]',
-    ]
+    query['term'] = """(randomized controlled trial[Publication Type] OR
+                        (randomized[Title/Abstract]
+                         AND controlled[Title/Abstract]
+                         AND trial[Title/Abstract]
+                        ))
+                    """
 
-    # For all terms
-    for term in terms:
-        query['term'] = term
-
-        # For both publication/modifiction
-        for date_type in ['pdat', 'mdat']:
-            retstart = 0
-            retmax = 50000
-            while True:
-                query['datetype'] = date_type
-                query['retstart'] = retstart
-                query['retmax'] = retmax
-                url = '%s?%s' % (prefix, urlencode(query))
-                response = session.get(url)
-                pmids = response.json()['esearchresult']['idlist']
-                if not pmids:
-                    break
-                for pmid in pmids:
-                    urls.add(template.format(pmid=pmid))
-                retstart += retmax
-                time.sleep(1)
+    # For both publication/modifiction
+    for date_type in ['pdat', 'mdat']:
+        retstart = 0
+        retmax = 50000
+        while True:
+            query['datetype'] = date_type
+            query['retstart'] = retstart
+            query['retmax'] = retmax
+            url = '%s?%s' % (prefix, urlencode(query))
+            response = session.get(url)
+            pmids = response.json()['esearchresult']['idlist']
+            if not pmids:
+                break
+            for pmid in pmids:
+                urls.add(template.format(pmid=pmid))
+            retstart += retmax
 
     # Log urls count
     logger.info('Populated Pubmed start urls: %s', len(urls))
