@@ -5,6 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import xmltodict
+from dateutil.parser import parse as date_parse
 from .record import Record
 
 
@@ -95,10 +96,12 @@ def parse_record(res):
     if article.get('VernacularTitle'):
         data['article_vernacular_title'] = article['VernacularTitle']['#text']
     if 'ArticleDate' in article:
-        data['article_date'] = '{year}-{month}-{day}'.format(
+        article_date = '{year}-{month}-{day}'.format(
             year=article['ArticleDate']['Year']['#text'],
             month=article['ArticleDate']['Month']['#text'],
             day=article['ArticleDate']['Day']['#text'])
+        article_date = date_parse(article_date)
+        data['article_date'] = article_date.strftime('%Y-%m-%d')
 
     # Pubmed
 

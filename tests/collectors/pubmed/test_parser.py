@@ -4,6 +4,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import datetime
 from collectors.pubmed.parser import parse_record
 
 
@@ -39,3 +40,11 @@ class TestPubmedParser(object):
         record = parse_record(response)
 
         assert record.get('article_vernacular_title') is None
+
+    def test_article_date_corectly_parsed(self, get_url):
+        url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi/?db=pubmed&id=24165173&retmode=xml'
+        response = get_url(url)
+
+        record = parse_record(response)
+
+        assert record.get('article_date') == datetime.date(2013, 10, 28)
