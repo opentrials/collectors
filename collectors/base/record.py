@@ -105,7 +105,7 @@ class Record(scrapy.Item):
         action = 'created'
         if table.find_one(**{self.__primary_key: self[self.__primary_key]}):
             action = 'updated'
-            for key in ['meta_id', 'meta_updated']:
+            for key in ['meta_id', 'meta_created']:
                 del self[key]
         try:
             ensure_fields = False
