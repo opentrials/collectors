@@ -52,10 +52,11 @@ def parse_record(res):
     data.update({key: value})
 
     # Trial results URL
+
     key = '.summary a::attr(href)'
     value = res.css(key).extract_first()
     if value:
-        data['trial_results'] = urlparse.urljoin(res.url, value)
+        data['trial_results_url'] = urlparse.urljoin(res.url, value)
 
     # A. Protocol Information
 

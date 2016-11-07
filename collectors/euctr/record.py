@@ -25,6 +25,7 @@ class Record(base.Record):
     trial_status = Text()
     date_on_which_this_record_was_first_entered_in_the_eudract_data = Date('%Y-%m-%d')
     trial_results = Text()
+    trial_results_url = Text()
 
     # A. Protocol Information
 
