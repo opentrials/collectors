@@ -26,7 +26,6 @@ SPIDER_MODULES = [
     'collectors.ictrp.spider',
     'collectors.isrctn.spider',
     'collectors.jprn.spider',
-    'collectors.nct.spider',
     'collectors.pfizer.spider',
     'collectors.pubmed.spider',
     'collectors.takeda.spider',
