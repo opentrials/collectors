@@ -9,3 +9,4 @@ python-dotenv
 requests
 ijson
 pytz
+python-dateutil

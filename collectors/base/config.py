@@ -26,7 +26,6 @@ SPIDER_MODULES = [
     'collectors.ictrp.spider',
     'collectors.isrctn.spider',
     'collectors.jprn.spider',
-    'collectors.nct.spider',
     'collectors.pfizer.spider',
     'collectors.pubmed.spider',
     'collectors.takeda.spider',
@@ -55,6 +54,7 @@ def setup_syslog_handler():
     else:
         handler = logging.handlers.SysLogHandler()
     return handler
+
 
 LOGGING_CONFIG = {
     'version': 1,
