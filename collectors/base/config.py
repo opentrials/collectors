@@ -55,6 +55,7 @@ def setup_syslog_handler():
         handler = logging.handlers.SysLogHandler()
     return handler
 
+
 LOGGING_CONFIG = {
     'version': 1,
     'disable_existing_loggers': False,
