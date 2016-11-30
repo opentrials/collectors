@@ -48,8 +48,12 @@ def get_url(betamax_session):
 
         Note that the session is kept intact among multiple calls to this
         method (i.e. cookies are passed over).
+
+        We also don't verify SSL certificates, because Takeda's certificate is
+        invalid. If they become valid, we can resume verifying the
+        certificates.
         '''
-        response = betamax_session.get(url)
+        response = betamax_session.get(url, verify=False)
         scrapy_response = HtmlResponse(
             url=str(response.url),
             body=response.content,

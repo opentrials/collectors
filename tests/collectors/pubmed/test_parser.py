@@ -5,6 +5,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import datetime
+import pytest
 from collectors.pubmed.parser import parse_record
 
 
@@ -23,8 +24,9 @@ class TestPubmedParser(object):
 
         record = parse_record(response)
 
-        assert record['article_language'] == 'eng'
+        assert record['article_language'].lower() == 'eng'
 
+    @pytest.mark.skip(reason='need to find an article without medline journal country')
     def test_bug_article_without_medline_journal_country(self, get_url):
         url = 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi/?db=pubmed&id=10838360&retmode=xml'
         response = get_url(url)

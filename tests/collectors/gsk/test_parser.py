@@ -14,7 +14,7 @@ class TestGskParser(object):
 
         record = parse_record(response)
 
-        assert record['results_url'] == 'http://www.gsk-clinicalstudyregister.com/files2/19890.pdf'
+        assert record['results_url'].startswith('http')
 
     def test_results_url_is_none_for_trials_without_results(self, get_url):
         url = 'http://www.gsk-clinicalstudyregister.com/study/106847'
