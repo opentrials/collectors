@@ -17,14 +17,14 @@ your github username):
 ```
 $ git clone git@github.com:<user>/collectors.git opentrials-collectors
 $ cd opentrials-collectors
-$ git checkout -b feature/giude-scraper
+$ git checkout -b feature/guide-scraper
 $ virtualenv .python -p python2
 $ source .python/bin/activate
 $ make install
 $ cp .env.example .env && editor .env
 ```
 
-On the last step you should setup you develpment environment. Follow
+On the last step you should setup your development environment. Follow
 `.evn.example` file instructions and comments.
 
 Now you're ready to work on you own scraper!
