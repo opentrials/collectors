@@ -6,7 +6,7 @@ psycopg2
 xmltodict
 sqlalchemy
 python-dotenv
-requests
+requests==2.12.2
 ijson
 pytz
 python-dateutil
