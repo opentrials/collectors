@@ -78,4 +78,4 @@ class Record(base.Record):
     condition_browse = Json()
     intervention_browse = Json()
     clinical_results = Json()
-    results_exemption = Boolean()
+    results_exemption_date = Date('%B %d, %Y')

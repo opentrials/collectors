@@ -16,8 +16,8 @@ depends_on = None
 
 
 def upgrade():
-    op.add_column('nct', sa.Column('results_exemption', sa.Boolean))
+    op.add_column('nct', sa.Column('results_exemption_date', sa.Date))
 
 
 def downgrade():
-    op.drop_column('nct', 'results_exemption')
+    op.drop_column('nct', 'results_exemption_date')

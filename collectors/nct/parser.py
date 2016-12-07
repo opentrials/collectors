@@ -323,10 +323,10 @@ def parse_record(res):
     value = _parse_dict(res, path, expand=key)
     data[key] = value
 
-    key = 'results_exemption'
+    key = 'results_exemption_date'
     path = 'firstreceived_results_disposition_date'
     value = _parse_text(res, path)
-    data[key] = True if value else False
+    data[key] = value
 
     # Create record
     url = 'https://clinicaltrials.gov/ct2/show/%s' % data['nct_id']
