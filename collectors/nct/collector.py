@@ -8,6 +8,7 @@ import zipfile
 import logging
 import io
 import requests
+from datetime import datetime
 from .parser import parse_record
 from .. import base
 logger = logging.getLogger(__name__)
@@ -20,7 +21,11 @@ def collect(conf, conn, date_from=None, date_to=None):
     base.helpers.start(conf, 'nct', {})
 
     base_url = 'https://clinicaltrials.gov/search'
-    query = {'resultsxml': True}
+    query = {
+        'resultsxml': True,
+        'rcv_s': datetime.strptime(date_from, '%Y-%m-%d').strftime('%m/%d/%Y'),
+        'rcv_e': datetime.strptime(date_to, '%Y-%m-%d').strftime('%m/%d/%Y'),
+    }
     content = requests.get(base_url, params=query).content
 
     with zipfile.ZipFile(io.BytesIO(content)) as archive:
