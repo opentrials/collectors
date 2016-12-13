@@ -19,6 +19,8 @@ logger = logging.getLogger(__name__)
 def collect(conf, conn, date_from=None, date_to=None):
     file_count = 0
     base.helpers.start(conf, 'nct', {})
+    if not date_to:
+        date_to = datetime.strftime(datetime.now(), '%Y-%m-%d')
 
     base_url = 'https://clinicaltrials.gov/search'
     query = {
