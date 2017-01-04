@@ -15,9 +15,8 @@ Additional information - https://eudract.ema.europa.eu/
 
 ## Warehouse Data Model
 
-See item definition for the full data model:
-
-https://github.com/opentrials/scraper/blob/master/scraper/spiders/euctr/item.py
+[See table definition](https://github.com/opentrials/collectors/blob/master/collectors/euctr/record.py)
+for the full data model.
 
 ## Primary Identifiers
 

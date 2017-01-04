@@ -19,9 +19,8 @@ Analysis of NCT data model:
 
 ## Warehouse Data Model
 
-See item definition for the full data model:
-
-https://github.com/opentrials/scraper/blob/master/scraper/spiders/nct/item.py
+[See table definition](https://github.com/opentrials/collectors/blob/master/collectors/nct/record.py)
+for the full data model.
 
 ## Primary Identifiers
 
