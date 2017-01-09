@@ -1,4 +1,4 @@
-# How to Write a Collector (using scrapy)
+# How to Write a Collector (using Scrapy)
 
 This document describes how to write new collector using
 [Scrapy](http://scrapy.readthedocs.org/en/latest/)
@@ -57,7 +57,7 @@ from __future__ import unicode_literals
 from .collector import collect
 ```
 
-Our collector will just deligate a work to  Scrapy framework:
+Our collector will just delegate work to Scrapy framework:
 
 > `collectors/guide/collect.py`
 
@@ -82,8 +82,7 @@ def collect(conf, conn):
 
 In this step we're working on `where our spider will get the data`.
 
-To start with a spider we need to do the first discovering
-job on the target site:
+To start with a spider we need to discover more details about our target website:
 
 - domain - `pfizer.com`
 - initial urls - `http://www.pfizer.com/research/clinical_trials/find_a_trial?recr=0`
@@ -142,7 +141,7 @@ class Spider(CrawlSpider):
 ```
 
 An instance of this class will call `parse_record(response)` for
-every http response from trial pages. We'll write an parser a bit later.
+every http response from trial pages. We'll write a parser a bit later.
 
 ## Writing an Record
 

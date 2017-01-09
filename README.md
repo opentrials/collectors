@@ -5,7 +5,7 @@
 [![Issues](https://img.shields.io/badge/issue-tracker-orange.svg)](https://github.com/opentrials/opentrials/issues)
 [![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](http://docs.opentrials.net/en/latest/developers/)
 
-The OpenTrials data collectors + warehouse schema definition.
+The OpenTrials data collectors + `warehouse` database schema definition.
 
 ## Documentation
 

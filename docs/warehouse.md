@@ -2,22 +2,16 @@
 
 The document describes OpenTrials `warehouse`.
 
-> Last updated on migration: [20160220212552](https://github.com/opentrials/collectors/blob/master/migrations/versions/20160220212552_nct_fix_boolean_columns.py).
-
-## Data Model
-
 ### Basics
 
-This database stores `records` collected from different source.
+This database stores records collected from different sources.
 It's a denormalized data storage.
 
 ### Tables
 
-This database uses table per source approach.
-
-### ER Diagram
-
-![diagram](../files/warehouse.png)
+Each table corresponds to a source and its schema follows the structure of data from the origin.
+To see the schema of each table please check the collector-specific docs
+[here](https://github.com/opentrials/collectors/tree/master/docs/collectors)
 
 ### Technology
 

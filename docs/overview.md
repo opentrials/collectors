@@ -1,24 +1,19 @@
 # Overview
 
-This system is responsible for data collecting to `warehouse`.
+This system is responsible for managing the schema of OpenTrials `warehouse` database and collecting
+data to populate it.
 
-## Stacks
+## Stack
 
-The system provides the following stacks:
-- `make-initial-collecting` - collect anything initially
-- `collectors` - continuous collecting of updated sources
+Collectors are fully compatible with Python2.7.
 
-About Docker Cloud deployment see -
-https://github.com/respect31/docker-cloud-example.
+We use PostgreSQL for our database and [Alembic](http://alembic.zzzcomputing.com/en/latest/) for migrations.
 
-## Warehouse
-
-See more about `warehouse` - [warehouse](warehouse.md).
+Collectors are deployed and run in production with [DockerCloud](https://github.com/respect31/docker-cloud-example).
 
 ## Collectors
 
-The system's processors are independent python modules
-compatible to the following signature:
+The system's collectors are independent python modules that share the following signature:
 
 ```python
 def collect(conf, conn, *args):
@@ -28,20 +23,29 @@ def collect(conf, conn, *args):
 Where arguments are:
 - `conf` - config dict
 - `conn` - connections dict
-- `args` - processor arguments
+- `args` - collector arguments
 
-To run one of collectors from command line:
+To run a collector from command line:
 ```
-make start <name> [<args>]
+$ make start <name> [<args>]
 ```
 
 This code will trigger `collectors.<name>.collect(conf, conn, *args)` call.
 
+*NOTE*: Most collectors need `date_from` and `date_to` arguments that define a
+time range from which we want to extract resources. For example:
+
+```
+$ make start nct 2013-11-31 2013-12-01
+```
+
+To check if that is the case, see the `collect` function of the collector you are interested in.
+
 ### Scraping Collectors
 
-Many of `collectors` are scrapers. Scraping is based on
-Scrapy framework. In a `collect` call those `collectors` use
-this framrwork programmaticly:
+Many collectors are scrapers. Scraping is based on
+[Scrapy](https://scrapy.readthedocs.io/en/latest/intro/overview.html) framework. Here is
+an example of how to use Scrapy in the `collect` function:
 
 ```python
 from scrapy.crawler import CrawlerProcess
@@ -53,11 +57,31 @@ def collect(conf, conn, <args>):
     process.start()
 ```
 
-More about Scrapy - https://scrapy.readthedocs.io/en/latest/
+For more details check the tutorial [How to Write a Collector using Scrapy](https://github.com/opentrials/collectors/blob/master/docs/collector-scrapy-guide.md)
 
-## Base library
+### Working with the database
 
-For developers convenient in a `collectors.base` module
-there are shared library of reusable components to write collectors.
+The folder `collectors/base` contains multiple reusable components and
+helpers including the [base class for a database record](https://github.com/opentrials/collectors/blob/master/collectors/base/record.py)
+and the [base class for a record's field](https://github.com/opentrials/collectors/blob/master/collectors/base/fields.py).
+Each collector that has a corresponding table in the `warehouse` database has to
+define the schema for that table in a class that inherits from the base class for record.
 
-See documentation in source code to use it.
+For example the following class defines the schema for table `colors`. This table has
+2 fields of type `Text`, one of which is a primary key:
+
+```python
+class ColorRecord(base.Record):
+    table = 'colors'
+
+    # Fields
+
+    id = Text(primary_key=True)
+    color = Text()
+```
+
+To see how this connects to the other parts of the collector check the [How to Write a Collector](https://github.com/opentrials/collectors/blob/master/docs/collector-guide.md) tutorial.
+#### Altering the database schema
+
+1. Define the table/field in the collector's record class as explained above.
+2. Create a migration for it (more details in [Alembic docs](http://alembic.zzzcomputing.com/en/latest/tutorial.html#create-a-migration-script)).

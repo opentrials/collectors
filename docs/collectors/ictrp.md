@@ -13,9 +13,8 @@ See the next section for more details.
 
 ## Warehouse Data Model
 
-See item definition for the full data model:
-
-https://github.com/opentrials/scraper/blob/master/scraper/spiders/ictrp/item.py
+[See table definition](https://github.com/opentrials/collectors/blob/master/collectors/ictrp/record.py)
+for the full data model.
 
 ## Primary Identifiers
 
