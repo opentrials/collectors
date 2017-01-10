@@ -32,15 +32,19 @@ def collect(conf, conn, date_from=None, date_to=None):
 
     with zipfile.ZipFile(io.BytesIO(content)) as archive:
         for filename in archive.namelist():
-            with archive.open(filename, 'rU') as rec_file:
-                file_count += 1
-                rec = parse_record(rec_file)
-                query = {'nct_id': rec['nct_id']}
-                if rec.table in conn['warehouse'].tables:
-                    existing = conn['warehouse'][rec.table].find_one(**query)
-                    if existing:
-                        rec['nct_id'] = existing['nct_id']
-                rec.write(conf, conn)
+            try:
+                with archive.open(filename, 'rU') as rec_file:
+                    rec = parse_record(rec_file)
+                    query = {'nct_id': rec['nct_id']}
+                    if rec.table in conn['warehouse'].tables:
+                        existing = conn['warehouse'][rec.table].find_one(**query)
+                        if existing:
+                            rec['nct_id'] = existing['nct_id']
+                    rec.write(conf, conn)
+                    file_count += 1
+
+            except Exception as exception:
+                logger.exception(repr(exception), exc_info=True)
 
     logger.info("Collected %s NCT records", file_count)
     base.helpers.stop(conf, 'nct', {'collected': file_count})
