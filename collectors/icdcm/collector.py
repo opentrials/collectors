@@ -33,27 +33,31 @@ def collect(conf, conn):
 
     count = 0
     for diag in res.xpath('//diag'):
+        try:
 
-        # We need only leafs
-        childs = diag.xpath('./diag')
-        if not childs:
-            continue
+            # We need only leafs
+            childs = diag.xpath('./diag')
+            if not childs:
+                continue
 
-        # Get data
-        data = {}
-        data['name'] = diag.xpath('./name/text()').extract_first()
-        data['desc'] = diag.xpath('./desc/text()').extract_first()
-        data['terms'] = diag.xpath('.//note/text()').extract()
-        data['version'] = VERSION
-        data['last_updated'] = LAST_UPDATED
+            # Get data
+            data = {}
+            data['name'] = diag.xpath('./name/text()').extract_first()
+            data['desc'] = diag.xpath('./desc/text()').extract_first()
+            data['terms'] = diag.xpath('.//note/text()').extract()
+            data['version'] = VERSION
+            data['last_updated'] = LAST_UPDATED
 
-        # Create record
-        record = Record.create(URL, data)
+            # Create record
+            record = Record.create(URL, data)
 
-        # Write record
-        record.write(conf, conn)
+            # Write record
+            record.write(conf, conn)
 
-        # Log info
-        count += 1
-        if not count % 100:
-            logger.info('Collected %s "%s" conditions', count, record.table)
+            # Log info
+            count += 1
+            if not count % 100:
+                logger.info('Collected %s "%s" conditions', count, record.table)
+
+        except Exception as exception:
+            logger.exception(repr(exception), exc_info=True)

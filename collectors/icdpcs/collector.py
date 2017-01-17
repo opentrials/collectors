@@ -31,25 +31,29 @@ def collect(conf, conn):
 
     count = 0
     for line in file:
+        try:
 
-        # Prepare data
-        # Format is described in instruction
-        # stored in zip archive we download
-        data = {}
-        data['code'] = line[6:6+7].strip()
-        data['is_header'] = line[14:14+1].strip()
-        data['short_description'] = line[16:16+60].strip()
-        data['long_description'] = line[77:].strip()
-        data['version'] = VERSION
-        data['last_updated'] = LAST_UPDATED
+            # Prepare data
+            # Format is described in instruction
+            # stored in zip archive we download
+            data = {}
+            data['code'] = line[6:6+7].strip()
+            data['is_header'] = line[14:14+1].strip()
+            data['short_description'] = line[16:16+60].strip()
+            data['long_description'] = line[77:].strip()
+            data['version'] = VERSION
+            data['last_updated'] = LAST_UPDATED
 
-        # Create record
-        record = Record.create(URL, data)
+            # Create record
+            record = Record.create(URL, data)
 
-        # Write record
-        record.write(conf, conn)
+            # Write record
+            record.write(conf, conn)
 
-        # Log info
-        count += 1
-        if not count % 100:
-            logger.info('Collected %s "%s" interventions', count, record.table)
+            # Log info
+            count += 1
+            if not count % 100:
+                logger.info('Collected %s "%s" interventions', count, record.table)
+
+        except Exception as exception:
+            logger.exception(repr(exception), exc_info=True)

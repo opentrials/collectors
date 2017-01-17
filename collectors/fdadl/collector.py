@@ -89,7 +89,7 @@ def collect(conf, conn):
 
                 # Log exception
                 errors += 1
-                logger.exception('Collecting error: %s', repr(exception))
+                logger.exception('Collecting error: %s', repr(exception), exc_info=True)
 
     # Remove temp directory
     shutil.rmtree(dirpath)
