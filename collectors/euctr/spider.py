@@ -36,12 +36,20 @@ class Spider(CrawlSpider):
 
         # Make rules
         self.rules = [
-            Rule(LinkExtractor(
-                allow=r'ctr-search/trial/[\d-]+/[\w]+'
-            ), callback=parse_record),
-            Rule(LinkExtractor(
-                allow=r'page=\d+',
-            ), process_links=partial(_process_links, self.start_urls)),
+            Rule(
+                LinkExtractor(
+                    allow=r'ctr-search/trial/[\d-]+/[\w]+',
+                    deny=r'results$'
+                ),
+                callback=parse_record
+            ),
+            Rule(
+                LinkExtractor(
+                    allow=r'page=\d+',
+                    restrict_css='[accesskey=n]'
+                ),
+                process_links=partial(_process_links, self.start_urls)
+            ),
         ]
 
         # Inherit parent
