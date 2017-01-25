@@ -12,9 +12,6 @@ deploy: push
 	make migrate
 	# docker-cloud stack start --sync collectors
 
-install:
-	pip install --upgrade -r requirements.dev.txt
-
 list:
 	@grep '^\.PHONY' Makefile | cut -d' ' -f2- | tr ' ' '\n'
 
@@ -32,9 +29,7 @@ start:
 	python -m collectors.base.cli $(filter-out $@,$(MAKECMDGOALS))
 
 test:
-	pylama collectors
-	pylama migrations
-	py.test
+	tox
 
 up:
 	docker-compose up

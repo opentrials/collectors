@@ -19,7 +19,7 @@ env:
     - TEST_WAREHOUSE_URL=postgres://postgres@localhost:5432/opentrials_warehouse_test
 
 install:
-  - make install
+  - pip install tox
   - psql -c 'create database opentrials_warehouse_test;' -U postgres
 
 script:
