@@ -34,7 +34,7 @@ def conf():
 
 @pytest.fixture
 def conn():
-    warehouse = dataset.connect(config.TEST_WAREHOUSE_URL)
+    warehouse = dataset.connect(config.WAREHOUSE_URL)
     for table in warehouse.tables:
         warehouse[table].delete()
     return {'warehouse': warehouse}

@@ -13,6 +13,7 @@ from scrapy.http import Request, HtmlResponse
 from collectors.fda_dap.spider import Spider
 
 
+@pytest.mark.skip(reason='the site was redesigned')
 class TestFDADAP(object):
     def test_make_requests_from_url(self):
         url = 'http://www.accessdata.fda.gov/somewhere.cfm'

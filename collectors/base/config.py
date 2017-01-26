@@ -13,8 +13,8 @@ load_dotenv('.env')
 
 # Environment
 
-ENV = os.environ['PYTHON_ENV']
-if os.environ.get('CI', None):
+ENV = os.environ.get('PYTHON_ENV', 'development')
+if os.environ.get('CI'):
     ENV = 'testing'
 
 # Spiders
@@ -38,8 +38,11 @@ AUTOTHROTTLE_ENABLED = True
 
 # Pipelines
 
-WAREHOUSE_URL = os.environ['WAREHOUSE_URL']
-TEST_WAREHOUSE_URL = os.environ.get('TEST_WAREHOUSE_URL', None)
+if ENV == 'testing':
+    WAREHOUSE_URL = os.environ['TEST_WAREHOUSE_URL']
+else:
+    WAREHOUSE_URL = os.environ['WAREHOUSE_URL']
+
 ITEM_PIPELINES = {
     'collectors.base.pipelines.Warehouse': 100,
 }
