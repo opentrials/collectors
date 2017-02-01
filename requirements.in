@@ -1,0 +1,11 @@
+scrapy
+dataset==0.7.1
+alembic
+psycopg2
+xmltodict
+sqlalchemy
+python-dotenv
+requests==2.12.2
+ijson
+pytz
+python-dateutil
