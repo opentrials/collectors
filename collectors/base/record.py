@@ -9,6 +9,7 @@ import scrapy
 import logging
 from datetime import datetime
 from abc import abstractmethod
+from . import config
 from . import fields
 logger = logging.getLogger(__name__)
 
@@ -76,10 +77,8 @@ class Record(scrapy.Item):
                 continue
             try:
                 value = field.parse(value)
-            except Exception as exception:
-                message = 'Parsing error: %s=%s: %s'
-                message = message % (key, value, exception)
-                logger.exception(message)
+            except Exception:
+                config.SENTRY.captureException()
                 continue
             self[key] = value
         for key in undefined:
@@ -114,7 +113,10 @@ class Record(scrapy.Item):
             table.upsert(
                 self, [self.__primary_key],
                 ensure=ensure_fields, types=self.__column_types)
-        except Exception as exception:
-            logger.exception('Saving error: %s: %s', self, repr(exception))
+        except Exception:
+            config.SENTRY.captureException(extra={
+                'record_table': self.table,
+                'record_id': self.__primary_key,
+            })
         else:
             logger.debug('Record - %s: %s - %s fields', action, self, len(self))

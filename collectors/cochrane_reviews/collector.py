@@ -32,8 +32,10 @@ def collect(conf, conn, date_from=None, date_to=None):
                         rec.write(conf, conn)
                         file_count += 1
 
-            except Exception as exception:
-                logger.exception(repr(exception), exc_info=True)
+            except Exception:
+                base.config.SENTRY.captureException(extra={
+                    'filename': filename,
+                })
 
     logger.info("Collected %s review files.", file_count)
     base.helpers.stop(conf, 'cochrane', {'collected': file_count})

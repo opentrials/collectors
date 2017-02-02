@@ -10,6 +10,7 @@ try:
     from lxml import etree
 except ImportError:
     import xml.etree.ElementTree as etree
+from .. import base
 from .record import Record
 logger = logging.getLogger(__name__)
 
@@ -346,10 +347,8 @@ def _parse_text(res, path):
         if node is not None:
             value = node.text
             value = value.strip()
-    except Exception as exception:
-        message = 'Parsing error: %s: %s'
-        message = message % (path, repr(exception))
-        logger.exception(message)
+    except Exception:
+        base.config.SENTRY.captureException()
     return value
 
 
@@ -365,10 +364,8 @@ def _parse_dict(res, path, expand=None):
             if expand:
                 node_dict = node_dict[expand]
             value = node_dict
-    except Exception as exception:
-        message = 'Parsing error: %s: %s'
-        message = message % (path, repr(exception))
-        logger.exception(message)
+    except Exception:
+        base.config.SENTRY.captureException()
     return value
 
 
@@ -387,8 +384,6 @@ def _parse_list(res, path, expand=None):
                     node_dict = node_dict[expand]
                 hashs.append(node_dict)
             value = hashs
-    except Exception as exception:
-        message = 'Parsing error: %s: %s'
-        message = message % (path, repr(exception))
-        logger.exception(message)
+    except Exception:
+        base.config.SENTRY.captureException()
     return value

@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 import os
 import logging
 import logging.config
+import raven
 from dotenv import load_dotenv
 load_dotenv('.env')
 
@@ -16,6 +17,8 @@ load_dotenv('.env')
 ENV = os.environ.get('PYTHON_ENV', 'development')
 if os.environ.get('CI'):
     ENV = 'testing'
+
+SENTRY = raven.Client(os.environ.get('SENTRY_DSN'))
 
 # Spiders
 

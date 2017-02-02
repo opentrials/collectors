@@ -16,25 +16,17 @@ logger = logging.getLogger(__name__)
 # Module API
 
 def cli(argv):
+    # Prepare conf dict
+    conf = helpers.get_variables(config, str.isupper)
 
-    try:
+    # Prepare conn dict
+    conn = {
+        'warehouse': dataset.connect(config.WAREHOUSE_URL),
+    }
 
-        # Prepare conf dict
-        conf = helpers.get_variables(config, str.isupper)
-
-        # Prepare conn dict
-        conn = {}
-        conn['warehouse'] = dataset.connect(config.WAREHOUSE_URL)
-
-        # Get and call collector
-        collect = import_module('collectors.%s' % argv[1]).collect
-        collect(conf, conn, *argv[2:])
-
-    except Exception as exception:
-
-        # Log exception and raise
-        logger.exception('Unhandled exception: %s', exception)
-        raise
+    # Get and call collector
+    collect = import_module('collectors.%s' % argv[1]).collect
+    collect(conf, conn, *argv[2:])
 
 
 if __name__ == '__main__':

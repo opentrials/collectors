@@ -11,6 +11,7 @@ import logging
 import zipfile
 import tempfile
 import requests
+from .. import base
 from .record import Record
 logger = logging.getLogger(__name__)
 
@@ -35,7 +36,6 @@ def collect(conf, conn):
     # Create temp directory
     dirpath = tempfile.mkdtemp()
 
-    errors = 0
     success = 0
     for file in FILES:
 
@@ -85,11 +85,10 @@ def collect(conf, conn):
                     logger.info('Collected %s "%s" interventions',
                         success, record.table)
 
-            except Exception as exception:
-
-                # Log exception
-                errors += 1
-                logger.exception('Collecting error: %s', repr(exception), exc_info=True)
+            except Exception:
+                base.config.SENTRY.captureException({
+                    'url': url,
+                })
 
     # Remove temp directory
     shutil.rmtree(dirpath)

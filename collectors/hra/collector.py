@@ -53,8 +53,10 @@ def collect(conf, conn, date_from=None, date_to=None):
                 count += 1
                 if not count % 100:
                     logger.info('Collected "%s" hra records', count)
-            except Exception as exception:
-                logger.exception('Collecting error: %s', repr(exception), exc_info=True)
+            except Exception:
+                base.config.SENTRY.captureException(extra={
+                    'url': response.url,
+                })
         loop_date_from = loop_date_to + datetime.timedelta(days=1)
         time.sleep(1)
 

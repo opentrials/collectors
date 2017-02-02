@@ -42,9 +42,10 @@ def collect(conf, conn, date_from=None, date_to=None):
                             rec['nct_id'] = existing['nct_id']
                     rec.write(conf, conn)
                     file_count += 1
-
-            except Exception as exception:
-                logger.exception(repr(exception), exc_info=True)
+            except Exception:
+                base.config.SENTRY.captureException(extra={
+                    'identifier': filename.split('.')[0],
+                })
 
     logger.info("Collected %s NCT records", file_count)
     base.helpers.stop(conf, 'nct', {'collected': file_count})
