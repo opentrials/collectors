@@ -9,7 +9,6 @@ python:
 
 services:
   - postgresql
-  - docker
 
 addons:
   postgresql: '9.4'
@@ -23,10 +22,4 @@ install:
   - psql -c 'create database opentrials_warehouse_test;' -U postgres
 
 script:
-  - make test && make build
-
-deploy:
-  - provider: script
-    script: make deploy
-    on:
-      branch: master
+  - make test
