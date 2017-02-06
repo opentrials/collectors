@@ -3,7 +3,7 @@
 all: list
 
 build:
-	docker build -t okibot/collectors .
+	docker build -t opentrials/collectors .
 
 list:
 	@grep '^\.PHONY' Makefile | cut -d' ' -f2- | tr ' ' '\n'
