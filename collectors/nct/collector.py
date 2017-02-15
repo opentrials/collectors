@@ -9,7 +9,6 @@ import logging
 import requests
 import tempfile
 import contextlib
-from datetime import datetime
 from .parser import parse_record
 from .. import base
 logger = logging.getLogger(__name__)
@@ -17,20 +16,17 @@ logger = logging.getLogger(__name__)
 # Module API
 
 
-def collect(conf, conn, date_from=None, date_to=None):
-    base.helpers.start(conf, 'nct', {})
-    if not date_to:
-        date_to = datetime.strftime(datetime.now(), '%Y-%m-%d')
+def collect(conf, conn, nct_xml_dump_url):
+    '''
+    Downloads and parse data from NCT's XML dump. Considering you want the data
+    from 2017-01-01 until 2017-02-01, the XML dump can be downloaded from:
 
-    base_url = 'https://clinicaltrials.gov/search'
-    query = {
-        'resultsxml': True,
-        'rcv_s': datetime.strptime(date_from, '%Y-%m-%d').strftime('%m/%d/%Y'),
-        'rcv_e': datetime.strptime(date_to, '%Y-%m-%d').strftime('%m/%d/%Y'),
-    }
+    https://clinicaltrials.gov/search?resultsxml=True&rcv_s=01/01/2017&rcv_e=01/02/2017
+    '''
+    base.helpers.start(conf, 'nct', {'url': nct_xml_dump_url})
 
     with tempfile.TemporaryFile() as fp:
-        _download_to_file(base_url, fp, query)
+        _download_to_file(nct_xml_dump_url, fp)
         file_count = 0
         for identifier, record_fp in _iter_nct_dump_files(fp):
             try:
@@ -44,17 +40,21 @@ def collect(conf, conn, date_from=None, date_to=None):
                 file_count += 1
             except Exception:
                 base.config.SENTRY.captureException(extra={
+                    'url': nct_xml_dump_url,
                     'identifier': identifier,
                 })
         logger.info('Collected %s NCT records', file_count)
 
-    base.helpers.stop(conf, 'nct', {'collected': file_count})
+    base.helpers.stop(conf, 'nct', {
+        'url': nct_xml_dump_url,
+        'collected': file_count,
+    })
 
 
-def _download_to_file(url, fp, params):
+def _download_to_file(url, fp):
     CHUNK_SIZE = 1024 * 1024  # 1 MB
     bytes_to_mb = lambda value: value / 1048576.0
-    with contextlib.closing(requests.get(url, params=params, stream=True)) as response:
+    with contextlib.closing(requests.get(url, stream=True)) as response:
         completed_bytes = 0
         chunk_count = 0
         for block in response.iter_content(CHUNK_SIZE):
