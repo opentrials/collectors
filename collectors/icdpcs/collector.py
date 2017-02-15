@@ -8,7 +8,6 @@ import io
 import logging
 import zipfile
 import requests
-from .. import base
 from .record import Record
 logger = logging.getLogger(__name__)
 
@@ -32,30 +31,25 @@ def collect(conf, conn):
 
     count = 0
     for line in file:
-        try:
+        # Prepare data
+        # Format is described in instruction
+        # stored in zip archive we download
+        data = {
+            'code': line[6:6+7].strip(),
+            'is_header': line[14:14+1].strip(),
+            'short_description': line[16:16+60].strip(),
+            'long_description': line[77:].strip(),
+            'version': VERSION,
+            'last_updated': LAST_UPDATED,
+        }
 
-            # Prepare data
-            # Format is described in instruction
-            # stored in zip archive we download
-            data = {
-                'code': line[6:6+7].strip(),
-                'is_header': line[14:14+1].strip(),
-                'short_description': line[16:16+60].strip(),
-                'long_description': line[77:].strip(),
-                'version': VERSION,
-                'last_updated': LAST_UPDATED,
-            }
+        # Create record
+        record = Record.create(URL, data)
 
-            # Create record
-            record = Record.create(URL, data)
+        # Write record
+        record.write(conf, conn)
 
-            # Write record
-            record.write(conf, conn)
-
-            # Log info
-            count += 1
-            if not count % 100:
-                logger.info('Collected %s "%s" interventions', count, record.table)
-
-        except Exception:
-            base.config.SENTRY.captureException()
+        # Log info
+        count += 1
+        if not count % 100:
+            logger.info('Collected %s "%s" interventions', count, record.table)

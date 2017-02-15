@@ -29,20 +29,18 @@ def collect(conf, conn, nct_xml_dump_url):
         _download_to_file(nct_xml_dump_url, fp)
         file_count = 0
         for identifier, record_fp in _iter_nct_dump_files(fp):
-            try:
-                rec = parse_record(record_fp)
-                query = {'nct_id': rec['nct_id']}
-                if rec.table in conn['warehouse'].tables:
-                    existing = conn['warehouse'][rec.table].find_one(**query)
-                    if existing:
-                        rec['nct_id'] = existing['nct_id']
-                rec.write(conf, conn)
-                file_count += 1
-            except Exception:
-                base.config.SENTRY.captureException(extra={
-                    'url': nct_xml_dump_url,
-                    'identifier': identifier,
-                })
+            base.config.SENTRY.extra_context({
+                'url': nct_xml_dump_url,
+                'identifier': identifier,
+            })
+            rec = parse_record(record_fp)
+            query = {'nct_id': rec['nct_id']}
+            if rec.table in conn['warehouse'].tables:
+                existing = conn['warehouse'][rec.table].find_one(**query)
+                if existing:
+                    rec['nct_id'] = existing['nct_id']
+            rec.write(conf, conn)
+            file_count += 1
         logger.info('Collected %s NCT records', file_count)
 
     base.helpers.stop(conf, 'nct', {

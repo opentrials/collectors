@@ -53,42 +53,39 @@ def collect(conf, conn):
         items = ijson.items(file, 'results.item')
 
         for item in items:
+            meta = item['openfda']
 
-            try:
+            base.config.SENTRY.extra_context({
+                'url': url,
+                'item': meta,
+            })
 
-                meta = item['openfda']
+            # Skip if no NDC code
+            if 'product_ndc' not in meta:
+                continue
 
-                # Skip if no NDC code
-                if 'product_ndc' not in meta:
-                    continue
+            # Get data
+            data = {
+                'product_ndc': meta['product_ndc'][0],
+                'product_type': meta['product_type'][0],
+                'generic_name': meta['generic_name'][0],
+                'brand_name': meta['brand_name'][0],
+                'last_updated': last_updated,
+            }
+            if meta.get('application_number'):
+                data['fda_application_number'] = meta['application_number'][0]
 
-                # Get data
-                data = {
-                    'product_ndc': meta['product_ndc'][0],
-                    'product_type': meta['product_type'][0],
-                    'generic_name': meta['generic_name'][0],
-                    'brand_name': meta['brand_name'][0],
-                    'last_updated': last_updated,
-                }
-                if meta.get('application_number'):
-                    data['fda_application_number'] = meta['application_number'][0]
+            # Create record
+            record = Record.create(url, data)
 
-                # Create record
-                record = Record.create(url, data)
+            # Write record
+            record.write(conf, conn)
 
-                # Write record
-                record.write(conf, conn)
-
-                # Log info
-                success += 1
-                if not success % 100:
-                    logger.info('Collected %s "%s" interventions',
-                        success, record.table)
-
-            except Exception:
-                base.config.SENTRY.captureException({
-                    'url': url,
-                })
+            # Log info
+            success += 1
+            if not success % 100:
+                logger.info('Collected %s "%s" interventions',
+                    success, record.table)
 
     # Remove temp directory
     shutil.rmtree(dirpath)

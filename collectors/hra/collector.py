@@ -46,17 +46,15 @@ def collect(conf, conn, date_from=None, date_to=None):
         loop_date_to = min(loop_date_from + datetime.timedelta(days=chunk_days), date_to)
         url = _make_request_url(URL, loop_date_from, loop_date_to)
         response = session.get(url, auth=(USER, PASS))
+        base.config.SENTRY.extra_context({
+            'url': response.url,
+        })
         for item in response.json():
-            try:
-                record = parse_record(response.url, item)
-                record.write(conf, conn)
-                count += 1
-                if not count % 100:
-                    logger.info('Collected "%s" hra records', count)
-            except Exception:
-                base.config.SENTRY.captureException(extra={
-                    'url': response.url,
-                })
+            record = parse_record(response.url, item)
+            record.write(conf, conn)
+            count += 1
+            if not count % 100:
+                logger.info('Collected "%s" hra records', count)
         loop_date_from = loop_date_to + datetime.timedelta(days=1)
         time.sleep(1)
 
