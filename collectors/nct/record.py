@@ -15,6 +15,10 @@ class Record(base.Record):
     # Config
 
     table = 'nct'
+    _DATE_FORMATS = [
+        '%B %Y',
+        '%B %d, %Y',
+    ]
 
     # General
 
@@ -35,11 +39,11 @@ class Record(base.Record):
     detailed_description = Text()
     overall_status = Text()
     why_stopped = Text()
-    start_date = Date('%B %Y')
-    completion_date_actual = Date('%B %Y')
-    completion_date_anticipated = Date('%B %Y')
-    primary_completion_date_actual = Date('%B %Y')
-    primary_completion_date_anticipated = Date('%B %Y')
+    start_date = Date(_DATE_FORMATS)
+    completion_date_actual = Date(_DATE_FORMATS)
+    completion_date_anticipated = Date(_DATE_FORMATS)
+    primary_completion_date_actual = Date(_DATE_FORMATS)
+    primary_completion_date_anticipated = Date(_DATE_FORMATS)
     phase = Text()
     study_type = Text()
     study_design = Text()
@@ -66,10 +70,10 @@ class Record(base.Record):
     links = Json()
     references = Json()
     results_references = Json()
-    verification_date = Date('%B %Y')
-    lastchanged_date = Date('%B %d, %Y')
-    firstreceived_date = Date('%B %d, %Y')
-    firstreceived_results_date = Date('%B %d, %Y')
+    verification_date = Date(_DATE_FORMATS)
+    lastchanged_date = Date(_DATE_FORMATS)
+    firstreceived_date = Date(_DATE_FORMATS)
+    firstreceived_results_date = Date(_DATE_FORMATS)
     responsible_party = Json()
     keywords = Array()
     is_fda_regulated = Boolean('Yes')
@@ -78,4 +82,4 @@ class Record(base.Record):
     condition_browse = Json()
     intervention_browse = Json()
     clinical_results = Json()
-    results_exemption_date = Date('%B %d, %Y')
+    results_exemption_date = Date(_DATE_FORMATS)

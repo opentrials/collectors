@@ -75,12 +75,20 @@ class Date(Base):
 
     column_type = sa.Date
 
-    def __init__(self, format, **params):
+    def __init__(self, formats, **params):
         super(Date, self).__init__(**params)
-        self.__format = format
+        if not isinstance(formats, (list, tuple)):
+            formats = [formats]
+        self.__formats = formats
 
     def parse(self, value):
-        return helpers.parse_date(value, format=self.__format)
+        for i, fmt in enumerate(self.__formats):
+            try:
+                return helpers.parse_date(value, format=fmt)
+            except ValueError:
+                pass
+        msg = "time data '{value}' doesn't match any of the formats: {formats}"
+        raise ValueError(msg.format(value=value, formats=self.__formats))
 
 
 class Datetime(Base):
