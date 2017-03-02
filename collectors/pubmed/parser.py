@@ -86,6 +86,19 @@ def parse_record(res):
             elem = [elem]
         # FIXME: Properly handle multiple languages
         data['article_language'] = elem[0]['#text']
+    if 'DataBankList' in article:
+        data['registry_ids'] = []
+        registry_list = article['DataBankList']['DataBank']
+        if not isinstance(registry_list, list):
+            registry_list = [registry_list]
+        for registry in registry_list:
+            registry_name = registry['DataBankName']['#text']
+            registry_id_list = registry['AccessionNumberList']['AccessionNumber']
+            if not isinstance(registry_id_list, list):
+                registry_id_list = [registry_id_list]
+            for registry_id in registry_id_list:
+                entry = {registry_name: registry_id['#text']}
+                data['registry_ids'].append(entry)
     if 'PublicationTypeList' in article:
         data['article_publication_type_list'] = []
         elem = article['PublicationTypeList']['PublicationType']
@@ -108,12 +121,12 @@ def parse_record(res):
     if 'PublicationStatus' in pubmed:
         data['publication_status'] = pubmed['PublicationStatus']['#text']
     if 'ArticleIdList' in pubmed:
-        data['identifiers_list'] = {}
+        data['article_ids'] = {}
         items = pubmed['ArticleIdList']['ArticleId']
         if not isinstance(items, list):
             items = [items]
         for item in items:
-            data['identifiers_list'][item['@IdType']] = item['#text']
+            data['article_ids'][item['@IdType']] = item['#text']
 
     # Create record
     url = 'http://www.ncbi.nlm.nih.gov/pubmed/%s' % data['pmid']
