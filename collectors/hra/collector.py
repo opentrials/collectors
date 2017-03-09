@@ -25,17 +25,9 @@ def collect(conf, conn, date_from=None, date_to=None):
     base.helpers.start(conf, 'hra', {'date_from': date_from, 'date_to': date_to})
 
     # Get parameters
-    ENV = conf['HRA_ENV']
     URL = conf['HRA_URL']
     USER = conf['HRA_USER']
     PASS = conf['HRA_PASS']
-
-    # Check availability
-    utc_datetime = datetime.datetime.utcnow()
-    available = _check_availability(utc_datetime, env=ENV)
-    if not available:
-        base.helpers.stop(conf, 'hra', {'reason': 'API is not available'})
-        return
 
     count = 0
     chunk_days = 100
@@ -47,6 +39,7 @@ def collect(conf, conn, date_from=None, date_to=None):
         loop_date_to = min(loop_date_from + datetime.timedelta(days=chunk_days), date_to)
         url = _make_request_url(URL, loop_date_from, loop_date_to)
         response = session.get(url, auth=(USER, PASS))
+        response.raise_for_status()
         base.config.SENTRY.extra_context({
             'url': response.url,
         })
@@ -64,17 +57,6 @@ def collect(conf, conn, date_from=None, date_to=None):
 
 
 # Internal
-
-def _check_availability(utc_datetime, env='production'):
-    if env == 'production':
-        if utc_datetime.weekday() not in [0, 2, 3]:
-            return False
-        if utc_datetime.time() < datetime.time(6, 0):
-            return False
-        if utc_datetime.time() > datetime.time(8, 0):
-            return False
-    return True
-
 
 def _get_date_from(conn, date_from):
     if date_from is not None:
