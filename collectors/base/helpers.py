@@ -5,7 +5,6 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import re
-import time
 import logging
 import datetime
 logger = logging.getLogger(__name__)
@@ -48,17 +47,12 @@ def get_variables(object, filter=None):
 
 
 def start(conf, name, message):
-    """Start collector.
+    """Log collector start.
     """
     logger.info('Collector %s has been started(%s)', name, message)
 
 
-def stop(conf, name, message, sleep_hours=1):
-    """Stop collector after sleep.
+def stop(conf, name, message):
+    """Log collector stop.
     """
-    if conf['ENV'] in ['development', 'testing']:
-        sleep_hours = 0
-    template = 'Collector %s has been stopped (%s) (will sleep %s hour(s) and exit)'
-    logger.info(template, name, message, sleep_hours)
-    time.sleep(sleep_hours*60*60)
-    exit()
+    logger.info('Collector %s has stopped (%s)', name, message)

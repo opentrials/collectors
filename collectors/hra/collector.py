@@ -35,6 +35,7 @@ def collect(conf, conn, date_from=None, date_to=None):
     available = _check_availability(utc_datetime, env=ENV)
     if not available:
         base.helpers.stop(conf, 'hra', {'reason': 'API is not available'})
+        return
 
     count = 0
     chunk_days = 100

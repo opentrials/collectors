@@ -35,5 +35,4 @@ def collect(conf, conn, date_from=None, date_to=None):
                     rec.write(conf, conn)
                     file_count += 1
 
-    logger.info("Collected %s review files.", file_count)
     base.helpers.stop(conf, 'cochrane', {'collected': file_count})
