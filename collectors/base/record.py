@@ -94,6 +94,11 @@ class Record(scrapy.Item):
             conn (dict): connections dictionary
 
         """
+        config.SENTRY.extra_context({
+            'record_table': self.table,
+            'record_id': self.__primary_key,
+        })
+
         if self.table not in conn['warehouse'].tables:
             if conf['ENV'] in ['development', 'testing']:
                 table = conn['warehouse'].create_table(
@@ -106,17 +111,12 @@ class Record(scrapy.Item):
             action = 'updated'
             for key in ['meta_id', 'meta_created']:
                 del self[key]
-        try:
-            ensure_fields = False
-            if conf['ENV'] in ['development', 'testing']:
-                ensure_fields = True
-            table.upsert(
-                self, [self.__primary_key],
-                ensure=ensure_fields, types=self.__column_types)
-        except Exception:
-            config.SENTRY.captureException(extra={
-                'record_table': self.table,
-                'record_id': self.__primary_key,
-            })
-        else:
-            logger.debug('Record - %s: %s - %s fields', action, self, len(self))
+
+        ensure_fields = False
+        if conf['ENV'] in ['development', 'testing']:
+            ensure_fields = True
+        table.upsert(
+            self, [self.__primary_key],
+            ensure=ensure_fields, types=self.__column_types)
+
+        logger.debug('Record - %s: %s - %s fields', action, self, len(self))

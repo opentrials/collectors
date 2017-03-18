@@ -18,40 +18,34 @@ ENV = os.environ.get('PYTHON_ENV', 'development')
 if os.environ.get('CI'):
     ENV = 'testing'
 
-SENTRY = raven.Client(os.environ.get('SENTRY_DSN'))
-
-# Spiders
-
-SPIDER_MODULES = [
-    'collectors.actrn.spider',
-    'collectors.euctr.spider',
-    'collectors.gsk.spider',
-    'collectors.ictrp.spider',
-    'collectors.isrctn.spider',
-    'collectors.jprn.spider',
-    'collectors.pfizer.spider',
-    'collectors.pubmed.spider',
-    'collectors.takeda.spider',
-]
-
-# Network
-
-DOWNLOAD_DELAY = float(os.getenv('DOWNLOAD_DELAY', 1))
-AUTOTHROTTLE_ENABLED = True
-
-# Pipelines
-
 if ENV == 'testing':
     WAREHOUSE_URL = os.environ['TEST_WAREHOUSE_URL']
 else:
     WAREHOUSE_URL = os.environ['WAREHOUSE_URL']
 
-ITEM_PIPELINES = {
-    'collectors.base.pipelines.Warehouse': 100,
+# Scrapy
+
+SCRAPY_SETTINGS = {
+    'SPIDER_MODULES': [
+        'collectors.actrn.spider',
+        'collectors.euctr.spider',
+        'collectors.gsk.spider',
+        'collectors.ictrp.spider',
+        'collectors.isrctn.spider',
+        'collectors.jprn.spider',
+        'collectors.pfizer.spider',
+        'collectors.pubmed.spider',
+        'collectors.takeda.spider',
+    ],
+    'DOWNLOAD_DELAY': float(os.getenv('DOWNLOAD_DELAY', 1)),
+    'AUTOTHROTTLE_ENABLED': True,
+    'ITEM_PIPELINES': {
+        'collectors.base.pipelines.Warehouse': 100,
+    },
 }
 
-# Logging
 
+# Logging
 
 def setup_syslog_handler():
     if os.environ.get('LOGGING_URL', None):
@@ -61,6 +55,9 @@ def setup_syslog_handler():
         handler = logging.handlers.SysLogHandler()
     return handler
 
+
+SENTRY_DSN = os.environ.get('SENTRY_DSN')
+SENTRY = raven.Client(SENTRY_DSN)
 
 LOGGING_CONFIG = {
     'version': 1,
@@ -81,6 +78,11 @@ LOGGING_CONFIG = {
             '()': setup_syslog_handler,
             'level': 'INFO',
             'formatter': 'default',
+        },
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.handlers.logging.SentryHandler',
+            'dsn': SENTRY_DSN,
         },
     },
     'root': {
