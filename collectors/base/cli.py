@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 import sys
 import dataset
 import logging
-from importlib import import_module
+import importlib
 from . import config
 from . import helpers
 logger = logging.getLogger(__name__)
@@ -25,7 +25,7 @@ def cli(argv):
     }
 
     # Get and call collector
-    collect = import_module('collectors.%s' % argv[1]).collect
+    collect = importlib.import_module('collectors.%s' % argv[1]).collect
     collect(conf, conn, *argv[2:])
 
 

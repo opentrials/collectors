@@ -11,6 +11,6 @@ from .spider import Spider
 # Module API
 
 def collect(conf, conn):
-    process = CrawlerProcess(conf)
+    process = CrawlerProcess(conf['SCRAPY_SETTINGS'])
     process.crawl(Spider, conn=conn)
     process.start()

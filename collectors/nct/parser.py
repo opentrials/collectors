@@ -10,7 +10,6 @@ try:
     from lxml import etree
 except ImportError:
     import xml.etree.ElementTree as etree
-from .. import base
 from .record import Record
 logger = logging.getLogger(__name__)
 
@@ -342,13 +341,10 @@ def _parse_text(res, path):
     """Parsing text from response by path.
     """
     value = None
-    try:
-        node = res.find(path)
-        if node is not None:
-            value = node.text
-            value = value.strip()
-    except Exception:
-        base.config.SENTRY.captureException()
+    node = res.find(path)
+    if node is not None:
+        value = node.text
+        value = value.strip()
     return value
 
 
@@ -356,16 +352,13 @@ def _parse_dict(res, path, expand=None):
     """Parse dict from response by path.
     """
     value = None
-    try:
-        node = res.find(path)
-        if node is not None:
-            text = etree.tostring(node, encoding='utf-8', method='xml')
-            node_dict = xmltodict.parse(text)
-            if expand:
-                node_dict = node_dict[expand]
-            value = node_dict
-    except Exception:
-        base.config.SENTRY.captureException()
+    node = res.find(path)
+    if node is not None:
+        text = etree.tostring(node, encoding='utf-8', method='xml')
+        node_dict = xmltodict.parse(text)
+        if expand:
+            node_dict = node_dict[expand]
+        value = node_dict
     return value
 
 
@@ -373,17 +366,14 @@ def _parse_list(res, path, expand=None):
     """Parse list from response by path.
     """
     value = None
-    try:
-        nodes = res.findall(path)
-        if len(nodes) > 0:
-            hashs = []
-            for node in nodes:
-                text = etree.tostring(node, encoding='utf-8', method='xml')
-                node_dict = xmltodict.parse(text)
-                if expand:
-                    node_dict = node_dict[expand]
-                hashs.append(node_dict)
-            value = hashs
-    except Exception:
-        base.config.SENTRY.captureException()
+    nodes = res.findall(path)
+    if len(nodes) > 0:
+        hashs = []
+        for node in nodes:
+            text = etree.tostring(node, encoding='utf-8', method='xml')
+            node_dict = xmltodict.parse(text)
+            if expand:
+                node_dict = node_dict[expand]
+            hashs.append(node_dict)
+        value = hashs
     return value
