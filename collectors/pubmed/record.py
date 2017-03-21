@@ -47,4 +47,5 @@ class Record(base.Record):
     # Pubmed
 
     publication_status = Text()
-    identifiers_list = Json()
+    article_ids = Json()
+    registry_ids = Json()

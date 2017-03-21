@@ -31,8 +31,8 @@ class Spider(CrawlSpider):
 
         # Make start urls
         self.start_urls = _make_start_urls(
-            prefix='http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi/',
-            template='http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi/?db=pubmed&id={pmid}&retmode=xml',
+            prefix='https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi/',
+            template='https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi/?db=pubmed&id={pmid}&retmode=xml',
             date_from=date_from, date_to=date_to)
 
         # Set parser
@@ -53,7 +53,7 @@ def _make_start_urls(prefix, template, date_from=None, date_to=None, session=Non
     if not session:
         session = requests.Session()
     adapter_opts = {'max_retries': requests.packages.urllib3.util.Retry(total=5, status_forcelist=[503])}
-    session.mount('http://', requests.adapters.HTTPAdapter(**adapter_opts))
+    session.mount('https://', requests.adapters.HTTPAdapter(**adapter_opts))
 
     # Prepare dates
     if date_from is None:

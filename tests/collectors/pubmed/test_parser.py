@@ -50,3 +50,15 @@ class TestPubmedParser(object):
         record = parse_record(response)
 
         assert record.get('article_date') == datetime.date(2013, 10, 28)
+
+    def test_multiple_ids_same_registry_collected(self, get_url):
+        url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi/?db=pubmed&id=22327499&retmode=xml'
+        response = get_url(url)
+        record = parse_record(response)
+
+        registry_ids = [reg_id for reg_entry in record.get('registry_ids', [])
+                        for reg_id in reg_entry.values()]
+
+        nct_ids = [reg_id for reg_id in registry_ids if 'NCT' in reg_id]
+
+        assert len(nct_ids) == 2
