@@ -7,7 +7,6 @@ from __future__ import unicode_literals
 import uuid
 import scrapy
 import logging
-from datetime import datetime
 from abc import abstractmethod
 from . import config
 from . import fields
@@ -56,15 +55,12 @@ class Record(scrapy.Item):
 
         # Add metadata
         ident = uuid.uuid1().hex
-        timestamp = datetime.utcnow()
         self.fields['meta_id'] = fields.Text()
         self.fields['meta_source'] = fields.Text()
         self.fields['meta_created'] = fields.Datetime()
         self.fields['meta_updated'] = fields.Datetime()
         self['meta_id'] = ident
         self['meta_source'] = source
-        self['meta_created'] = timestamp
-        self['meta_updated'] = timestamp
 
         # Add data
         undefined = []
@@ -109,8 +105,7 @@ class Record(scrapy.Item):
         action = 'created'
         if table.find_one(**{self.__primary_key: self[self.__primary_key]}):
             action = 'updated'
-            for key in ['meta_id', 'meta_created']:
-                del self[key]
+            del self['meta_id']
 
         ensure_fields = False
         if conf['ENV'] in ['development', 'testing']:
