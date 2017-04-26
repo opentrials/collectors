@@ -23,3 +23,14 @@ class TestGskParser(object):
         record = parse_record(response)
 
         assert record.get('results_url') is None
+
+    def test_handles_all_date_formats(self, get_url):
+        url = 'https://www.gsk-clinicalstudyregister.com/study/100006'
+
+        response = get_url(url)
+
+        record = parse_record(response)
+
+        assert record.get('last_updated') is not None
+        assert record.get('record_verification_date') is not None
+        assert record.get('study_start_date') is not None

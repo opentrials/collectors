@@ -11,6 +11,10 @@ from ..base.fields import Text, Date, Boolean, Integer, Json, Array
 # Module API
 
 class Record(base.Record):
+    _FULL_DATE_FORMATS = [
+        '%B %d, %Y',
+        '%b %d, %Y'
+    ]
 
     # Config
 
@@ -31,8 +35,8 @@ class Record(base.Record):
 
     # Protocol summary
 
-    first_received = Date('%B %d, %Y')
-    last_updated = Date('%B %d, %Y')
+    first_received = Date(_FULL_DATE_FORMATS)
+    last_updated = Date(_FULL_DATE_FORMATS)
     title = Text()
     phase = Text()
     acronym = Text()
@@ -51,7 +55,7 @@ class Record(base.Record):
     collaborators = Array()
     brief_summary = Text()
     detailed_description = Text()
-    record_verification_date = Date('%B %d, %Y')
+    record_verification_date = Date(_FULL_DATE_FORMATS)
     status = Text()
     why_study_stopped = Text()
     study_start_date = Date('%B %Y')
