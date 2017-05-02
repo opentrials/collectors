@@ -57,6 +57,11 @@ def parse_record(url, item):
     data['other_comments'] = item['OtherComments']
     data['research_summary_suitability'] = item['ResearchSummarySuitability']
 
+    # Ignore deferred records
+    date_fields = ['publication_date', 'decision_date', 'updated_date']
+    if any('deferred' in data[date_field] for date_field in date_fields):
+        return None
+
     # Create record
     record = Record.create(url, data)
 

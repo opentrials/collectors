@@ -45,6 +45,8 @@ def collect(conf, conn, date_from=None, date_to=None):
         })
         for item in response.json():
             record = parse_record(response.url, item)
+            if not record:
+                continue
             record.write(conf, conn)
             count += 1
             if not count % 100:
